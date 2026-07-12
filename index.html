@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia en Fotos ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@500;600;700&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --morado-oscuro: #2d1b3d;
+            --morado-medio: #4a2c6e;
+            --morado: #6b3fa0;
+            --morado-claro: #8b5fc0;
+            --lavanda: #b794dc;
+            --lavanda-suave: #d4bff0;
+            --lila-palido: #ede4f7;
+            --blanco-rosado: #fdf7fc;
+            --rosa-palo: #f0d9e8;
+            --rosa-viejo: #e2c4d8;
+            --dorado: #c9a84c;
+            --dorado-claro: #e0cd8b;
+            --texto-oscuro: #2a1a35;
+            --texto-medio: #5a4a65;
+            --texto-claro: #8a7a90;
+            --blanco: #fffafd;
+            --sombra-suave: 0 4px 20px rgba(60, 20, 80, 0.10);
+            --sombra-media: 0 8px 32px rgba(60, 20, 80, 0.14);
+            --sombra-fuerte: 0 16px 48px rgba(40, 10, 60, 0.20);
+            --borde-lavanda: 1px solid rgba(180, 140, 210, 0.35);
+            --glass-bg: rgba(255, 250, 253, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px rgba(90, 40, 120, 0.10);
+            --degradado-morado: linear-gradient(135deg, #4a2c6e 0%, #6b3fa0 30%, #8b5fc0 60%, #b794dc 100%);
+            --degradado-lavanda: linear-gradient(135deg, #ede4f7 0%, #fdf7fc 40%, #fdf7fc 60%, #ede4f7 100%);
+            --degradado-rosa: linear-gradient(135deg, #fdf7fc 0%, #fef5f9 30%, #fdf7fc 70%, #f9ecf5 100%);
+            --degradado-dorado: linear-gradient(135deg, #c9a84c 0%, #e0cd8b 40%, #c9a84c 70%, #b8943a 100%);
+            --degradado-hero: linear-gradient(180deg, #fdf7fc 0%, #f9ecf5 25%, #ede4f7 60%, #d4bff0 100%);
+            --borde-dorado: 1px solid rgba(201, 168, 76, 0.4);
+            --transicion-suave: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transicion-primavera: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--degradado-rosa);
+            color: var(--texto-medio);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- FONDO DECORATIVO CON PARTÍCULAS FLOTANTES --- */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 15% 20%, rgba(180, 140, 210, 0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 75%, rgba(200, 160, 220, 0.16) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, rgba(220, 180, 235, 0.10) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 60%, rgba(240, 200, 225, 0.13) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(210, 170, 220, 0.12) 0%, transparent 50%);
+            animation: fondoFlotante 20s ease-in-out infinite;
+        }
+
+        @keyframes fondoFlotante {
+            0%,
+            100% {
+                opacity: 0.8;
+            }
+            25% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+            75% {
+                opacity: 0.9;
+            }
+        }
+
+        /* --- CORAZONES FLOTANTES DECORATIVOS --- */
+        .hearts-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 1.2rem;
+            animation: flotarCorazon linear infinite;
+            opacity: 0.22;
+            filter: blur(0.3px);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes flotarCorazon {
+            0% {
+                transform: translateY(105vh) translateX(0) rotate(0deg) scale(0.6);
+                opacity: 0;
+            }
+            8% {
+                opacity: 0.28;
+            }
+            50% {
+                opacity: 0.20;
+            }
+            85% {
+                opacity: 0.22;
+            }
+            100% {
+                transform: translateY(-12vh) translateX(40px) rotate(25deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- HEADER / HERO --- */
+        .hero-section {
+            text-align: center;
+            padding: 70px 20px 50px;
+            position: relative;
+            background: var(--degradado-hero);
+            border-bottom: 2px solid rgba(180, 140, 210, 0.25);
+            box-shadow: 0 4px 30px rgba(80, 30, 120, 0.07);
+            overflow: hidden;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 250, 253, 0.7));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-ornament-top {
+            display: inline-block;
+            font-size: 2.5rem;
+            letter-spacing: 8px;
+            animation: pulsoOrnamento 3s ease-in-out infinite;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        @keyframes pulsoOrnamento {
+            0%,
+            100% {
+                opacity: 0.55;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.08);
+            }
+        }
+
+        .gallery-title {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 6vw, 4.2rem);
+            font-weight: 500;
+            letter-spacing: 1px;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--degradado-dorado);
+            border-radius: 3px;
+        }
+
+        .gallery-subtitle {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: var(--texto-medio);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-top: 12px;
+            margin-bottom: 28px;
+            font-style: italic;
+            opacity: 0.85;
+        }
+
+        /* --- CONTADOR --- */
+        .counter-container {
+            display: inline-block;
+            background: var(--glass-bg);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 24px;
+            padding: 22px 36px;
+            max-width: 620px;
+            margin: 0 auto;
+            box-shadow: var(--glass-shadow);
+            border: var(--glass-border);
+            position: relative;
+            z-index: 3;
+            transition: var(--transicion-suave);
+        }
+
+        .counter-container:hover {
+            box-shadow: var(--sombra-media);
+            transform: translateY(-2px);
+        }
+
+        .counter-text {
+            font-size: 1rem;
+            color: var(--texto-medio);
+            margin-bottom: 7px;
+            line-height: 1.7;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .counter-highlight {
+            font-weight: 600;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.05em;
+            letter-spacing: 0.2px;
+        }
+
+        .counter-icon {
+            display: inline-block;
+            animation: latido 1.2s ease-in-out infinite;
+            margin: 0 3px;
+            font-size: 1.1em;
+        }
+
+        @keyframes latido {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.25);
+            }
+            30% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.18);
+            }
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        /* --- SEPARADOR DECORATIVO --- */
+        .section-divider {
+            text-align: center;
+            padding: 10px 0 20px;
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            color: var(--lavanda);
+            opacity: 0.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- GALERÍA --- */
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 28px;
+            max-width: 1250px;
+            margin: auto;
+            padding: 0 24px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 1000px) {
+            .gallery-grid {
+                column-count: 2;
+                column-gap: 20px;
+                padding: 0 16px 50px;
+            }
+            .counter-container {
+                padding: 18px 22px;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                column-count: 1;
+                padding: 0 10px 40px;
+            }
+            .hero-section {
+                padding: 50px 14px 35px;
+            }
+            .counter-container {
+                padding: 16px 18px;
+                border-radius: 18px;
+            }
+            .gallery-title {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* --- TARJETA --- */
+        .card {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 28px;
+            background: var(--blanco);
+            border-radius: 18px;
+            padding: 10px;
+            box-shadow: var(--sombra-suave);
+            border: var(--borde-lavanda);
+            transition: var(--transicion-primavera);
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(180, 140, 210, 0.06) 0%, rgba(220, 180, 235, 0.04) 50%, rgba(200, 160, 210, 0.06) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--sombra-fuerte);
+            border-color: rgba(160, 110, 200, 0.45);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* --- CONTENEDOR DE IMAGEN --- */
+        .image-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 14px;
+            position: relative;
+            background: linear-gradient(135deg, #f5edfa 0%, #fdf7fc 40%, #faf2f8 100%);
+            box-shadow: inset 0 0 0 1px rgba(180, 140, 210, 0.15);
+            transition: var(--transicion-suave);
+        }
+
+        .image-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            background: linear-gradient(180deg,
+                    transparent 0%,
+                    transparent 60%,
+                    rgba(120, 60, 160, 0.04) 85%,
+                    rgba(80, 30, 110, 0.08) 100%);
+            pointer-events: none;
+            z-index: 2;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover .image-container::after {
+            opacity: 0.6;
+        }
+
+        .drive-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+            border-radius: 14px;
+            position: relative;
+            z-index: 1;
+            filter: brightness(1.01) saturate(0.98) contrast(1.02);
+        }
+
+        .card:hover .drive-image {
+            transform: scale(1.06);
+            filter: brightness(1.04) saturate(1.02) contrast(1.03);
+        }
+
+        /* --- CONTENIDO DE TARJETA --- */
+        .card-content {
+            padding: 16px 8px 8px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            margin-bottom: 4px;
+            color: var(--morado-oscuro);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            color: var(--morado);
+        }
+
+        .card-date-badge {
+            display: inline-block;
+            font-size: 0.78rem;
+            color: var(--texto-claro);
+            letter-spacing: 0.4px;
+            font-weight: 400;
+            margin-bottom: 12px;
+            padding: 3px 12px;
+            background: rgba(180, 140, 210, 0.08);
+            border-radius: 20px;
+            border: 1px solid rgba(180, 140, 210, 0.2);
+            transition: var(--transicion-suave);
+        }
+
+        .card:hover .card-date-badge {
+            background: rgba(160, 110, 200, 0.14);
+            border-color: rgba(160, 110, 200, 0.35);
+            color: var(--morado-claro);
+        }
+
+        .btn-ver {
+            display: inline-block;
+            background: transparent;
+            color: var(--morado-claro);
+            padding: 7px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.82rem;
+            letter-spacing: 0.5px;
+            border: 1.5px solid rgba(160, 120, 200, 0.45);
+            transition: var(--transicion-primavera);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-ver::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--degradado-morado);
+            opacity: 0;
+            border-radius: 25px;
+            transition: opacity 0.35s ease;
+            z-index: -1;
+        }
+
+        .btn-ver:hover {
+            color: #fff;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 40, 160, 0.25);
+        }
+
+        .btn-ver:hover::before {
+            opacity: 1;
+        }
+
+        /* --- LIGHTBOX MEJORADO --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(25, 12, 35, 0.94);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            animation: fadeInLightbox 0.35s ease;
+        }
+
+        @keyframes fadeInLightbox {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lightbox:target {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            position: relative;
+            max-width: 92%;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: zoomInLightbox 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes zoomInLightbox {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content {
+            max-width: 100%;
+            max-height: 78vh;
+            border: 5px solid rgba(255, 250, 253, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 0 60px rgba(160, 100, 210, 0.35), 0 0 120px rgba(120, 60, 170, 0.18);
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -48px;
+            right: -8px;
+            color: #f0d9e8;
+            font-size: 42px;
+            text-decoration: none;
+            font-weight: 300;
+            transition: var(--transicion-suave);
+            line-height: 1;
+            z-index: 10;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-caption {
+            color: #e8d5f0;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            margin-top: 12px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            opacity: 0.85;
+        }
+
+        /* --- SCROLLBAR --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdf7fc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4bff0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b794dc;
+        }
+
+        /* --- FOOTER DISCRETO --- */
+        .footer-discreto {
+            text-align: center;
+            padding: 30px 20px 40px;
+            font-size: 0.85rem;
+            color: var(--texto-claro);
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-discreto span {
+            color: var(--morado-claro);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Corazones flotantes decorativos -->
+    <div class="hearts-container" id="heartsContainer" aria-hidden="true"></div>
+
+    <div class="main-wrapper">
+        <!-- HERO SECTION -->
+        <header class="hero-section">
+            <div class="hero-ornament-top">✦ ✦ ✦</div>
+            <h1 class="gallery-title">Nuestra Historia</h1>
+            <p class="gallery-subtitle">Cada momento a tu lado es mi lugar favorito en el mundo</p>
+
+            <!-- Contenedor del contador dinámico -->
+            <div class="counter-container">
+                <p class="counter-text">
+                    <span class="counter-icon">💜</span> Llevamos juntos:<br>
+                    <span id="contador-desglosado" class="counter-highlight">Cargando tiempo...</span>
+                </p>
+                <p class="counter-text">
+                    <span class="counter-icon">✨</span> O lo que es igual a:<br>
+                    <span id="contador-segundos" class="counter-highlight">...</span> segundos enteros
+                </p>
+            </div>
+        </header>
+
+        <!-- Separador -->
+        <div class="section-divider">• ✦ • ✦ •</div>
+
+        <!-- Galería -->
+        <div class="gallery-grid" id="galeria"></div>
+
+        <!-- Footer discreto -->
+        <div class="footer-discreto">
+            Hecho con todo mi <span>❤️</span> para ti • Por siempre nosotros
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CORAZONES FLOTANTES DECORATIVOS ---
+        (function crearCorazones() {
+            const container = document.getElementById('heartsContainer');
+            const emojisCorazones = ['💜', '🩷', '💗', '💖', '🫶', '🌸', '✨', '💝', '🪻', '💕', '💞', '🩵'];
+            const cantidad = 22;
+
+            for (let i = 0; i < cantidad; i++) {
+                const heart = document.createElement('span');
+                heart.classList.add('floating-heart');
+                heart.textContent = emojisCorazones[Math.floor(Math.random() * emojisCorazones.length)];
+                heart.style.left = Math.random() * 94 + '%';
+                heart.style.fontSize = (Math.random() * 1.8 + 0.8) + 'rem';
+                heart.style.animationDuration = (Math.random() * 18 + 14) + 's';
+                heart.style.animationDelay = (Math.random() * 16) + 's';
+                heart.style.opacity = (Math.random() * 0.18 + 0.08);
+                container.appendChild(heart);
+            }
+        })();
+
+        // --- 2. CONFIGURACIÓN DEL CONTADOR DE TIEMPO ---
+        const fechaInicio = new Date(2023, 6, 25, 0, 0, 0);
+
+        function actualizarContador() {
+            const ahora = new Date();
+            const diferenciaMs = ahora - fechaInicio;
+            const totalSegundos = Math.floor(diferenciaMs / 1000);
+
+            let anos = ahora.getFullYear() - fechaInicio.getFullYear();
+            let meses = ahora.getMonth() - fechaInicio.getMonth();
+            let dias = ahora.getDate() - fechaInicio.getDate();
+            let horas = ahora.getHours() - fechaInicio.getHours();
+            let minutos = ahora.getMinutes() - fechaInicio.getMinutes();
+            let segundos = ahora.getSeconds() - fechaInicio.getSeconds();
+
+            if (segundos < 0) { segundos += 60;
+                minutos--; }
+            if (minutos < 0) { minutos += 60;
+                horas--; }
+            if (horas < 0) { horas += 24;
+                dias--; }
+            if (dias < 0) {
+                const ultimoDiaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+                dias += ultimoDiaMesAnterior;
+                meses--;
+            }
+            if (meses < 0) { meses += 12;
+                anos--; }
+
+            const txtAnos = anos === 1 ? '1 año' : `${anos} años`;
+            const txtMeses = meses === 1 ? '1 mes' : `${meses} meses`;
+            const txtDias = dias === 1 ? '1 día' : `${dias} días`;
+            const txtHoras = horas === 1 ? '1 hora' : `${horas} horas`;
+            const txtMinutos = minutos === 1 ? '1 minuto' : `${minutos} minutos`;
+            const txtSegundos = segundos === 1 ? '1 segundo' : `${segundos} segundos`;
+
+            document.getElementById('contador-desglosado').innerText =
+                `${txtAnos}, ${txtMeses}, ${txtDias}, ${txtHoras}, ${txtMinutos} y ${txtSegundos}`;
+            document.getElementById('contador-segundos').innerText = totalSegundos.toLocaleString('es-ES');
+        }
+
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+
+        // --- 3. RECUERDOS (TODAS LAS FOTOS) ---
+        const misRecuerdos = [
+            { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", titulo: "Nuestro comienzo", fecha: "2023" },
+            { id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", titulo: "Mirada que enamora", fecha: "Agosto 2023" },
+            { id: "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL", titulo: "Atardecer juntos", fecha: "Septiembre 2023" },
+            { id: "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc", titulo: "Sonrisas sinceras", fecha: "Octubre 2024" },
+            { id: "1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-", titulo: "Día perfecto", fecha: "Marzo 2024" },
+            { id: "1-h7ptg3yhupm7dLHLK9gH5LrBBTPXWp7", titulo: "Abrazo eterno", fecha: "Febrero 2024" },
+            { id: "1y783ZM6d33rc9igv2be9m0XrKYtVxbUc", titulo: "Noche mágica", fecha: " 2024" },
+            { id: "1hIsX0LY2SP3QhoxG2fRM0f6sCy6UVAHj", titulo: "Complicidad", fecha: "Septiembre 2023" },
+            { id: "1FjWFkhHRK7_mF4zUXPp7oZRUAQdxl1GT", titulo: "Destino", fecha: "Marzo 2024" },
+            { id: "1Uw1HEWmzd135g4ysusOsi7JLywbLvkHL", titulo: "Refugio", fecha: "Octubre 2023" },
+            { id: "1RXWuiyqGiOGqsxS5yBdQiOIJeMZ4qCFO", titulo: "Instante único", fecha: "2023" },
+            { id: "1LoqaGb3mk8SsdLgkS6KsIQR190QQbmC0", titulo: "Ternura pura", fecha: "2023" },
+            { id: "17EcqwTl7ZgE142WlcI2bSmDBQntQTH5E", titulo: "Risas", fecha: "2023" },
+            { id: "12cFguQajr9ykc5qy0QrmU4Cwq09jqYMf", titulo: "Luz en tus ojos", fecha: "2023" },
+            { id: "10mM0Lyu8vqGp33kIiXKGsGzcO0bAvxJV", titulo: "Sueños compartidos", fecha: "2023" },
+            { id: "1kZ9f5t4D1Z9k2-NJdHM89DwWg-GXQWbQ", titulo: "Juntos", fecha: "2023" },
+            { id: "1-xA0VinFW8UhhQoZWorheYQaOnsk-1EU", titulo: "Amor verdadero", fecha: "2024" },
+            { id: "1aYPNq6lD-n9LRhe2-P_tg1c6DRyutqsp", titulo: "Recuerdo dorado", fecha: "Febrero 2024" },
+            { id: "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp", titulo: "Otoño juntos", fecha: "Noviembre 2023" },
+            { id: "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf", titulo: "Primavera", fecha: "Abril 2024" },
+            { id: "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8", titulo: "Eres mi hogar", fecha: "Abril 2024" },
+            { id: "1GwMRtG-r-DlRdRyZL_h5EJBTXGhrddZE", titulo: "Marzo especial", fecha: "Marzo 2024" },
+            { id: "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l", titulo: "Abril contigo", fecha: "Abril 2024" },
+            { id: "12uhLUJBGFEZRTlekdv54mJuROemFiXs9", titulo: "Eres todo", fecha: "Abril 2024" },
+            { id: "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6", titulo: "Instante bello", fecha: "2024" },
+            { id: "12usQeIxSrt2Mm3Uwsd5q3Pig879XL1AC", titulo: "Calma", fecha: "2024" },
+            { id: "13C45n0Zpxtwx_tBD95-faoNJN7E5SS3B", titulo: "Alegría", fecha: "2024" },
+            { id: "13OECDw5pLX0GoLqhwZiaaRwLU028j-f-", titulo: "Paz a tu lado", fecha: "2024" },
+            { id: "13tpM0Y-cZFwtfx8OQ7elltM8uNQ6kixE", titulo: "Eres luz", fecha: "2024" },
+            { id: "154AxMngzxmcU499NhST8rqgYYELdrUV-", titulo: "Mi persona", fecha: "2024" },
+            { id: "15ZsZScL-ve9taB0R3qt7RDVRXU6_iwin", titulo: "Siempre", fecha: "2025" },
+            { id: "15wEUbxPRhX2sUEtw9t4VIiN0Tcqh6HuV", titulo: "Contigo", fecha: "2025" },
+            { id: "16kD_b7QgxVq4j-cWoDHKgtB9DXgT5wLF", titulo: "Universo nuestro", fecha: "2025" },
+            { id: "17MyIWxYotdnzEae95mPc0rvzzaMsd8Ip", titulo: "Eres magia", fecha: "2025" },
+            { id: "18_9byESKd8A9VU_AaQefjBAZdCV0utyG", titulo: "Corazón latiendo", fecha: "2025" },
+            { id: "18auW03EmZzd16HnOeuNAmC-0Hcldo6qO", titulo: "Días felices", fecha: "2025" },
+            { id: "193jW-umS6YeTiAbSwzkGR00KBbN1hkZs", titulo: "Noches", fecha: "2025" },
+            { id: "1AMBnW_-lXIjmRblyX22JO706GfxZGhtV", titulo: "Estrellas", fecha: "2025" },
+            { id: "1Cj49txzrFOH352gscUQyqXnyjBcBWYys", titulo: "Suspiros", fecha: "2024" },
+            { id: "1Dl_BrttB7I4ejNp-dFOc8mwvB43cuUy_", titulo: "Latido", fecha: "2025" },
+            { id: "1DrTUZTzSSCs9AOUG7NybpXCC9Tn5cuyH", titulo: "Eres sueño", fecha: "2025" },
+            { id: "1EIHypsZ-Molo07ncg4GwdlcfsDm_ihsv", titulo: "Realidad", fecha: "2025" },
+            { id: "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L", titulo: "Bendición", fecha: "2025" },
+            { id: "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS", titulo: "Regalo", fecha: "2025" },
+            { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
+            { id: "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_", titulo: "Perla", fecha: "2025" },
+            { id: "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t", titulo: "Diamante", fecha: "2025" },
+            { id: "1HWydhbUqm0w7-cwbEvn8jzVa2g3Sh0eW", titulo: "Rubí", fecha: "2025" },
+            { id: "1HXNTni0bZbfRWbWfpiECkNN9GMfvG3dt", titulo: "Zafiro", fecha: "2025" },
+            { id: "1Hn0lUiwH9HK-tLX60CCPY0J8MVWyUbDc", titulo: "Esmeralda", fecha: "2025" },
+            { id: "1JzUhCmRV13t3gBgc2zZKUFj3K0H79Etf", titulo: "Topacio", fecha: "2025" },
+            { id: "1K05XnWZ0djY9hKd9Aux7p6FpDfsgz44t", titulo: "Amatista", fecha: "2025" },
+            { id: "1KGZ3EgtT3MYKGjWQyIo--51vj8n1mFUI", titulo: "Cuarzo rosa", fecha: "2025" },
+            { id: "1KQ7GVmBpbphhV74sCMtg6Ofe5cML0Y2D", titulo: "Jade", fecha: "2025" },
+            { id: "1KybgRTrG7ZubIcjoDSzb15_JNJTJpkbc", titulo: "Ópalo", fecha: "2025" },
+            { id: "1LMcnHC5yF-p4cD8wxIeOOjksTPv4CAVa", titulo: "Turquesa", fecha: "2025" },
+            { id: "1LeI-_xynVSpqGwhjZckgGfcvDPzGare_", titulo: "Lapislázuli", fecha: "2025" },
+            { id: "1M-3DoHhw6_TcKlcimCkRKq_GBVzxCz55", titulo: "Ámbar", fecha: "2025" },
+            { id: "1M7vwn9RN0qg1gK07I3KmbiwocfvvVxWO", titulo: "Coral", fecha: "2025" },
+            { id: "1NCmqa2idy_n0VIhQWAcaOv3BT9_RoZKM", titulo: "Nácar", fecha: "2025" },
+            { id: "1SV1RXacphAOd_PBPwnNaHACMBs9VdkJQ", titulo: "Marfil", fecha: "2025" },
+            { id: "1WwpEJ0xN-TH21dmMT76qMMPacrBhovkp", titulo: "Seda", fecha: "2024" },
+            { id: "1YMJRD3zua6KS3IMvlnOeTJ1lljX2Wm5m", titulo: "Terciopelo", fecha: "2025" },
+            { id: "1YfjEEAIHluwhmJLrKSKgs2ndor8HQKK_", titulo: "Encaje", fecha: "2025" },
+            { id: "1ZJsrpUmEntqyg0Bi9NYw6xlVQVke0qgq", titulo: "Susurro", fecha: "2025" },
+            { id: "1ZSc6ZgF0Q9g1O3tClZ6EeuhsmlpCpNw1", titulo: "Melodía", fecha: "2025" },
+            { id: "1am_Q7Isyn9K2kEYUFeR7iFNLeQL9IVcq", titulo: "Armonía", fecha: "2025" },
+            { id: "1bO7EJkx07aiFsBmuyJu4ChEE_YbbH271", titulo: "Sinfonía", fecha: "2025" },
+            { id: "1dETq6y8wNtridMk3-SQLLQmnVRDUPkW3", titulo: "Poesía", fecha: "2025" },
+            { id: "1dNyEoGxA_qVG7kxwsjDm-dP0cxjMiEGk", titulo: "Verso", fecha: "2025" },
+            { id: "1e6JoAGWv0rjbqumugOE60wRL0IrjuUzH", titulo: "Rima", fecha: "2025" },
+            { id: "1euFC7s6vTcE4qVKlIVyZdBzFsWFvvisa", titulo: "Estrofa", fecha: "2025" },
+            { id: "1gmwhEwy1tuWsN_UVvV1_a6ImmFY6bTCc", titulo: "Capítulo", fecha: "2025" },
+            { id: "1jzW6JpuorRkHtunkSsgugtlgFnDnqyh2", titulo: "Página", fecha: "2025" },
+            { id: "1raURod2CDejJ4z27MRp6ZyN4zA9hkliu", titulo: "Tinta", fecha: "2024" },
+            { id: "1rhdwjxZ2G2r6yglLSVOJKWMD8tfcmz7m", titulo: "Pluma", fecha: "2025" },
+            { id: "1sL2vDOhNqwB3eSJ-xfFzOlVUG-QynAII", titulo: "Carta", fecha: "2025" },
+            { id: "1sQy4U96PkSsfJxdAjaV9ESIDmJtseITi", titulo: "Sobre", fecha: "2024" },
+            { id: "1tHjGxG5BDemPEYiv84ytGSUcWFVKWoJc", titulo: "Sello", fecha: "2024" },
+            { id: "1towosIbi-GSdBp87a195-jmXeGQgbrx3", titulo: "Lacre", fecha: "2024" },
+            { id: "1u5KrA4Xg6erBkkA1A73rg5AHe928Wjbt", titulo: "Cinta", fecha: "2024" },
+            { id: "1uPJNqlBHWM1bPp2RfxNdQOpUHnhaWi1V", titulo: "Lazo", fecha: "2024" },
+            { id: "1vg9FJepBIttjQVFJIPhzh2N7EeWO79Jy", titulo: "Nudo", fecha: "2024" },
+            { id: "1wr43q4qxY5INtBVfxPX1vU-18kml6QzZ", titulo: "Eternidad", fecha: "2024" }
+        ];
+
+        const contenedorGaleria = document.getElementById('galeria');
+
+        misRecuerdos.forEach((recuerdo, index) => {
+            const numero = index + 1;
+            const urlImagen = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1000`;
+            const tituloFinal = recuerdo.titulo || 'Momento especial';
+            const fechaFinal = recuerdo.fecha || '✨';
+
+            const estructuraTarjeta = `
+                <div class="card">
+                    <div class="image-container">
+                        <img class="drive-image"
+                        src="${urlImagen}"
+                        alt="${tituloFinal}"
+                        loading="lazy"
+                        onerror="this.style.opacity='0.5'; this.style.filter='grayscale(30%)';"
+                        >
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${tituloFinal}</h3>
+                        <span class="card-date-badge">${fechaFinal}</span>
+                        <a href="#img-${numero}" class="btn-ver">Ver recuerdo ✦</a>
+                    </div>
+                </div>
+
+                <div id="img-${numero}" class="lightbox">
+                    <div class="lightbox-inner">
+                        <a href="#" class="close-btn" aria-label="Cerrar">×</a>
+                        <img class="lightbox-content" src="${urlImagen}" alt="${tituloFinal}" loading="lazy">
+                        <p class="lightbox-caption">${tituloFinal} — ${fechaFinal}</p>
+                    </div>
+                </div>
+            `;
+
+            contenedorGaleria.innerHTML += estructuraTarjeta;
+        });
+    </script>
+</body>
+</html>
