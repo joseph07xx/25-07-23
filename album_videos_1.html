@@ -18,6 +18,79 @@
             padding: 0;
             box-sizing: border-box;
         }
+        /* ===== BOTÓN DORADO BRILLANTE ===== */
+.boton-dorado {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+    color: #0a0618;
+    padding: 16px 38px;
+    border-radius: 60px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 6px 30px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Efecto de brillo (resplandor) */
+.boton-dorado::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), transparent 70%);
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Hover: más brillo, elevación y ligero cambio de color */
+.boton-dorado:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 14px 50px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, var(--dorado-claro), var(--dorado));
+}
+
+.boton-dorado:hover::before {
+    opacity: 0.7;
+}
+
+/* Click: presión */
+.boton-dorado:active {
+    transform: scale(0.96) translateY(0);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Icono de flecha */
+.icono-flecha {
+    font-size: 1.4rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.boton-dorado:hover .icono-flecha {
+    transform: translateY(4px) scale(1.15);
+}
+
+/* Asegurar que el texto esté por encima del pseudo-elemento */
+.boton-dorado span,
+.boton-dorado .icono-flecha {
+    position: relative;
+    z-index: 1;
+}
 
         :root {
             --morado-oscuro: #0a0618;
@@ -677,6 +750,10 @@
                 <span>🎥</span>
                 <span>✦</span>
                 <span>🪷</span>
+                <a href="https://drive.google.com/file/d/1GvJsNwZ2P8jLY8Wd-xHYZhbxvMq9JoAh/view?usp=sharing" 
+                class="boton-dorado">
+                <span class="icono-flecha">⬇</span> Descargar Videos
+                </a>
             </div>
         </header>
 
