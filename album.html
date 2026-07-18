@@ -19,6 +19,73 @@
             box-sizing: border-box;
         }
 
+        /* ===== BOTÓN DE DESCARGA ===== */
+.boton {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--morado), var(--morado-claro));
+    color: #fff;
+    border: none;
+    padding: 16px 34px;
+    border-radius: 60px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 8px 30px rgba(107, 63, 160, 0.5);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Efecto de brillo en hover */
+.boton::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.boton:hover::before {
+    opacity: 1;
+}
+
+/* Hover: elevación, cambio de color y borde dorado */
+.boton:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 16px 50px rgba(107, 63, 160, 0.7);
+    background: linear-gradient(135deg, var(--morado-claro), var(--lavanda));
+    border-color: var(--dorado-claro);
+    color: #fff;
+}
+
+/* Click: presión */
+.boton:active {
+    transform: scale(0.96);
+    box-shadow: 0 4px 20px rgba(107, 63, 160, 0.4);
+}
+
+/* Icono de descarga */
+.icono-descarga {
+    font-size: 1.4rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.boton:hover .icono-descarga {
+    transform: translateY(3px) scale(1.1);
+}
+
         :root {
             --morado-oscuro: #140a22;
             --morado-profundo: #1f0f33;
@@ -824,6 +891,9 @@
                 <span>💫</span>
                 <span>✦</span>
                 <span>🪷</span>
+                <a href="https://drive.google.com/uc?export=download&id=12vvYZRfT065HYIJOUdA89Kj7hpyUWoRZ">
+                    <button class="boton">Descargar Fotos</button>
+                </a>
             </div>
         </header>
 
