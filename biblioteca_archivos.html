@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>📚 Biblioteca de Archivos</title>
+
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 (gratuito) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ========== VARIABLES ========== */
+        :root {
+            --bg: #f4f6fc;
+            --bg-card: #ffffff;
+            --text-primary: #0b1a33;
+            --text-secondary: #2c3e5a;
+            --text-muted: #5e6f8d;
+            --shadow: 0 12px 30px rgba(0, 20, 50, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 20, 50, 0.18);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --accent: #4f6ef7;
+            --accent-hover: #3a56d4;
+            --accent-light: #eef2ff;
+            --border-light: #e9edf5;
+            --header-bg: rgba(255, 255, 255, 0.7);
+            --glass: rgba(255, 255, 255, 0.6);
+            --tag-bg: #eef2ff;
+            --tag-text: #4f6ef7;
+            --lightbox-bg: rgba(10, 20, 40, 0.75);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0e1a2b;
+            --bg-card: #1a2a41;
+            --text-primary: #f0f4ff;
+            --text-secondary: #c8d6f0;
+            --text-muted: #8fa0c0;
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.6);
+            --accent: #6b8aff;
+            --accent-hover: #5270e0;
+            --accent-light: #1f3150;
+            --border-light: #2a3f5c;
+            --header-bg: rgba(14, 26, 43, 0.8);
+            --glass: rgba(20, 40, 65, 0.7);
+            --tag-bg: #1f3150;
+            --tag-text: #8fb0ff;
+            --lightbox-bg: rgba(0, 0, 0, 0.8);
+        }
+
+        /* ========== RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 0 24px 40px;
+            transition: background var(--transition), color var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* ========== HEADER ========== */
+        .app-header {
+            width: 100%;
+            max-width: 1280px;
+            padding: 20px 0 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px 24px;
+            backdrop-filter: blur(12px);
+            background: var(--header-bg);
+            border-radius: var(--radius);
+            padding: 16px 28px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-area i {
+            font-size: 28px;
+            color: var(--accent);
+        }
+        .logo-area h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, var(--accent), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo-area span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: var(--tag-bg);
+            padding: 2px 12px;
+            border-radius: 40px;
+            -webkit-text-fill-color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            padding: 6px 16px 6px 20px;
+            transition: all var(--transition);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .search-box:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-light);
+        }
+        .search-box i {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 10px 10px 10px 12px;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            width: 180px;
+            outline: none;
+        }
+        .search-box input::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .btn-icon {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 60px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+        .btn-icon:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.04);
+        }
+
+        /* ========== STATS BAR ========== */
+        .stats-bar {
+            width: 100%;
+            max-width: 1280px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 20px;
+            margin-bottom: 28px;
+            padding: 0 8px;
+        }
+        .stats-left {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            padding: 6px 16px 6px 14px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+        }
+        .stat-item i {
+            color: var(--accent);
+            font-size: 16px;
+        }
+        .stat-item strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow);
+        }
+        .view-btn {
+            background: transparent;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .view-btn i {
+            font-size: 15px;
+        }
+        .view-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(79, 110, 247, 0.3);
+        }
+        .view-btn:not(.active):hover {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        /* ========== FILTER TAGS ========== */
+        .filter-bar {
+            width: 100%;
+            max-width: 1280px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 12px;
+            margin-bottom: 30px;
+            padding: 0 4px;
+        }
+        .filter-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-tag i {
+            font-size: 14px;
+        }
+        .filter-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .filter-tag.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 6px 14px rgba(79, 110, 247, 0.25);
+        }
+        .filter-tag.active i {
+            color: #fff;
+        }
+
+        /* ========== GRID / LIST ========== */
+        .grid-container {
+            width: 100%;
+            max-width: 1280px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            transition: all var(--transition);
+        }
+        .grid-container.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .grid-container.list-view .card {
+            display: flex;
+            align-items: center;
+            padding: 16px 24px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .grid-container.list-view .card .card-icon {
+            width: 52px;
+            height: 52px;
+            font-size: 24px;
+        }
+        .grid-container.list-view .card .card-body {
+            flex: 1;
+            min-width: 160px;
+        }
+        .grid-container.list-view .card .card-actions {
+            margin-top: 0;
+        }
+
+        /* ========== CARD ========== */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 22px 22px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            transition: all var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            backdrop-filter: blur(2px);
+            animation: fadeUp 0.5s ease both;
+        }
+        .card:nth-child(1) {
+            animation-delay: 0.03s;
+        }
+        .card:nth-child(2) {
+            animation-delay: 0.07s;
+        }
+        .card:nth-child(3) {
+            animation-delay: 0.11s;
+        }
+        .card:nth-child(4) {
+            animation-delay: 0.15s;
+        }
+        .card:nth-child(5) {
+            animation-delay: 0.19s;
+        }
+        .card:nth-child(6) {
+            animation-delay: 0.23s;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 14px;
+            background: var(--accent-light);
+            color: var(--accent);
+            transition: all var(--transition);
+        }
+        .card:hover .card-icon {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .card .card-body {
+            flex: 1;
+        }
+        .card .card-body h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+        }
+        .card .card-body p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .card-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 18px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card-meta i {
+            font-size: 13px;
+        }
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .card-tags .tag {
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+        .card-actions .btn-primary {
+            background: var(--accent);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 12px rgba(79, 110, 247, 0.25);
+        }
+        .card-actions .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(79, 110, 247, 0.35);
+        }
+        .card-actions .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            padding: 10px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+        .card-actions .btn-secondary:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ========== LIGHTBOX ========== */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: var(--lightbox-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        #lightbox.open {
+            opacity: 1;
+        }
+        #lightbox .contenedor {
+            width: 92%;
+            max-width: 1200px;
+            height: 88vh;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+            transform: scale(0.94);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid var(--border-light);
+        }
+        #lightbox.open .contenedor {
+            transform: scale(1);
+        }
+        #lightbox iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #cerrar {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 22px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        #cerrar:hover {
+            background: #ef4444;
+            transform: rotate(90deg);
+        }
+        #cerrar i {
+            font-size: 22px;
+        }
+
+        /* ========== FOOTER ========== */
+        .app-footer {
+            width: 100%;
+            max-width: 1280px;
+            margin-top: 48px;
+            padding: 24px 0 12px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+        .app-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .app-footer a:hover {
+            text-decoration: underline;
+        }
+        .app-footer .socials {
+            display: flex;
+            gap: 16px;
+        }
+        .app-footer .socials a {
+            color: var(--text-muted);
+            font-size: 18px;
+            transition: color var(--transition);
+        }
+        .app-footer .socials a:hover {
+            color: var(--accent);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 720px) {
+            .app-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 16px 18px;
+            }
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: stretch;
+            }
+            .search-box input {
+                width: 100%;
+            }
+            .search-box {
+                flex: 1;
+            }
+            .stats-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .stats-left {
+                justify-content: center;
+            }
+            .view-controls {
+                align-self: center;
+            }
+            .filter-bar {
+                justify-content: center;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .grid-container.list-view .card {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .grid-container.list-view .card .card-icon {
+                align-self: center;
+            }
+            .card-actions {
+                justify-content: center;
+            }
+            #lightbox .contenedor {
+                width: 98%;
+                height: 92vh;
+            }
+            #cerrar {
+                top: 10px;
+                right: 10px;
+                width: 42px;
+                height: 42px;
+                font-size: 18px;
+            }
+            .logo-area span {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0 12px 30px;
+            }
+            .app-header {
+                padding: 12px 14px;
+            }
+            .stat-item {
+                font-size: 12px;
+                padding: 4px 12px;
+            }
+            .filter-tag {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+        }
+
+        /* ========== UTILITY ========== */
+        .hidden {
+            display: none !important;
+        }
+        .fade-in {
+            animation: fadeUp 0.5s ease both;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+        <div class="logo-area">
+            <i class="fas fa-folder-open"></i>
+            <h1>Archivoteca</h1>
+            <span>v2.0</span>
+        </div>
+        <div class="header-actions">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Buscar archivos..." />
+            </div>
+            <button class="btn-icon" id="themeToggle" title="Cambiar tema">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== STATS ===== -->
+    <div class="stats-bar">
+        <div class="stats-left">
+            <div class="stat-item"><i class="fas fa-file"></i> Total: <strong id="totalCount">0</strong></div>
+            <div class="stat-item"><i class="fas fa-file-pdf"></i> PDF: <strong id="pdfCount">0</strong></div>
+            <div class="stat-item"><i class="fas fa-file-powerpoint"></i> Presentaciones: <strong id="pptCount">0</strong></div>
+            <div class="stat-item"><i class="fas fa-file-word"></i> Docs: <strong id="docCount">0</strong></div>
+        </div>
+        <div class="view-controls">
+            <button class="view-btn active" data-view="grid" id="gridViewBtn"><i class="fas fa-th"></i> Grilla</button>
+            <button class="view-btn" data-view="list" id="listViewBtn"><i class="fas fa-list"></i> Lista</button>
+        </div>
+    </div>
+
+    <!-- ===== FILTERS ===== -->
+    <div class="filter-bar" id="filterBar">
+        <button class="filter-tag active" data-filter="all"><i class="fas fa-layer-group"></i> Todos</button>
+        <button class="filter-tag" data-filter="pdf"><i class="fas fa-file-pdf"></i> PDF</button>
+        <button class="filter-tag" data-filter="presentacion"><i class="fas fa-file-powerpoint"></i> Presentación</button>
+        <button class="filter-tag" data-filter="documento"><i class="fas fa-file-word"></i> Documento</button>
+        <button class="filter-tag" data-filter="hoja"><i class="fas fa-file-excel"></i> Hoja</button>
+    </div>
+
+    <!-- ===== GRID ===== -->
+    <div class="grid-container" id="gridContainer"></div>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div id="lightbox">
+        <div class="contenedor">
+            <button id="cerrar"><i class="fas fa-times"></i></button>
+            <iframe id="visor" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="app-footer">
+        <span>© 2026 Archivoteca · <a href="#">hecho con <i class="fas fa-heart" style="color:#ef4444;"></i></a></span>
+        <div class="socials">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // ==========================
+        //  DATA
+        // ==========================
+        const archivos = [  {
+            id: 1,
+            titulo: '¿Cómo me enamoré de ti?',
+            descripcion: 'Presentación interactiva con emociones y storytelling.',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1zKGVzl6ravtjz8GxewT4o3_l7lI7nr8a/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '12 mar 2026',
+            tamaño: '84.6 MB',
+            etiquetas: ['storytelling', 'personal']
+        }, {
+            id: 2,
+            titulo: '25-12-2024',
+            descripcion: '5 Meses',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1HbVyMEe7XrmT7TJCtmmmzfF2ae_LXVmL/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '05 feb 2026',
+            tamaño: '59.4 MB',
+            etiquetas: ['emociones', 'amor']
+        }, {
+            id: 3,
+            titulo: 'INSTRUCCIONES',
+            descripcion: 'Documento guia sobre los regalos.',
+            tipo: 'documento',
+            icono: 'fa-file-word',
+            color: '#2c7be0',
+            url: 'https://docs.google.com/document/d/1Y7RX12QQCwTFKUsuFR7ErSG7RELPxqeu/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '23 oct 2023',
+            tamaño: '20.9Kb',
+            etiquetas: ['reglas', 'detalles']
+        }, {
+            id: 4,
+            titulo: 'Felices 4 meses',
+            descripcion: 'Documento Especial',
+            tipo: 'documento',
+            icono: 'fa-file-word',
+            color: '#2c7be0',
+            url: 'https://docs.google.com/document/d/1W3WTa96gDz7FG4QLJnVRExIu1oQHVvPh/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '28 oct 23',
+            tamaño: '38.5 Kb',
+            etiquetas: ['frase', 'amor']
+        }, {
+            id: 5,
+            titulo: 'Regalo 1',
+            descripcion: 'Regalo 1',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1U8d9mShS2AqTZucx_6rgRJyZXJqhR5Zm/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '14 oct 23',
+            tamaño: '1.1 MB',
+            etiquetas: ['recuerdos', 'especial']
+        }, {
+            id: 6,
+            titulo: 'Otro regalito más (2)',
+            descripcion: 'Regalo',
+            tipo: 'documento',
+            icono: 'fa-file-word',
+            color: '#2c7be0',
+            url: 'https://docs.google.com/document/d/1Y7RX12QQCwTFKUsuFR7ErSG7RELPxqeu/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '23 oct 23',
+            tamaño: '21.6 Kb',
+            etiquetas: ['regalito', 'gift']
+        }, {
+            id: 7,
+            titulo: 'Regalo',
+            descripcion: 'Regalo #17',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1zO9xvwNYJ_Ux3YAvXpkRRFgYA0pj7mIU/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '20 oct 23',
+            tamaño: '4.1 MB',
+            etiquetas: ['regalo', 'especial']
+        }, {
+            id: 8,
+            titulo: 'Regalo 18',
+            descripcion: 'Regalo 18',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1lSR3sPkN9vokzOgdFyXaD38pql3P2cBj/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '22 oct 23',
+            tamaño: '2.7 MB',
+            etiquetas: ['recuerdos', 'especial']
+        }, {
+            id: 9,
+            titulo: 'Regalo 19',
+            descripcion: 'Documento regalito.',
+            tipo: 'documento',
+            icono: 'fa-file-word',
+            color: '#2c7be0',
+            url: 'https://docs.google.com/document/d/1EOD7-6rsHyi5dkmEOziIREy3vgOV5Cog/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '22 oct 2023',
+            tamaño: '31.6 Kb',
+            etiquetas: ['reglas', 'detalles']
+        }, {
+            id: 10,
+            titulo: 'Regalo 21',
+            descripcion: 'Regalo "21',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1ZwEguykxlpRc38iWtVEZUKyrx6dm-CCy/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '20 oct 23',
+            tamaño: '18.1 MB',
+            etiquetas: ['recuerdos', 'especial']
+        }, {
+            id: 11,
+            titulo: 'Otro Regalito 23',
+            descripcion: 'Documento Regalo #23.',
+            tipo: 'documento',
+            icono: 'fa-file-word',
+            color: '#2c7be0',
+            url: 'https://docs.google.com/document/d/1LStBxH8LdCZIOTpM0u72mWg4Rk-aYNDV/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '20 oct 2023',
+            tamaño: '31.4Kb',
+            etiquetas: ['reglas', 'detalles']
+        }, {
+            id: 12,
+            titulo: 'Regalo 23',
+            descripcion: 'Regalo #23',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1zi15_Q3wqJsUTKo-oVPaju77wOVibshD/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '22 oct 23',
+            tamaño: '2.2 MB',
+            etiquetas: ['recuerdos', 'especial']
+        }, {
+            id: 13,
+            titulo: 'Otro regalito #24',
+            descripcion: 'Documento Regalito.',
+            tipo: 'documento',
+            icono: 'fa-file-word',
+            color: '#2c7be0',
+            url: 'https://docs.google.com/document/d/17iwzC9VNO-fqyb0b1NhvoW2XYT1DOQ1E/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '22 oct 2023',
+            tamaño: '20.9 Kb',
+            etiquetas: ['reglas', 'detalles']
+        }, {
+            id: 14,
+            titulo: 'Regalo 24',
+            descripcion: 'Regalo #24',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1zKT3WNaQ-lMpH2chqi4rzz8ZG-h5aW48/edit?usp=sharing&ouid=109494503441183465304&rtpof=true&sd=true',
+            fecha: '21 oct 23',
+            tamaño: '9.5 MB',
+            etiquetas: ['recuerdos', 'especial']
+        }, {
+            id: 15,
+            titulo: 'Otro Regalito 24',
+            descripcion: 'Regalo #24',
+            tipo: 'presentacion',
+            icono: 'fa-file-powerpoint',
+            color: '#e67e22',
+            url: 'https://docs.google.com/presentation/d/1JYqduv0fbcOEDP81rphLWLnP6Bm2Jv1JcPdXzpJYFJY/edit?usp=sharing',
+            fecha: '20 oct 23',
+            tamaño: '14.9 MB',
+            etiquetas: ['recuerdos', 'especial']
+        }];
+
+        // ==========================
+        //  DOM REFS
+        // ==========================
+        const container = document.getElementById('gridContainer');
+        const lightbox = document.getElementById('lightbox');
+        const visor = document.getElementById('visor');
+        const cerrarBtn = document.getElementById('cerrar');
+        const searchInput = document.getElementById('searchInput');
+        const themeToggle = document.getElementById('themeToggle');
+        const gridViewBtn = document.getElementById('gridViewBtn');
+        const listViewBtn = document.getElementById('listViewBtn');
+        const filterButtons = document.querySelectorAll('.filter-tag');
+
+        let currentFilter = 'all';
+        let currentView = 'grid';
+        let searchTerm = '';
+
+        // ==========================
+        //  RENDER
+        // ==========================
+        function render() {
+            const filtered = archivos.filter(file => {
+                // filtro
+                if (currentFilter !== 'all' && file.tipo !== currentFilter) return false;
+                // búsqueda
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    return file.titulo.toLowerCase().includes(term) ||
+                        file.descripcion.toLowerCase().includes(term) ||
+                        file.etiquetas.some(t => t.toLowerCase().includes(term));
+                }
+                return true;
+            });
+
+            // Actualizar stats
+            document.getElementById('totalCount').textContent = filtered.length;
+            document.getElementById('pdfCount').textContent = filtered.filter(f => f.tipo === 'pdf').length;
+            document.getElementById('pptCount').textContent = filtered.filter(f => f.tipo === 'presentacion').length;
+            document.getElementById('docCount').textContent = filtered.filter(f => f.tipo === 'documento' || f.tipo === 'hoja')
+            .length;
+
+            if (filtered.length === 0) {
+                container.innerHTML =
+                    `<div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--text-muted);"><i class="fas fa-search" style="font-size:40px; display:block; margin-bottom:16px;"></i> No se encontraron archivos</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map((file, index) => `
+                <div class="card" style="animation-delay:${index * 0.04}s">
+                    <div class="card-icon" style="background:${file.color}20; color:${file.color};">
+                        <i class="fas ${file.icono}"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>${file.titulo}</h3>
+                        <p>${file.descripcion}</p>
+                        <div class="card-meta">
+                            <span><i class="far fa-calendar-alt"></i> ${file.fecha}</span>
+                            <span><i class="far fa-file"></i> ${file.tamaño}</span>
+                        </div>
+                        <div class="card-tags">
+                            ${file.etiquetas.map(tag => `<span class="tag">#${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn-primary" onclick="abrir('${file.url}')">
+                            <i class="fas fa-eye"></i> Ver
+                        </button>
+                        
+                        
+                    </div>
+                </div>
+            `).join('');
+
+            // Aplicar vista
+            if (currentView === 'list') {
+                container.classList.add('list-view');
+            } else {
+                container.classList.remove('list-view');
+            }
+        }
+
+        // ==========================
+        //  LIGHTBOX
+        // ==========================
+        function abrir(url) {
+            visor.src = url;
+            lightbox.classList.add('open');
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            // Forzar reflow para transición
+            void lightbox.offsetWidth;
+            lightbox.style.opacity = '1';
+        }
+
+        function cerrar() {
+            lightbox.style.opacity = '0';
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                visor.src = '';
+                document.body.style.overflow = 'auto';
+                lightbox.classList.remove('open');
+            }, 350);
+        }
+
+        // Cerrar clic fuera
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) cerrar();
+        });
+
+        // Cerrar ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') cerrar();
+        });
+
+        cerrarBtn.addEventListener('click', cerrar);
+
+        // ==========================
+        //  DESCARGA (simulada)
+        // ==========================
+        function descargar(titulo) {
+            const msg = `📥 Descargando "${titulo}"... (simulación)`;
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+                background: var(--bg-card); color: var(--text-primary);
+                padding: 14px 28px; border-radius: 60px;
+                box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+                font-weight: 500; z-index: 9999;
+                border: 1px solid var(--border-light);
+                backdrop-filter: blur(8px);
+                animation: fadeUp 0.3s ease both;
+                font-size: 15px;
+                display: flex; align-items: center; gap: 12px;
+            `;
+            toast.innerHTML = `<i class="fas fa-check-circle" style="color:var(--accent);"></i> ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 2200);
+        }
+
+        // ==========================
+        //  BÚSQUEDA
+        // ==========================
+        searchInput.addEventListener('input', (e) => {
+            searchTerm = e.target.value.trim();
+            render();
+        });
+
+        // ==========================
+        //  FILTROS
+        // ==========================
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                render();
+            });
+        });
+
+        // ==========================
+        //  VISTA GRID / LIST
+        // ==========================
+        gridViewBtn.addEventListener('click', () => {
+            gridViewBtn.classList.add('active');
+            listViewBtn.classList.remove('active');
+            currentView = 'grid';
+            render();
+        });
+        listViewBtn.addEventListener('click', () => {
+            listViewBtn.classList.add('active');
+            gridViewBtn.classList.remove('active');
+            currentView = 'list';
+            render();
+        });
+
+        // ==========================
+        //  TEMA OSCURO
+        // ==========================
+        let darkMode = false;
+        themeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : '');
+            themeToggle.innerHTML = darkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // ==========================
+        //  INICIO
+        // ==========================
+        render();
+
+        // Exponer funciones globalmente para los onclick
+        window.abrir = abrir;
+        window.cerrar = cerrar;
+        window.descargar = descargar;
+    </script>
+
+</body>
+</html>
