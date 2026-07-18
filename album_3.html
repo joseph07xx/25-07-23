@@ -10,440 +10,394 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Dancing+Script:wght@400;600&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet" />
     <style>
         /* ===== RESET Y BASE ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-:root {
-    --fondo-1: #0a0a1a;
-    --fondo-2: #1a0a2e;
-    --fondo-3: #0e1a2a;
-    --neon-rosa: #ff2d8a;
-    --neon-verde: #39ff14;
-    --neon-azul: #00e5ff;
-    --neon-amarillo: #ffe600;
-    --neon-morado: #b026ff;
-    --blanco-abstracto: #f0ecff;
-    --texto-base: #d8d0f0;
-    --sombra-neon: 0 0 40px rgba(255, 45, 138, 0.4);
-    --transicion: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-html {
-    scroll-behavior: smooth;
-}
+        body {
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+            background: #f2e3c9;
+            /* papel envejecido */
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(210, 180, 140, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(160, 120, 80, 0.10) 0%, transparent 50%),
+                repeating-linear-gradient(45deg,
+                    rgba(180, 150, 110, 0.03) 0px,
+                    rgba(180, 150, 110, 0.03) 2px,
+                    transparent 2px,
+                    transparent 6px);
+            min-height: 100vh;
+            color: #3e2e1f;
+            padding: 20px;
+            position: relative;
+        }
 
-body {
-    font-family: 'Courier New', monospace;
-    background: radial-gradient(circle at 20% 30%, var(--fondo-2), var(--fondo-1) 80%);
-    color: var(--texto-base);
-    min-height: 100vh;
-    overflow-x: hidden;
-    line-height: 1.4;
-    padding: 10px;
-    position: relative;
-}
+        /* Borde decorativo tipo marco antiguo */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 12px;
+            border: 2px solid rgba(120, 80, 50, 0.25);
+            pointer-events: none;
+            z-index: 999;
+            border-radius: 4px;
+            box-shadow: inset 0 0 30px rgba(80, 50, 30, 0.08);
+        }
 
-/* ===== FONDO CON FORMAS ABSTRACTAS ===== */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(circle at 10% 90%, rgba(255, 45, 138, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 90% 10%, rgba(0, 229, 255, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(176, 38, 255, 0.08) 0%, transparent 60%);
-    animation: fondoPulso 8s ease-in-out infinite alternate;
-}
+        /* ============================================================
+           PARTÍCULAS (estilo polvo de tiza / motas vintage)
+           ============================================================ */
+        .particulas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
 
-@keyframes fondoPulso {
-    0% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-}
+        .particula {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #c9b69b, #a58b72);
+            opacity: 0.12;
+            animation: flotarParticula linear infinite alternate;
+            filter: blur(1px);
+        }
 
-body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.01) 0px, rgba(255, 255, 255, 0.01) 2px, transparent 2px, transparent 6px);
-    background-size: 8px 8px;
-}
+        @keyframes flotarParticula {
+            0% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            100% {
+                transform: translate(30px, -40px) scale(1.2) rotate(20deg);
+            }
+        }
 
-/* ===== PARTÍCULAS DISTORSIONADAS ===== */
-.particulas {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
+        /* ============================================================
+           MAIN WRAPPER
+           ============================================================ */
+        .main-wrapper {
+            max-width: auto;
+            margin: 0 auto;
+            position: flex;
+            z-index: 1;
+            
+            padding: 30px 30px 20px;
+            border: 1px solid #dac29e;
+            box-shadow:
+                0 8px 32px rgba(60, 40, 20, 0.15),
+                inset 0 2px 0 rgba(255, 245, 225, 0.6);
+            border-radius: 8px;
+        }
 
-.particula {
-    position: absolute;
-    background: radial-gradient(circle, rgba(255, 45, 138, 0.2) 0%, rgba(0, 229, 255, 0.1) 50%, transparent 70%);
-    border-radius: 40% 60% 30% 70% / 50% 40% 60% 50%;
-    animation: flotarParticula 20s linear infinite;
-    filter: blur(3px) hue-rotate(30deg);
-}
+        /* ============================================================
+           NAVBAR
+           ============================================================ */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            margin-bottom: 30px;
+            background: #e5d3b8;
+            border: 1px solid #c6af8e;
+            border-radius: 40px 40px 12px 12px;
+            box-shadow: inset 0 2px 4px rgba(255, 235, 210, 0.8), 0 4px 12px rgba(80, 50, 30, 0.12);
+            font-family: 'Special Elite', 'Cormorant Garamond', serif;
+            position: relative;
+        }
 
-@keyframes flotarParticula {
-    0% {
-        transform: translateY(100vh) scale(0.3) rotate(0deg) skewX(10deg);
-        opacity: 0;
-    }
-    20% {
-        opacity: 0.7;
-    }
-    80% {
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(-10vh) scale(1.6) rotate(720deg) skewX(-10deg);
-        opacity: 0;
-    }
-}
+        .navbar::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 20%;
+            width: 60%;
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #b5977a, #b5977a 4px, transparent 4px, transparent 8px);
+            opacity: 0.4;
+        }
 
-/* ===== CONTENEDOR PRINCIPAL ===== */
-.main-wrapper {
-    position: relative;
-    z-index: 1;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 10px 40px;
-    backdrop-filter: blur(2px);
-}
+        .logo {
+            font-size: 1.6rem;
+            font-family: 'Great Vibes', 'Dancing Script', cursive;
+            color: #4d3626;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 0 rgba(255, 215, 175, 0.6);
+        }
 
-/* ===== NAVBAR ===== */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 24px;
-    background: rgba(10, 10, 26, 0.5);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 2px solid transparent;
-    border-image: linear-gradient(135deg, var(--neon-rosa), var(--neon-azul), var(--neon-verde)) 1;
-    border-radius: 0px;
-    margin: 10px auto 30px;
-    max-width: 1100px;
-    box-shadow: 0 0 50px rgba(255, 45, 138, 0.2), inset 0 0 50px rgba(0, 229, 255, 0.05);
-    position: sticky;
-    top: 12px;
-    z-index: 100;
-    transition: var(--transicion);
-    transform: skewX(-2deg) scale(0.98);
-}
+        .logo span {
+            font-weight: 600;
+            border-bottom: 2px dotted #8b6f54;
+            padding-bottom: 2px;
+        }
 
-.navbar:hover {
-    transform: skewX(0deg) scale(1);
-    border-image: linear-gradient(135deg, var(--neon-verde), var(--neon-amarillo), var(--neon-rosa)) 1;
-    box-shadow: 0 0 80px rgba(57, 255, 20, 0.2);
-}
+        .nav-enlaces {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-.logo {
-    font-family: 'Courier New', monospace;
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: -2px;
-    background: linear-gradient(135deg, var(--neon-rosa), var(--neon-amarillo));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 30px rgba(255, 45, 138, 0.3);
-    transform: rotate(-2deg);
-}
+        .nav-enlaces a {
+            color: #4d3626;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.2s;
+            font-family: 'Special Elite', serif;
+            font-size: 0.9rem;
+        }
 
-.logo span {
-    color: var(--neon-azul);
-    background: none;
-    -webkit-text-fill-color: var(--neon-azul);
-    text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
-}
+        .nav-enlaces a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 1px;
+            background: #7a5f45;
+            transition: width 0.25s;
+        }
 
-.nav-enlaces {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
+        .nav-enlaces a:hover {
+            color: #2c1e13;
+        }
+        .nav-enlaces a:hover::after {
+            width: 100%;
+        }
 
-.nav-enlaces a {
-    color: var(--texto-base);
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    transition: var(--transicion);
-    position: relative;
-    font-family: 'Courier New', monospace;
-    text-transform: uppercase;
-    padding: 4px 8px;
-    border: 1px solid transparent;
-    border-image: linear-gradient(45deg, var(--neon-rosa), transparent) 1;
-}
+        .nav-corazon {
+            font-size: 1.4rem;
+            opacity: 0.7;
+            filter: sepia(0.3);
+        }
 
-.nav-enlaces a:hover {
-    color: var(--neon-amarillo);
-    transform: skewX(-5deg) scale(1.1);
-    border-image: linear-gradient(45deg, var(--neon-verde), var(--neon-azul)) 1;
-}
+        /* ============================================================
+           HERO
+           ============================================================ */
+        .hero {
+            text-align: center;
+            padding: 30px 10px 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #c6af8e;
+            border-top: 2px dashed #c6af8e;
+            background: linear-gradient(to bottom, #eee0ce, #f2e3c9);
+            border-radius: 40px 40px 0 0;
+            position: relative;
+        }
 
-.nav-corazon {
-    font-size: 1.8rem;
-    filter: drop-shadow(0 0 20px var(--neon-rosa));
-    animation: latidoAbstracto 1.2s ease-in-out infinite;
-}
+        .hero-ornamento {
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            color: #a5876a;
+            opacity: 0.6;
+            margin-bottom: 6px;
+        }
 
-@keyframes latidoAbstracto {
-    0%, 100% { transform: scale(1) rotate(0deg) skewX(0deg); }
-    25% { transform: scale(1.3) rotate(-5deg) skewX(10deg); }
-    50% { transform: scale(1) rotate(5deg) skewX(-10deg); }
-    75% { transform: scale(1.2) rotate(-3deg) skewX(5deg); }
-}
+        .hero-titulo {
+            font-family: 'Great Vibes', 'Dancing Script', cursive;
+            font-size: 4rem;
+            font-weight: 400;
+            color: #3e2e1f;
+            text-shadow: 2px 2px 0 #dac29e, 4px 4px 8px rgba(80, 50, 30, 0.1);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
 
-/* ===== HERO ===== */
-.hero {
-    text-align: center;
-    padding: 20px 20px 30px;
-    position: relative;
-}
+        .hero-subtitulo {
+            font-family: 'Special Elite', serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            color: #6b533b;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-top: 2px;
+        }
 
-.hero-ornamento {
-    font-size: 3rem;
-    letter-spacing: 20px;
-    opacity: 0.15;
-    color: var(--neon-azul);
-    font-family: 'Courier New', monospace;
-    text-shadow: 0 0 40px var(--neon-azul);
-    transform: skewX(-10deg);
-}
+        .hero-deco {
+            margin-top: 12px;
+            font-size: 1.2rem;
+            letter-spacing: 12px;
+            color: #a5876a;
+            opacity: 0.5;
+        }
 
-.hero-titulo {
-    font-family: 'Courier New', monospace;
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    font-weight: 900;
-    line-height: 0.9;
-    letter-spacing: -4px;
-    background: linear-gradient(135deg, var(--neon-rosa), var(--neon-amarillo), var(--neon-verde), var(--neon-azul));
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: gradienteAbstracto 4s ease-in-out infinite alternate;
-    transform: skewX(-6deg) scale(1.02);
-    text-shadow: 0 0 60px rgba(255, 45, 138, 0.2);
-}
+        /* ============================================================
+           CONTADOR
+           ============================================================ */
+        .seccion-contador {
+            padding: 30px 10px 20px;
+            margin: 20px 0 30px;
+            background: #ede0cf;
+            border: 1px solid #dac29e;
+            border-radius: 60px 12px 60px 12px;
+            box-shadow: inset 0 0 0 1px #f2e3c9, 0 6px 18px rgba(60, 40, 20, 0.10);
+        }
 
-@keyframes gradienteAbstracto {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
+        .contador-titulo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            text-align: center;
+            color: #4d3626;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 rgba(255, 215, 175, 0.5);
+        }
 
-.hero-subtitulo {
-    font-family: 'Courier New', monospace;
-    font-size: clamp(1.4rem, 3vw, 2.4rem);
-    color: var(--neon-azul);
-    margin-top: 6px;
-    font-weight: 300;
-    letter-spacing: 6px;
-    opacity: 0.7;
-    text-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
-    transform: skewX(4deg);
-}
+        .contador-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-.hero-deco {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-size: 1.8rem;
-    color: var(--neon-verde);
-    opacity: 0.2;
-    margin-top: 10px;
-    filter: blur(1px);
-    transform: rotate(-2deg);
-}
+        .tarjeta-tiempo {
+            background: #f6ede1;
+            border: 1px solid #c6af8e;
+            border-radius: 12px 4px 12px 4px;
+            padding: 10px 6px;
+            text-align: center;
+            box-shadow: inset 0 1px 4px #fff6e8, 0 3px 8px rgba(60, 40, 20, 0.08);
+            transition: transform 0.15s;
+        }
 
-/* ===== CONTADOR ===== */
-.seccion-contador {
-    background: rgba(10, 10, 26, 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 2px solid transparent;
-    border-image: linear-gradient(135deg, var(--neon-morado), var(--neon-rosa), var(--neon-azul)) 1;
-    border-radius: 0px;
-    padding: 30px 20px;
-    margin: 20px auto 40px;
-    max-width: 1000px;
-    box-shadow: 0 0 60px rgba(176, 38, 255, 0.2);
-    transition: var(--transicion);
-    transform: skewX(-3deg);
-}
+        .tarjeta-tiempo:hover {
+            transform: scale(1.02);
+        }
 
-.seccion-contador:hover {
-    transform: skewX(0deg) scale(1.01);
-    border-image: linear-gradient(135deg, var(--neon-verde), var(--neon-amarillo), var(--neon-rosa)) 1;
-}
+        .numero {
+            font-family: 'Special Elite', 'Times New Roman', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #3e2e1f;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
 
-.contador-titulo {
-    text-align: center;
-    font-family: 'Courier New', monospace;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--neon-amarillo);
-    margin-bottom: 20px;
-    letter-spacing: 8px;
-    text-shadow: 0 0 40px rgba(255, 230, 0, 0.3);
-    text-transform: uppercase;
-    transform: skewX(5deg);
-}
+        .etiqueta {
+            font-family: 'Special Elite', serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #7a5f45;
+            border-top: 1px dotted #c6af8e;
+            padding-top: 4px;
+            margin-top: 2px;
+        }
 
-.contador-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 10px;
-    justify-items: center;
-}
+        .contador-segundos-total {
+            text-align: center;
+            font-family: 'Special Elite', serif;
+            font-size: 1.1rem;
+            margin-top: 18px;
+            color: #6b533b;
+            letter-spacing: 1px;
+            border-top: 1px dashed #c6af8e;
+            padding-top: 14px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-.tarjeta-tiempo {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 0px;
-    padding: 14px 6px;
-    text-align: center;
-    width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    transition: var(--transicion);
-    backdrop-filter: blur(4px);
-    transform: rotate(1deg) skewX(2deg);
+        .contador-segundos-total span {
+            font-weight: 600;
+            font-size: 1.3rem;
+            color: #4d3626;
+        }
 
-}
+        /* ===== SEPARADOR ===== */
+        .separador {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 20px auto 30px;
+            font-size: 1rem;
+            color: var(--gris-suave);
+            opacity: 0.3;
+        }
 
-.tarjeta-tiempo:hover {
-    transform: rotate(-1deg) skewX(-2deg) scale(1.05);
-    background: rgba(255, 45, 138, 0.08);
-    border-color: var(--neon-rosa);
-    box-shadow: 0 0 40px rgba(255, 45, 138, 0.2);
-}
+        .separador-linea {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gris-suave), transparent);
+        }
 
-.tarjeta-tiempo .numero {
-    font-family: 'Courier New', monospace;
-    font-size: 2.8rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--neon-azul), var(--neon-verde));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    line-height: 1;
-    text-shadow: 0 0 50px rgba(0, 229, 255, 0.3);
-}
+        /* ===== GALERÍA ===== */
+        .galeria-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-.tarjeta-tiempo .etiqueta {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: rgba(255, 255, 255, 0.2);
-    font-weight: 300;
-    margin-top: 4px;
-}
+        .galeria-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 500;
+            color: var(--marrón-oscuro);
+            letter-spacing: 0.5px;
+        }
 
-.contador-segundos-total {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.2);
-    font-family: 'Courier New', monospace;
-    letter-spacing: 4px;
-}
+        .galeria-header p {
+            color: var(--gris-suave);
+            font-size: 1rem;
+            margin-top: 4px;
+            font-style: italic;
+        }
 
-.contador-segundos-total span {
-    color: var(--neon-amarillo);
-    font-weight: 900;
-    font-size: 1.4rem;
-    text-shadow: 0 0 40px rgba(255, 230, 0, 0.4);
-}
+        /* ===== GRID ESTILO POLAROID ===== */
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
 
-/* ===== SEPARADOR ===== */
-.separador {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin: 20px auto 30px;
-    font-size: 1.4rem;
-    color: var(--neon-morado);
-    opacity: 0.15;
-}
+        @media (max-width: 1000px) {
+            .gallery-grid {
+                column-count: 2;
+                column-gap: 20px;
+            }
+        }
 
-.separador-linea {
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--neon-rosa), var(--neon-azul), transparent);
-    transform: skewX(-20deg);
-}
+        @media (max-width: 600px) {
+            .gallery-grid {
+                column-count: 1;
+                gap: 20px;
+            }
+            .navbar {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                padding: 12px 18px;
+            }
+            .nav-enlaces {
+                gap: 14px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .contador-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .tarjeta-tiempo .numero {
+                font-size: 1.8rem;
+            }
+        }
 
-/* ===== GALERÍA ===== */
-.galeria-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.galeria-header h2 {
-    font-family: 'Courier New', monospace;
-    font-size: 2.8rem;
-    font-weight: 900;
-    letter-spacing: -2px;
-    background: linear-gradient(135deg, var(--neon-verde), var(--neon-rosa));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    transform: skewX(-4deg);
-    text-shadow: 0 0 40px rgba(57, 255, 20, 0.2);
-}
-
-.galeria-header p {
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 1rem;
-    margin-top: 4px;
-    font-style: italic;
-    letter-spacing: 4px;
-}
-
-/* ===== GRID DE TARJETAS ===== */
-.gallery-grid {
-    column-count: 3;
-    column-gap: 20px;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding-bottom: 20px;
-}
-
-@media (max-width: 1000px) {
-    .gallery-grid { column-count: 2; column-gap: 16px; }
-}
-
-@media (max-width: 600px) {
-    .gallery-grid { column-count: 1; }
-    .navbar { flex-wrap: wrap; justify-content: center; gap: 8px; padding: 12px; }
-    .nav-enlaces { gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .contador-grid { grid-template-columns: repeat(3, 1fr); }
-    .tarjeta-tiempo .numero { font-size: 2rem; }
-}
-
-/* ===== TARJETA ABSTRACTA ===== */
-.card {
+        /* ===== TARJETA POLAROID ===== */
+        .card {
             display: inline-block;
             width: 100%;
             margin-bottom: 28px;
@@ -459,279 +413,283 @@ body::after {
             cursor: pointer;
         }
 
-.card:nth-child(odd) { --rotacion: -3deg; }
-.card:nth-child(even) { --rotacion: 4deg; }
-.card:nth-child(3n) { --rotacion: 6deg; }
-.card:nth-child(5n) { --rotacion: -5deg; }
-.card:nth-child(7n) { --rotacion: 2deg; }
+        .card:nth-child(odd) {
+            --rotacion: -0.5deg;
+        }
+        .card:nth-child(even) {
+            --rotacion: 0.8deg;
+        }
+        .card:nth-child(3n) {
+            --rotacion: 1.2deg;
+        }
+        .card:nth-child(5n) {
+            --rotacion: -1deg;
+        }
 
-.card:hover {
-    transform: translateY(-12px) rotate(0deg) scale(1.02);
-    border-image: linear-gradient(135deg, var(--neon-amarillo), var(--neon-verde), var(--neon-rosa)) 1;
-    box-shadow: 0 0 80px rgba(0, 229, 255, 0.2), 0 0 120px rgba(255, 45, 138, 0.1);
-    z-index: 10;
-    background: rgba(20, 10, 40, 0.4);
-}
+        .card:hover {
+            transform: translateY(-6px) rotate(0deg) scale(1.01);
+            box-shadow: 0 12px 40px rgba(60, 40, 30, 0.2);
+            border-color: var(--dorado-viejo);
+            z-index: 10;
+        }
 
-.image-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    background: #0a0a1a;
+        .image-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 4px;
+            position: relative;
+            background: #d6c9bc;
+        }
 
-}
+        .drive-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s ease;
+            border-radius: 4px;
+            filter: sepia(0.15) contrast(1.02);
+        }
 
-.drive-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: contrast(1.3) saturate(0.8) hue-rotate(-10deg);
-    mix-blend-mode: screen;
-}
+        .card:hover .drive-image {
+            transform: scale(1.02);
+        }
 
-.card:hover .drive-image {
-    transform: scale(1.08) rotate(1deg);
-    filter: contrast(1.5) saturate(1.2) hue-rotate(10deg);
-}
+        .card-content {
+            padding: 10px 4px 2px;
+            text-align: center;
+        }
 
-.card-content {
-    padding: 10px 4px 4px;
-    text-align: center;
-}
+        .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--marrón-oscuro);
+            letter-spacing: 0.3px;
+            margin-bottom: 2px;
+        }
 
-.card-title {
-    font-family: 'Courier New', monospace;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, var(--neon-azul), var(--neon-rosa));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
-}
+        .card-date-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            color: var(--gris-suave);
+            letter-spacing: 0.5px;
+            padding: 2px 14px;
+            background: rgba(180, 150, 120, 0.08);
+            border-radius: 30px;
+            border: 1px solid rgba(180, 150, 120, 0.1);
+            margin-bottom: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
 
-.card-date-badge {
-    display: inline-block;
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.15);
-    letter-spacing: 3px;
-    padding: 2px 14px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    margin-bottom: 8px;
-    font-family: 'Courier New', monospace;
-    text-transform: uppercase;
-}
+        .btn-ver {
+            display: inline-block;
+            background: transparent;
+            color: var(--marrón);
+            padding: 6px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            border: 1px solid rgba(122, 93, 75, 0.2);
+            transition: var(--transicion);
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
 
-.btn-ver {
-    display: inline-block;
-    background: transparent;
-    color: var(--neon-amarillo);
-    padding: 6px 24px;
-    border-radius: 0px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    border: 2px solid transparent;
-    border-image: linear-gradient(45deg, var(--neon-rosa), var(--neon-azul)) 1;
-    transition: var(--transicion);
-    cursor: pointer;
-    font-family: 'Courier New', monospace;
-    text-transform: uppercase;
-}
+        .btn-ver:hover {
+            background: var(--marrón);
+            color: var(--blanco-hueso);
+            border-color: var(--marrón);
+            box-shadow: 0 4px 15px rgba(122, 93, 75, 0.2);
+            transform: translateY(-1px);
+        }
 
-.btn-ver:hover {
-    background: var(--neon-rosa);
-    color: #0a0a1a;
-    border-image: linear-gradient(45deg, var(--neon-verde), var(--neon-amarillo)) 1;
-    box-shadow: 0 0 40px rgba(255, 45, 138, 0.4);
-    transform: skewX(-10deg) scale(1.05);
-}
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(30, 20, 15, 0.92);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            animation: fadeInLight 0.3s ease;
+        }
 
-/* ===== LIGHTBOX ===== */
-.lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(10, 10, 26, 0.92);
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(30px) saturate(200%);
-    -webkit-backdrop-filter: blur(30px) saturate(200%);
-    animation: fadeInLight 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        @keyframes fadeInLight {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-@keyframes fadeInLight {
-    from { opacity: 0; transform: scale(0.9) rotate(-5deg); }
-    to { opacity: 1; transform: scale(1) rotate(0deg); }
-}
+        .lightbox:target {
+            display: flex;
+        }
 
+        .lightbox-inner {
+            position: relative;
+            max-width: 90%;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-.lightbox-inner {
-    position: relative;
-    max-width: 92%;
-    max-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: zoomInAbstracto 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        .lightbox-content {
+            max-width: 100%;
+            max-height: 75vh;
+            border: 8px solid var(--blanco-hueso);
+            border-radius: 4px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+            object-fit: contain;
+            background: var(--blanco-hueso);
+        }
 
-@keyframes zoomInAbstracto {
-    from { transform: scale(0.7) rotate(10deg) skewX(10deg); opacity: 0; }
-    to { transform: scale(1) rotate(0deg) skewX(0deg); opacity: 1; }
-}
+        .close-btn {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            color: var(--blanco-hueso);
+            font-size: 40px;
+            text-decoration: none;
+            transition: var(--transicion);
+            line-height: 1;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 248, 240, 0.06);
+            border: 1px solid rgba(255, 248, 240, 0.1);
+            font-family: 'Montserrat', sans-serif;
+        }
 
-.lightbox-content {
-    max-width: 100%;
-    max-height: 75vh;
-    border: 8px solid transparent;
-    border-image: linear-gradient(135deg, var(--neon-rosa), var(--neon-azul), var(--neon-verde), var(--neon-amarillo)) 1;
-    box-shadow: 0 0 100px rgba(255, 45, 138, 0.3), 0 0 200px rgba(0, 229, 255, 0.1);
-    object-fit: contain;
-    background: #0a0a1a;
-    clip-path: polygon(0% 0%, 100% 0%, 96% 100%, 0% 100%);
-}
+        .close-btn:hover {
+            color: #fff;
+            background: rgba(255, 248, 240, 0.15);
+            transform: rotate(90deg);
+        }
 
-.close-btn {
-    position: absolute;
-    top: -50px;
-    right: -10px;
-    color: var(--neon-rosa);
-    font-size: 44px;
-    text-decoration: none;
-    transition: var(--transicion);
-    line-height: 1;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid transparent;
-    border-image: linear-gradient(135deg, var(--neon-rosa), var(--neon-azul)) 1;
-    font-family: 'Courier New', monospace;
-    background: rgba(10, 10, 26, 0.3);
-    backdrop-filter: blur(10px);
-}
+        .lightbox-caption {
+            color: var(--sepia-claro);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.2rem;
+            margin-top: 12px;
+            text-align: center;
+            opacity: 0.8;
+        }
 
-.close-btn:hover {
-    transform: rotate(90deg);
-}
-.lightbox-caption {
-    color: var(--neon-azul);
-    font-family: 'Courier New', monospace;
-    font-size: 1.2rem;
-    margin-top: 14px;
-    text-align: center;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    text-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
-}
+        /* ===== FRASES ===== */
+        .seccion-frases {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 30px 20px;
+            margin: 30px auto 40px;
+            max-width: 800px;
+            box-shadow: var(--sombra);
+            text-align: center;
+            transition: var(--transicion);
+        }
 
-/* ===== FRASES ===== */
-.seccion-frases {
-    background: rgba(10, 10, 26, 0.3);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 2px solid transparent;
-    border-image: linear-gradient(135deg, var(--neon-morado), var(--neon-verde)) 1;
-    padding: 30px 20px;
-    margin: 30px auto 40px;
-    max-width: 900px;
-    box-shadow: 0 0 60px rgba(176, 38, 255, 0.1);
-    text-align: center;
-    transition: var(--transicion);
-    transform: skewX(2deg);
-}
+        .seccion-frases:hover {
+            border-color: rgba(180, 150, 120, 0.2);
+        }
 
-.seccion-frases:hover {
-    transform: skewX(-2deg) scale(1.01);
-    border-image: linear-gradient(135deg, var(--neon-amarillo), var(--neon-rosa)) 1;
-}
+        .frase-rotatoria {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            color: var(--marrón);
+            font-weight: 400;
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease;
+        }
 
-.frase-rotatoria {
-    font-family: 'Courier New', monospace;
-    font-size: clamp(1.6rem, 4vw, 3rem);
-    color: var(--neon-amarillo);
-    font-weight: 700;
-    min-height: 4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.6s ease;
-    text-shadow: 0 0 40px rgba(255, 230, 0, 0.2);
-    letter-spacing: 2px;
-}
+        .frase-autor {
+            color: var(--gris-suave);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+            font-style: italic;
+        }
 
-.frase-autor {
-    color: rgba(255, 255, 255, 0.15);
-    font-size: 0.9rem;
-    margin-top: 8px;
-    letter-spacing: 6px;
-    font-style: italic;
-}
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 20px 20px 10px;
+            border-top: 1px solid rgba(180, 150, 120, 0.15);
+            margin-top: 30px;
+            color: var(--gris-suave);
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
 
-/* ===== FOOTER ===== */
-.footer {
-    text-align: center;
-    padding: 20px 20px 10px;
-    border-top: 2px solid transparent;
-    border-image: linear-gradient(90deg, transparent, var(--neon-rosa), var(--neon-azul), transparent) 1;
-    margin-top: 30px;
-    color: rgba(255, 255, 255, 0.1);
-    font-size: 0.7rem;
-    letter-spacing: 6px;
-    font-family: 'Courier New', monospace;
-}
+        .footer .corazon {
+            color: var(--dorado-viejo);
+            display: inline-block;
+            animation: latido 1.8s ease-in-out infinite;
+        }
 
-.footer .corazon {
-    color: var(--neon-rosa);
-    display: inline-block;
-    animation: latidoAbstracto 1.2s ease-in-out infinite;
-}
+        .footer-deco {
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: var(--gris-suave);
+            opacity: 0.2;
+            margin-bottom: 6px;
+        }
 
-.footer-deco {
-    font-size: 1.2rem;
-    letter-spacing: 10px;
-    color: var(--neon-verde);
-    opacity: 0.08;
-    margin-bottom: 6px;
-}
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--sepia-claro);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--marrón);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--marrón-oscuro);
+        }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #0a0a1a;
-}
-::-webkit-scrollbar-thumb {
-    background: var(--neon-rosa);
-    border-radius: 0px;
-    box-shadow: 0 0 20px var(--neon-rosa);
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--neon-azul);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 480px) {
-    .contador-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .hero-titulo {
-        font-size: 2.6rem;
-        letter-spacing: -2px;
-    }
-    .card {
-        padding: 6px 6px 12px;
-    }
-}
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .contador-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-titulo {
+                font-size: 2.4rem;
+            }
+            .card {
+                padding: 8px 8px 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -883,194 +841,120 @@ body::after {
         // 3. GALERÍA (recuerdos)
         // ============================================================
         const misRecuerdos = [
-            { id: "1yc_p9Hdda8cthXDmUG0pnzJjza8GWH5O", titulo: "Boulevard: el final" },
-            { id: "1yxkX82T-04fCp5yJb2LKKsXzU3p74nYg", titulo: "Boulevard: el inicio" },
-            { id: "1zDypXhnfT85dCYa44B0kQG0HFLfhKUOd", titulo: "Boulevard de la felicidad" },
-            { id: "1zPBobxmIfQGa-jxlX6OPiOHr0eAC2p3E", titulo: "Boulevard de la pasión" },
-            { id: "1zrSfW40Faat1yiGGZ51wgiAr5D9oe3nZ", titulo: "Noches de boulevard" },
-            { id: "1-H5IBDs63EYUGIDBfCyECIRLj6iCPeXG", titulo: "Te quiero con la locura" },
-            { id: "1-PN4COfSw3Zo4qxMMvcDuyTTDzm4QWZ4", titulo: "No te rindas, que la vida es eso" },
-            { id: "1-fEswK8UWdBKwMSCNyQujZbp7tgMG9o2", titulo: "El amor es una tormenta" },
-            { id: "10b6a4ylNe4VF5uVm9y2hqlIqdsfxcXJ4", titulo: "Queda el amor" },
-            { id: "11lGojtsZcwQwC0ZP_-dZ1luoWmTCmDXM", titulo: "Te amo como nunca amé" },
-            { id: "11n0wPlkhAvf_7w9cWskOx64hh9gQ5LyQ", titulo: "La ternura es un acto de valentía" },
-            { id: "11nxLUXginQkR9VjG52LlXvFCns_neTRj", titulo: "Tu nombre es una caricia" },
-            { id: "12Jvn-F8dlgE-xVhiAlDQ61D59GW0-0_E", titulo: "El amor no es un sentimiento, es una decisión" },
-            { id: "12t-fmRybTK83eg5Sh_vhW6kegfJTYgbO", titulo: "Tus manos son mi refugio" },
-            { id: "13FE3zJcah9AVWlYvWFAtqjGEn2Fgrn1M", titulo: "Te busco en cada atardecer" },
-            { id: "15hmrxW-Vs_egsx_COBbLhjUhpuxb1r6T", titulo: "El amor es un río que no se detiene" },
-            { id: "168NdtlzYLKFmJxFXVruF4brr0Nzl2Jvm", titulo: "Tu voz es mi poesía" },
-            { id: "17X3-sp5Tz1KwZhlaww1i3VWx4ZLgHt3M", titulo: "No hay olvido que borre tu huella" },
-            { id: "17YVKAGl7JhORBfSnvSit6B_8v0jlKSR2", titulo: "El amor es una certeza" },
-            { id: "188PEqmXpt6V-xDTWRnmifTsJT_fVnQVt", titulo: "Te quiero sin medida" },
-            { id: "1AGmbVUeK1yC1t1OI4hxm6eNQ4LRJbTlS", titulo: "Tu mirada es un poema" },
-            { id: "1AiR846JiSgdLOa8wYBrzKwWy-fQs5Ej4", titulo: "El amor es un verbo" },
-            { id: "1Am5GK_rIi-lC0WiRqPax9RI-CnwfYvOk", titulo: "Tus labios son mi destino" },
-            { id: "1BAf4K3OinFtr7oGnxeC0NiBh0ph4h6qM", titulo: "Nunca es tarde para amarte" },
-            { id: "1BNB_DWL5mrnbVNqBdm-nvXMYhFNmJf5D", titulo: "El amor no se pide, se da" },
-            { id: "1BZE0tt4RhH8kdOdpa_V2Ix8vXFv5AWvV", titulo: "Tus ojos son mi norte" },
-            { id: "1CGjsKNA-1DteO_gMicPr0QA3XYsoBBji", titulo: "El amor es un arte" },
-            { id: "1CwAMBrU46jhaQzwCH7nZns1aX-oFEFel", titulo: "Te espero en cada esquina" },
-            { id: "1D0w5T-IpirtYlUpNlkftqPGEE-JlmOoG", titulo: "Tu recuerdo es mi abrigo" },
-            { id: "1DUjVRc6kpaQxwq-nl831s2M5s6FQzihb", titulo: "El amor es un laberinto" },
-            { id: "1E5A79XJvrcJU-dzpZ2ZvTfmoriU5Kp7n", titulo: "Tus pasos son mi música" },
-            { id: "1EUnnpyhav_TGqmg-eVpVjmj01oWZSSJp", titulo: "El amor no entiende de distancias" },
-            { id: "1EdGiHf-9tZYfZmQk3hatT7SA2TrPZxJs", titulo: "Te quiero con el alma" },
-            { id: "1F4I4TBUIvD-zce9o20YS25uFl30aL2Oj", titulo: "Tu sonrisa es mi sol" },
-            { id: "1FSksZPtCYJgjL-S7KzAYiuRPVt81K5tt", titulo: "El amor es un incendio" },
-            { id: "1FVuFiWjUY7j-bRmwMHRYHnQdYB9TGDmy", titulo: "Tus besos son mi aliento" },
-            { id: "1GHBDvuJV5HMrPUaXzagaXgQq2f6aE35u", titulo: "El amor es un silencio que habla" },
-            { id: "1GcEo44VKzacA1YG80iPSX7l75NU6l897", titulo: "Te quiero sin condiciones" },
-            { id: "1H9IwQMNj7mrM5OGWe3TM-l72jp4G9YVe", titulo: "Tu ausencia es mi herida" },
-            { id: "1Hwoywix7GLS79s6N9jocX5tSjLuh9Tlx", titulo: "El amor es una promesa" },
-            { id: "1I2sLcaIftoTNZmUXEYlhdJiXN_FC3EOw", titulo: "Tus caricias son mi paz" },
-            { id: "1JVuRmAMPxmDDqbOkEBuOrKfarxQ4m_WS", titulo: "El amor es un viaje" },
-            { id: "1L5zeHxytVu-6bkgK-iPzYglWhyUyQZuV", titulo: "Te quiero con la razón" },
-            { id: "1Lx9gEQJofWPuK30X8dGywVQLoHMwYV2y", titulo: "Tu risa es mi melodía" },
-            { id: "1NJh7V0McptpYT9ADWdrDNUHJmP4uKo6i", titulo: "El amor es un milagro" },
-            { id: "1NQ6B7CQLGczmnKBhOAcrsuwlJNh8iDcy", titulo: "Tus sueños son mis sueños" },
-            { id: "1NrxNeUVmnMZxxZSOzDoeEGQwSjMi_BL5", titulo: "El amor no se olvida" },
-            { id: "1O3wf5YtDkjFcKpMrg5P6bgpzy_XLlM3J", titulo: "Te busco en cada amanecer" },
-            { id: "1P0WskbhQGrV8EqTmzXRYQHjhRNmxtBid", titulo: "Tu cuerpo es mi hogar" },
-            { id: "1P6QFsXyGAt0E_2hyMBviH5rZCqiX4QaL", titulo: "El amor es un destino" },
-            { id: "1PGiV6s8BnIF7hObZ5lieaauHKITbDXwY", titulo: "Te quiero con el corazón" },
-            { id: "1Q6N5AnqG0MsgiPM2ucQDWB1Pmw7u7ezR", titulo: "Tu voz es mi consuelo" },
-            { id: "1QWsvlGeM60notZEtXluSeCmiRedW-pKX", titulo: "El amor es un puente" },
-            { id: "1QzxGrdMhBVUrXGVO4YIkg00w06XCGTNV", titulo: "Tus ojos son mi cielo" },
-            { id: "1RnnEOMeoOEXjmKoC0JAle9SSO00Gd8Hk", titulo: "El amor es un latido" },
-            { id: "1SIcBEckIFPSbvCHuC_OkFFqSj4mhP0Nx", titulo: "Te quiero sin fronteras" },
-            { id: "1SbYjgMiLgYblFS2-q29xKSuqVkF8AXVL", titulo: "Tu recuerdo es mi vida" },
-            { id: "1Sv8dmugFwzEHZOLRcZc1jpwVfLNC9fUz", titulo: "El amor es un abrazo eterno" },
-            { id: "1Uv7sRjaAmFlRSexnCx-dRUT5DS_ioCpE", titulo: "Tus manos son mi guía" },
-            { id: "1WzqtPO3Ltz9Vt2NbyqhoXmCqrh7gqV2Y", titulo: "El amor es un descubrimiento" },
-            { id: "1XGDZFHsJBrXrpniC3S4cU12IG0A6rDfD", titulo: "Te quiero con la esperanza" },
-            { id: "1XJXOgMC16Lep4DddDuBvuQ7KHmQqdbXu", titulo: "Tu mirada es mi respuesta" },
-            { id: "1XlzsMMvUB16iHre84_OrNS4mQ688eFht", titulo: "El amor es un sueño" },
-            { id: "1XsktzXOvPAqS_PGwbkpFFTnJhTxROvP_", titulo: "Tus labios son mi verdad" },
-            { id: "1YLX0s4ruJeOVO4Ws-1zQiPHkcle2uSoD", titulo: "El amor es un encuentro" },
-            { id: "1YfPL6P3FJUiS5iRb6mdocVYInp2ZFNq6", titulo: "Te quiero sin medidas" },
-            { id: "1ZA4Vc96JD2yyAtVHR7m6FM_C5FDX-2d4", titulo: "Tu ausencia es mi silencio" },
-            { id: "1_GzFS2B_-OfICL4LNh0Nl-b4DL4wk0jV", titulo: "El amor es una fuga" },
-            { id: "1_KNawkEmm1QSVqbwOTdRR2HfwGb2D77n", titulo: "Tus caricias son mi fuego" },
-            { id: "1_cwJTbQoYpULaQNyyjkZVWf0YwywQ86Q", titulo: "El amor es un deseo" },
-            { id: "1amMTV98Eyz7G2QTvkUuegbqpo3aE5r6I", titulo: "Te quiero con el alma" },
-            { id: "1dcqJJq3AfD8adhwSYSXalGCYrpNr6zep", titulo: "Tu nombre es mi oración" },
-            { id: "1fs5-BxUn6nBu20JIICx4pizdKKG8cGdQ", titulo: "El amor es una respuesta" },
-            { id: "1gDL1XJcRD87FBgKTb_gwEXbmDH-_tRnP", titulo: "Tus pasos son mi camino" },
-            { id: "1gNDJ5oU_LB4RV-YkpmnYFjj7ufFhGvyx", titulo: "El amor es un pacto" },
-            { id: "1gffjkKlwKm2t13aHfS-vna8d6Te1dJYZ", titulo: "Te quiero sin preguntas" },
-            { id: "1gkB8avuQAfbTMuEsFd4QHT_I2ycYz-OL", titulo: "Tu risa es mi primavera" },
-            { id: "1h8HdhwTOoQe5QE7c4iBkM6ZN_k1JfAEf", titulo: "El amor es un reflejo" },
-            { id: "1hR0QvfIIEoNwnAcOBm8WAn-sCHPUuUBs", titulo: "Tus ojos son mi universo" },
-            { id: "1hvohJdq1Lx6bkHfW_jZVfejxSlR0MSvA", titulo: "El amor es una llama" },
-            { id: "1iKFwIPqmY0f_iyuWpCeMigFsOyWHLMp8", titulo: "Te quiero con la vida" },
-            { id: "1j7UCHhju-fDphlOnpKD6Xp8gPp_gBGsz", titulo: "Tu voz es mi eco" },
-            { id: "1jwAbaGaTk7SZ00GlQ_eyOuqif1Vf3HOf", titulo: "El amor es un río sin orillas" },
-            { id: "1k0INTcxwBphBTbvo2VjWKvYTT06-7Pv", titulo: "Tus manos son mi ancla" },
-            { id: "1kkSfQ3iZfxf10hHxOqnHpA-o5dBEGNbU", titulo: "El amor es un vaivén" },
-            { id: "1kwmi1W9oatmELejTR6XuNX7RxYbW0UUm", titulo: "Te quiero con la piel" },
-            { id: "1l7VDjo2fKinuSpZM3yzj4EghUvEi_Gbx", titulo: "Tu recuerdo es mi norte" },
-            { id: "1lOQpetIKYfWPqtsEdlYl1OCQbz1r1hem", titulo: "El amor es una danza" },
-            { id: "1laRSYGpCvf-c9IXpDmEVCGN9OUzf2h85", titulo: "Tus besos son mi cielo" },
-            { id: "1lfDU6F_2WDiZHIDsl-xQC6QP7BXDppTL", titulo: "El amor es un suspiro" },
-            { id: "1mfGm1j24yjcIVtDacFjq12SyE0riinRw", titulo: "Te quiero sin tiempo" },
-            { id: "1n0DRzHf8y7zOTUeA08qLxiOfs-4IyOVB", titulo: "Tu ausencia es mi poema" },
-            { id: "1oD9Mpw6sCCisDnQbIgB-X7LpoPIAZZ7y", titulo: "El amor es un faro" },
-            { id: "1oUYAHaohLu4EbSHDc2wje6xbVDUo86vF", titulo: "Tus sueños son mi esperanza" },
-            { id: "1pCcv8Vzj1-Y6RAolzSHy69Y39PiuaZPD", titulo: "El amor es un oasis" },
-            { id: "1qC5oQ6Iapf5Y8-WV-Ear6oyWcSv3IGJm", titulo: "Te quiero con el alma" },
-            { id: "1t_E3oeh9PdnYH0kMrMkhXMo9YOuFR1pF", titulo: "Tu mirada es mi refugio" },
-            { id: "1wEpihbtOEpYQrXJKz7nN5gr4irBYQaPx", titulo: "El amor es un vuelo" },
-            { id: "1xD_hv41cgsq6_S9Ph-U3yoe2_oXDY7M", titulo: "Tus labios son mi destino" },
-            { id: "1xZgd-oxppMQMxmYKrXNlta4s9VbibQeG", titulo: "El amor es un adiós que no termina" },
-            { id: "1y1bdH_yMm0dHvfn7lH6IGRLNfks35jFD", titulo: "Te quiero con el corazón" },
-            { id: "1yQtZjO5zkJlqoCstBxBLiXKxdic-wtY4", titulo: "Tu risa es mi luz" },
-            { id: "1z62VW_nhFooq0gXFEoqsrtuSuwZiRuGV", titulo: "El amor es un enigma" },
-            { id: "1zMAHpXyPJsq5MFJbxkjJ5_4CxR6_YCDp", titulo: "Tus ojos son mi hogar" },
-            { id: "1zcaGRBYKtjYptB6ydqKf9CX7AdYT69lF", titulo: "El amor es un pacto de piel" },
-            { id: "1-Y8A1RfAFy3-gtnWA-6Uk_OGJxZaSZUj", titulo: "Te quiero" },
-            { id: "1-ZBnfQ760Y6T6En-2tjjyo8aw7h4o7UO", titulo: "Te amo" },
-            { id: "1-gejph6Eots6WJfTmkt5XV2kTtauD8-U", titulo: "Quedate" },
-            { id: "10AQPMO83cVzxkGqbD-oOlQ2dufoPevqu", titulo: "No te rindas" },
-            { id: "10C7o7c6P0bIAKfkTEFnDLF5c3ue5_89e", titulo: "Tu sonrisa" },
-            { id: "10sJzDv2i6MuMXY399FMBOlT8JsUJQv05", titulo: "Tu mirada" },
-            { id: "10tHiO6Xe6JqBux0qQ7GV2uMB35c_pgFF", titulo: "Tu voz" },
-            { id: "110wKa8vWpW5WNZ4Xqn242K9Tdp-QfgGk", titulo: "Tu ausencia" },
-            { id: "11ypF4blYQQYN5ccD2f1u9D8--ongceLi", titulo: "Tu presencia" },
-            { id: "12AqqunurAufC88ZXf0WFNZerpeDhxXJv", titulo: "Te espero" },
-            { id: "12FfHsVwQCINnruvQpwDXAJG481u07oSR", titulo: "Te busco" },
-            { id: "12Gj76Itgu7jafRyG-h3XWR-amHoKzrYl", titulo: "Te encuentro" },
-            { id: "12SOuztQNF4hMwdLPWPRcS5mfvU6Lqlc1", titulo: "Te abrazo" },
-            { id: "13E1xpt5jiq5go4HBMRlcLYc2Tgnf0oTr", titulo: "Te beso" },
-            { id: "148rtjUWwE-dNDOigbPfySg6yYqgLw9Qv", titulo: "Eres mi sol" },
-            { id: "14fuSKYVRlC2EC7Te9zex8SfXNFwlJC2T", titulo: "Eres mi luna" },
-            { id: "15QldTAD-JxwtsUE8-U3ic4Q5Y88DEoOg", titulo: "Eres mi vida" },
-            { id: "1628XdVW_2ySULfRx25wSFZtmS3dnYMa5", titulo: "Eres mi todo" },
-            { id: "163m3mApC8N1EAJktcAQPRG19Qaas4_s8", titulo: "Eres mi paz" },
-            { id: "16PpGNO2AqMHMgVBq_BPscWvVOsKlC-ZG", titulo: "Eres mi hogar" },
-            { id: "16k12_mZ2qB2jUdqPcTslVjlsW25zpLg-", titulo: "Siempre tuya" },
-            { id: "17zSYSqJFfOBiElX6WN1aYoOxEWCVVgH4", titulo: "Siempre tuyo" },
-            { id: "17zztC8kjUPKj5Dwx4WgkRgk4lbSsvHpz", titulo: "Para siempre" },
-            { id: "18hPlP2Ad9PpUspeV52ZNSENE7VydvnIH", titulo: "Cerca de ti" },
-            { id: "18khCMikkDT5dnzVkz2LYy62u7VX7WGBt", titulo: "Lejos de ti" },
-            { id: "18okW0I431xKbUJuq8ghkt5YyNdqdRus3", titulo: "Tu recuerdo" },
-            { id: "1956liemcdxVWRyrrl4PJtVGLB4ttOaaN", titulo: "Tu nombre" },
-            { id: "19CwqIMTRxj2zLx8vGfv41hUzC-SVPBgv", titulo: "Tu piel" },
-            { id: "19E5SCAfLj1hSuFzxccG5acmbfFoPXcPb", titulo: "Tu risa" },
-            { id: "19V19DCWqQVc2WrdvBeEhksUTROJLs8vp", titulo: "Tu calma" },
-            { id: "19thJkMxQODuc7IKHGmrw6MUK9q2VKrcb", titulo: "Tu fuego" },
-            { id: "1A5-AHOlwwSJTphH4Vdf0KdhGfTF-EISx", titulo: "Amanecer contigo" },
-            { id: "1A8CWa7afAIJkD70bflfN4Sw3OW93vabz", titulo: "Anochecer contigo" },
-            { id: "1AFEduydZ2l04UHC20Q-X12cMQX4HCfUz", titulo: "Contigo todo" },
-            { id: "1AIxx1pwmR23A35JeUy9Bomv0w8mhfKJ_", titulo: "Sin ti nada" },
-            { id: "1AKXIi3VOU3pbGfJYm6nRHlfJKDH7bnfd", titulo: "Eres mi alma" },
-            { id: "1AhLWq-2SZJAyfU0i8_yZDDY7pN4nVVGN", titulo: "Eres mi amor" },
-            { id: "1B-pLkuMWy25r93NtWQwr6m9Vxt5oXq1E", titulo: "Eres mi vida" },
-            { id: "1B4HyZN9MW5_QUL4lsWDl-jMnEaGeIywR", titulo: "Eres mi sueño" },
-            { id: "1BSXnyVL2jVMcvj-YhCTqe5Df371I_nDG", titulo: "Eres mi realidad" },
-            { id: "1BUhvD94nX3XAhoQjtxNYOcL0pVm0b-Ap", titulo: "Eres mi cielo" },
-            { id: "1Bp15U4sEOLsrbTE2gPyYkUxvMLJjh5yZ", titulo: "Eres mi mar" },
-            { id: "1BxlRSynslXFXcqbokVir2Bcw_pkjwVJE", titulo: "Eres mi destino" },
-            { id: "1C3I0HFCPbsdpW1N7s99YOx8pV31Lbi38", titulo: "Eres mi camino" },
-            { id: "1C5AxraK4fULBAeJIyCAsNSPRFVwXrCYy", titulo: "Te necesito" },
-            { id: "1CEU6fWBDI6pe0VztcpISQqYmqXHF5AI_", titulo: "Te deseo" },
-            { id: "1CbI1wqNQGnwZubSxsoHphIisgT7lwUiU", titulo: "Te extraño" },
-            { id: "1CeLZB5BzzZzkvuaWVwhEQs4h8BnBILMG", titulo: "Te recuerdo" },
-            { id: "1CxTAmk7C3j9zg7DFvwDtM0rMMUNC0HAB", titulo: "Te sueño" },
-            { id: "1D3kA7UZ9EecCOBPIqgerP-Y5dXJY8hl2", titulo: "Te imagino" },
-            { id: "1DFlX-V6xXK0IcuH_aonITiJJNPL7PbyM", titulo: "Te siento" },
-            { id: "1DIJeCOW4Bbe8LN7pn4lWh337ReYyRnKo", titulo: "Te respiro" },
-            { id: "1DMLx6uTk_NJexICO85uLagMQDl9SlZgm", titulo: "Te llevo dentro" },
-            { id: "1DaOHATVB7kFuV63JviWl6KZrQKe3qU35", titulo: "Eres mi razón" },
-            { id: "1DoFVMfczSyQLqID9zhVFMzeIhwdFFFXy", titulo: "Eres mi latido" },
-            { id: "1EYEEG5-dvtB74ihVqqzYmQidmodpf8BN", titulo: "Eres mi aliento" },
-            { id: "1EdcMvxHnIriEBgn_g7WffchPl5-6SnYp", titulo: "Eres mi calma" },
-            { id: "1EgcTuQi2itzU3ZqYGcomgoos9rRGLPoE", titulo: "Eres mi fuerza" },
-            { id: "1EsIKgo25LqdCWnCP5c1gKlX6DgcK8JzV", titulo: "Eres mi luz" },
-            { id: "1Ex4mGIwCRLgY8n7j56N5qvE8UKfe5vEj", titulo: "Eres mi sombra" },
-            { id: "1F0hubk88WaIAQRwe9u6EY2I5xb0G46az", titulo: "Eres mi compañía" },
-            { id: "1F5eeij2PIeZ6O5YCk9l8BC5KCZrQG-gH", titulo: "Eres mi soledad" },
-            { id: "1FVYGXj3HycnwybeKV3vgkKvuUtZt-B8t", titulo: "Eres mi todo" },
-            { id: "1Fy04pYOU5SkGNN7BMkSyzaKBIw8PxGa1", titulo: "Eres mi nada" },
-            { id: "1FyMhN5l2bMzeOm7G5cKKIgj70ESyTtu6", titulo: "Te quiero aquí" },
-            { id: "1GatRGXBk-YPU6lV9-OAn_U8cm0E7RR1H", titulo: "Te quiero lejos" },
-            { id: "1GvSkvsxfyE4yRtm9umq0dGBs9inwLPym", titulo: "Te quiero siempre" },
-            { id: "1Ha5RjsIFf2zx-OebtEPCHedjnWQRgxok", titulo: "Te quiero ahora" },
-            { id: "1HgkjSgl5VH5V8H9zFmWLEK_w-qB3V1tf", titulo: "Te quiero mañana" },
-            { id: "1Hh4xdS7LF1s-j43tny5Mxjb91PAF-1NJ", titulo: "Te quiero en sueños" },
-            { id: "1Hut1amMivAHfFQyNr6Pwli8OUEOLc3Oz", titulo: "Te quiero despierto" },
-            { id: "1I7Z0EASFxFcZeWccI2An9eazGA7XP3mH", titulo: "Te quiero en silencio" },
-            { id: "1IDDjdud0YpnKmyAYMXPWTS8VpzIjmmTg", titulo: "Te quiero en voz alta" },
-            { id: "1IFAYo1815BQwS_ykaOr_zsJ0lLVD_-_N", titulo: "Te quiero a tu lado" },
-            { id: "1IuAiGUnHeAtUrjgqhiHEdHZGM7aUegAa", titulo: "Te quiero en mi pecho" },
-            { id: "1JcJnmYqJ-yP_K6KYmbYkADTtwcS9CZfA", titulo: "Te quiero en mi mente" },
-            { id: "1K86KC4UeXqQSgyVMDpJy8GTlpNDrXuHh", titulo: "Te quiero en mi alma" },
-            { id: "1K8QpBV9_NPhPYaUWOFbyPF5ClrKQn70H", titulo: "Te quiero en mi piel" },
-            { id: "1KKZHoWZAPO4oKxUePsLvdP1UjPSZlPXe", titulo: "Te quiero en mis huesos" },
-            { id: "1LO1WmVT5JRKbMeIVZjGSSi340evGCMJ1", titulo: "Te quiero en mi sangre" }
+            { id: "1LW8XI2G6U-qxr0HFZtjaLaqffoCRu989", titulo: "Te quiero en mi ser" },
+            { id: "1LYIIJuC116k3gYgY51u4k1aCLXLhEnO2", titulo: "Te quiero en mis venas" },
+            { id: "1Ljczmk2XaJP9nHqaJZijX5bitapxo0eV", titulo: "Te quiero en mi risa" },
+            { id: "1LwwcqqZIM3vY_khsOerUonBChNZUdGWF", titulo: "Te quiero en mi llanto" },
+            { id: "1M1jt_KPtjHMq1skgeufKHMQBgzfaucvB", titulo: "Te quiero en mi silencio" },
+            { id: "1M9Zz7Un88mALRaHVNt-5RYZLPzKGb1sx", titulo: "Te quiero en mi grito" },
+            { id: "1MGys_2tasBeKBVkc1-j8AWZhncUCFW4n", titulo: "Te quiero en mi día" },
+            { id: "1MNISGIkn1MurHacPIAGY3ewq4fY1yGKu", titulo: "Te quiero en mi noche" },
+            { id: "1MgASpruV4pCXZekZwg2BZMlrVTT0Z_MV", titulo: "Te quiero en mi sueño" },
+            { id: "1Mm7W3oX4ZCRFfoQHJmiIPYmdNUz3PKVU", titulo: "Te quiero en mi realidad" },
+            { id: "1Mq4zY9U1a9JuGscZI8hSHV2b9lNmZ8c1", titulo: "Te quiero en mi vida" },
+            { id: "1NQH5QGcZNnfCskmxIn-lxaysylBMy2_F", titulo: "Te quiero en mi muerte" },
+            { id: "1O-sC-RQzY6BfE7ZREBJo31mK7cQ280bO", titulo: "Te quiero en mi eternidad" },
+            { id: "1OXal-mfmFZ-8UVW_V2exLBW93yupxk5X", titulo: "Te quiero en mi infinito" },
+            { id: "1P6KTASPiVUm6qGlIGwmtxPqw5OhdOHe3", titulo: "Te quiero en mi universo" },
+            { id: "1PBamUhSLFIeQSbzSvmZwB2xFxYGJy8Aj", titulo: "Te quiero en mi mundo" },
+            { id: "1POf0LGJfOBcq5p6krcs3A4sI8r_4RGiY", titulo: "Te quiero en mi corazón" },
+            { id: "1Pdkaedjxwwf1TvPcAQqFOIfjN-kmdeLc", titulo: "Te quiero en mi alma" },
+            { id: "1Q-O7v4X6IpwSDsoD7xpxtAGecedVJa-p", titulo: "Te quiero en mi mente" },
+            { id: "1Q4hv3OPUKFul6oSI2XR24LkI4jyIv9oB", titulo: "Te quiero en mi piel" },
+            { id: "1QMEbulDYntED6oM1Oc7OGXcSYRz5cOVf", titulo: "Te quiero en mis huesos" },
+            { id: "1QVdAAqOQvvHpHUziWWiksPqrnjLvVDnw", titulo: "Te quiero en mi sangre" },
+            { id: "1QwrP4Nauh5BuusXaiJ6yEJfpVvSq98Av", titulo: "Te quiero en mi ser" },
+            { id: "1R17e86ZmaXp9OWHFo_cFG-PztdJ3rxfQ", titulo: "Te quiero en mis venas" },
+            { id: "1RQE0cSXvGbHqn2lRaxbxIcaovI3EwFom", titulo: "Te quiero en mi risa" },
+            { id: "1S5YzXKSv85Dc9jzeLUmMsiBTef915Ism", titulo: "Te quiero en mi llanto" },
+            { id: "1S5lAIZsWkXq8f-yVAe6nUl5hgzIWP-nU", titulo: "Te quiero en mi silencio" },
+            { id: "1SG8lfgsQCkwpiHUFXjq5F8lsa5cM8rnp", titulo: "Te quiero en mi grito" },
+            { id: "1SSI6wdd0yMhKDeErIhLxhsqRPOUNN-vy", titulo: "Te quiero en mi día" },
+            { id: "1ShzWy9SSw8JEcP3QGhGmcs3RvbjXrZrl", titulo: "Te quiero en mi noche" },
+            { id: "1SukI6U8VeOp0QM5ztsk0csGZDOi2huR3", titulo: "Te quiero en mi sueño" },
+            { id: "1TBwVuJ3WXpSQo46QWiQQStYQaZHULfgn", titulo: "Te quiero en mi realidad" },
+            { id: "1TSLNCfvTE0iaNzw9vpXTSJZ_1tXIKQTV", titulo: "Te quiero en mi vida" },
+            { id: "1Ti6FDbbq97EgY13dyM2TnImrfGuNEvcZ", titulo: "Te quiero en mi muerte" },
+            { id: "1U7hRV2QwmR8nz27RaDhsa3qBAIz9uThw", titulo: "Te quiero en mi eternidad" },
+            { id: "1UheF9j1S837rufh1PPuvlypTWq7xz9bH", titulo: "Te quiero en mi infinito" },
+            { id: "1Ul1zTM6QspN5FyEjTeNIZh_bS3QTBCGm", titulo: "Te quiero en mi universo" },
+            { id: "1UvEj5Yn5h21wOjMnvsmsB35vr11Q_wAG", titulo: "Te quiero en mi mundo" },
+            { id: "1V80WmhzYZiAttnhj2GfzZOIKZklho0oM", titulo: "Te quiero en mi corazón" },
+            { id: "1W6ajpYf1q4nYUJbWhsinX2rTux9z13dN", titulo: "Te quiero en mi alma" },
+            { id: "1Wz2E-n9ztAWQSzIDyWSZLuZfAiuxVsQ1", titulo: "Te quiero en mi mente" },
+            { id: "1Xe8qd7NvgB5NPZtKYfHQCqD8iYrkbb76", titulo: "Te quiero en mi piel" },
+            { id: "1YRaKlj8zYSm-8WfQhmAGrrGy_Y2BKnlp", titulo: "Te quiero en mis huesos" },
+            { id: "1Ya8mXchwbXJf8UmT15jy8OznO608bqvL", titulo: "Te quiero en mi sangre" },
+            { id: "1YjEBY4qDCkHk89Nl8BLaib0XoqgUy9Ff", titulo: "Te quiero en mi ser" },
+            { id: "1YnU_1xYruzJHMo_6w37X175jpZTRi6GX", titulo: "Te quiero en mis venas" },
+            { id: "1Z1Z5fdRb3lZndpjx5UB_AgCILw3zWX-8", titulo: "Te quiero en mi risa" },
+            { id: "1a1XewS1Hf7FFQEWIYtYb5komrDO_jdUq", titulo: "Te quiero en mi llanto" },
+            { id: "1b-9Ad4x3VbsDSHAg9oIrn0g_rWdvCkqk", titulo: "Te quiero en mi silencio" },
+            { id: "1buhZuEvkIX1CEK2U9uM1f7qUrjIxbTnZ", titulo: "Te quiero en mi grito" },
+            { id: "1bvKKL3l8nXPPAS6BwrF2MWHwyg731RcH", titulo: "Te quiero en mi día" },
+            { id: "1cHt83AXMi7ZziIVuaoJnoL0FJQJyiMWD", titulo: "Te quiero en mi noche" },
+            { id: "1cQclCdb7QQaqWFip9eUFCf_GtsBTlgeF", titulo: "Te quiero en mi sueño" },
+            { id: "1caDuoZgAY1gMsGLYKey2K_Y6TVCi2LID", titulo: "Te quiero en mi realidad" },
+            { id: "1d7d9LEsI4kCVZWqXiBizanji33czQXSk", titulo: "Te quiero en mi vida" },
+            { id: "1dJngYBeflL8gUCMgI6CWqGni7HZ0FrMa", titulo: "Te quiero en mi muerte" },
+            { id: "1dNrz9DMFtyF50CjJ2-fCnQJ3bpJx-ia5", titulo: "Te quiero en mi eternidad" },
+            { id: "1dScd2tEXA47A1HIDjhMixm5mStiPAEfS", titulo: "Te quiero en mi infinito" },
+            { id: "1eB96blL_nCUVJJ_b0Lwp99ESTdvxAXZE", titulo: "Te quiero en mi universo" },
+            { id: "1eMWgWH8I9b2QwB5fam3EJ50lNi_uMpHi", titulo: "Te quiero en mi mundo" },
+            { id: "1edRl1E2AEXHRMLtLSTtjzVATlES3xHPC", titulo: "Te quiero en mi corazón" },
+            { id: "1ekngOB5ZmSvhuOb4M_u4lm07QdVMRcKL", titulo: "Te quiero en mi alma" },
+            { id: "1euDbqalvWeAbgKTStTzIkHZu6r4AdWna", titulo: "Te quiero en mi mente" },
+            { id: "1f-IXWtKUQdK2Xz3KQcgm96QjcVi8FhGN", titulo: "Te quiero en mi piel" },
+            { id: "1fwLi05E-5O6drbiLBoVX3rs2Bbkx19hS", titulo: "Te quiero en mis huesos" },
+            { id: "1fywo7rx3Td8u616ACP1rJWDrBmXxtgOM", titulo: "Te quiero en mi sangre" },
+            { id: "1ggC9FVPE9XDPa7ldHdZtho6cUniZvegx", titulo: "Te quiero en mi ser" },
+            { id: "1gjdVuCfUl_Pj0MuMs3Y24KFuMmUXNNZA", titulo: "Te quiero en mis venas" },
+            { id: "1hb2depAJDa7dP1X1L-UQphDfqFuQIsar", titulo: "Te quiero en mi risa" },
+            { id: "1hhqbkuiHiiv7dwNA0zNg4tQcu9Ub-dwk", titulo: "Te quiero en mi llanto" },
+            { id: "1hrGvWIv07vy-iBxfNbgHXMYNbLcx449a", titulo: "Te quiero en mi silencio" },
+            { id: "1iKST-PaQSkwwHcKbEL-cy_JgI98Xz44S", titulo: "Te quiero en mi grito" },
+            { id: "1ieIDX929xt0V3XeQXXIV0kJxqF78HL8e", titulo: "Te quiero en mi día" },
+            { id: "1iigFyHQ9HBAxKR83rBrfVsdyhKn8knl1", titulo: "Te quiero en mi noche" },
+            { id: "1j4aivVQL-LToDOFUXYtnQ9_zSxqEJrjc", titulo: "Te quiero en mi sueño" },
+            { id: "1jSb2OYpYc9BSCCPOEAypY5hpEnAS3uFE", titulo: "Te quiero en mi realidad" },
+            { id: "1jwbtKNhKN7NIqDzS6Tlv0j2QkrQr6BK4", titulo: "Te quiero en mi vida" },
+            { id: "1k6lOxIIeNGf8Abii8Z6QholWXIIcPXPz", titulo: "Te quiero en mi muerte" },
+            { id: "1kAfr2GMNxMQ-m6s8E_REmWP044-4nT2-", titulo: "Te quiero en mi eternidad" },
+            { id: "1kOEBCCYmHXDp9HdrRe39MkNMh1qXtiLv", titulo: "Te quiero en mi infinito" },
+            { id: "1kW5I9PJTS2JSOGlGQiqOJkDsIV76fdhd", titulo: "Te quiero en mi universo" },
+            { id: "1kXQvCz0VtJmXiUU5WRSCk-KGVJ9JCXRh", titulo: "Te quiero en mi mundo" },
+            { id: "1kjq1peU_6u0Foi-1f8KGdme_pGrFOhXV", titulo: "Te quiero en mi corazón" },
+            { id: "1kllcnW8lHPvNxdhlbk-1RKoWl3PlyBlP", titulo: "Te quiero en mi alma" },
+            { id: "1l4mSHYuLXwqZEpRZmQPZQA0jOqJNlXoG", titulo: "Te quiero en mi mente" },
+            { id: "1l511eWzr4ih9HCn3BL4NCvA0CHrXE2ss", titulo: "Te quiero en mi piel" },
+            { id: "1lGqhRb_3TzJEP99W9ptLCtGL08dzjNNh", titulo: "Te quiero en mis huesos" },
+            { id: "1lPjdxcdhRYNJ98qx8R_Cx8XiPpQHrIKv", titulo: "Te quiero en mi sangre" },
+            { id: "1lhwuyyRxBxkXQC9A-MFyLG90nhrUPazG", titulo: "Te quiero en mi ser" },
+            { id: "1mFWMLkookfGRRnlSwCBHvtKS-Ch0VqTc", titulo: "Te quiero en mis venas" },
+            { id: "1mUwkDW0k_fRTDO4l03HhDKjtSK0OiUd2", titulo: "Te quiero en mi risa" },
+            { id: "1nBn1xM__VqIo7ybRphwkMFjh4hJ_7fPK", titulo: "Te quiero en mi llanto" },
+            { id: "1oWvneQx6hcZoazvO5sBPSc2aNRGhfYNT", titulo: "Te quiero en mi silencio" },
+            { id: "1okiti97X0AHeYGVPUuAHKLU5uzlcNq9q", titulo: "Te quiero en mi grito" },
+            { id: "1pEU72b3R-8E7a9jN-JgaoJfMyeL67MgD", titulo: "Te quiero en mi día" },
+            { id: "1pTpdg1ZhtJ9WvximDvjtB_1wFDWaYRoI", titulo: "Te quiero en mi noche" },
+            { id: "1pndzF4Uik20cmgYik-ojE5UsXLlX3bbT", titulo: "Te quiero en mi sueño" },
+            { id: "1qBIYiGKEC7_zBfocpLxZHGSd22Yh5Zar", titulo: "Te quiero en mi realidad" },
+            { id: "1r1MMilISX9XNTZV7C_AXOptmmkkeo9oQ", titulo: "Te quiero en mi vida" },
+            { id: "1rymXEq8nWdTYSRKgcLDpQLxUSLRK2qZi", titulo: "Te quiero en mi muerte" },
+            { id: "1s4tZ3TOcEQmuiQzWNWpi1dSF9GbG3qOK", titulo: "Te quiero en mi eternidad" },
+            { id: "1sHAsGq7vMR4G8Tx3RGl2Ax56FCVMPWPx", titulo: "Te quiero en mi infinito" },
+            { id: "1sKkwCzw7tk32mrVtOXyqJVQyztRHslgn", titulo: "Te quiero en mi universo" },
+            { id: "1subNnlz7-Sln1ZK-9bFetGeHpgdb4Dkf", titulo: "Te quiero en mi mundo" },
+            { id: "1t22PLizFThSWqmPi_nxTYV4JxE0SyTCY", titulo: "Te quiero en mi corazón" },
+            { id: "1tQgy4CzRSRMhsZDE3YRuQUjXnXm2abqT", titulo: "Te quiero en mi alma" },
+            { id: "1u9R0VJHuetiZ5tox1vWUQWZK3WntvxoA", titulo: "Te quiero en mi mente" },
+            { id: "1uANbr19EIWbOYZ4d34UmLmOVANtMoeDb", titulo: "Te quiero en mi piel" },
+            { id: "1upZeiWfNe1CyxRkLlTvs02rUNxEWzODq", titulo: "Te quiero en mis huesos" },
+            { id: "1usOF62oXCE_oPGhI0bJqrmzyizPF_8Kn", titulo: "Te quiero en mi sangre" },
+            
         ];
 
-        const contenedorGaleria = document.getElementById('galeriaGrid');
+       const contenedorGaleria = document.getElementById('galeriaGrid');
 
         misRecuerdos.forEach((recuerdo, index) => {
             const num = index + 1;
@@ -1078,7 +962,7 @@ body::after {
             const titulo = recuerdo.titulo || 'Momento especial';
             const fecha = recuerdo.fecha || '✨';
 
-            // Busca esta parte en tu script y cámbiala por esto:
+            // ... dentro del bucle forEach:
 const cardHTML = `
     <div class="card">
         <div class="image-container">
@@ -1087,11 +971,12 @@ const cardHTML = `
         <div class="card-content">
             <h3 class="card-title">${titulo}</h3>
             <span class="card-date-badge">${fecha}</span>
-            <!-- CAMBIO AQUÍ: Usamos button en vez de <a> -->
+            <!-- CAMBIO: Botón sin href, usa un evento onclick -->
             <button class="btn-ver" onclick="document.getElementById('img-${num}').style.display = 'flex'">Ver recuerdo ✦</button>
         </div>
     </div>
 
+    <!-- CAMBIO: ID se mantiene, pero ya no necesitamos que sea un "target" -->
     <div id="img-${num}" class="lightbox" onclick="this.style.display = 'none'">
         <div class="lightbox-inner" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="document.getElementById('img-${num}').style.display = 'none'" aria-label="Cerrar">×</button>
@@ -1100,7 +985,8 @@ const cardHTML = `
         </div>
     </div>
 `;
-            contenedorGaleria.innerHTML += cardHTML;
+contenedorGaleria.innerHTML += cardHTML;
+
         });
 
         // ============================================================
