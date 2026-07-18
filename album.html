@@ -625,9 +625,7 @@
             }
         }
 
-        .lightbox:target {
-            display: flex;
-        }
+        
 
         .lightbox-inner {
             position: relative;
@@ -1039,31 +1037,30 @@
             const titulo = recuerdo.titulo || 'Momento especial';
             const fecha = recuerdo.fecha || '✨';
 
-            const cardHTML = `
-                <div class="card">
-                    <div class="image-container">
-                        <img class="drive-image"
-                             src="${url}"
-                             alt="${titulo}"
-                             loading="lazy"
-                             onerror="this.style.opacity='0.4'; this.style.filter='grayscale(40%)';"
-                        />
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${titulo}</h3>
-                        <span class="card-date-badge">${fecha}</span>
-                        <a href="#img-${num}" class="btn-ver">Ver recuerdo ✦</a>
-                    </div>
-                </div>
+            // ... dentro del bucle forEach:
+const cardHTML = `
+    <div class="card">
+        <div class="image-container">
+            <img class="drive-image" src="${url}" alt="${titulo}" loading="lazy" />
+        </div>
+        <div class="card-content">
+            <h3 class="card-title">${titulo}</h3>
+            <span class="card-date-badge">${fecha}</span>
+            <!-- CAMBIO: Botón sin href, usa un evento onclick -->
+            <button class="btn-ver" onclick="document.getElementById('img-${num}').style.display = 'flex'">Ver recuerdo ✦</button>
+        </div>
+    </div>
 
-                <div id="img-${num}" class="lightbox">
-                    <div class="lightbox-inner">
-                        <a href="#" class="close-btn" aria-label="Cerrar">×</a>
-                        <img class="lightbox-content" src="${url}" alt="${titulo}" loading="lazy" />
-                        <p class="lightbox-caption">${titulo} — ${fecha}</p>
-                    </div>
-                </div>
-            `;
+    <!-- CAMBIO: ID se mantiene, pero ya no necesitamos que sea un "target" -->
+    <div id="img-${num}" class="lightbox" onclick="this.style.display = 'none'">
+        <div class="lightbox-inner" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="document.getElementById('img-${num}').style.display = 'none'" aria-label="Cerrar">×</button>
+            <img class="lightbox-content" src="${url}" alt="${titulo}" loading="lazy" />
+            <p class="lightbox-caption">${titulo} — ${fecha}</p>
+        </div>
+    </div>
+`;
+contenedorGaleria.innerHTML += cardHTML;
             contenedorGaleria.innerHTML += cardHTML;
         });
 
@@ -1097,15 +1094,13 @@
         // ============================================================
         // 5. CIERRE DE LIGHTBOX CON ESC
         // ============================================================
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const abierto = document.querySelector('.lightbox:target');
-                if (abierto) {
-                    window.location.hash = '';
-                }
-            }
-        });
+        // Reemplaza tu sección 5 (Cierre con ESC) por esta:
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const abiertos = document.querySelectorAll('.lightbox[style*="display: flex"]');
+        abiertos.forEach(l => l.style.display = 'none');
+    }
+});
     </script>
 </body>
 </html>
-
