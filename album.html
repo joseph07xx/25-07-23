@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestra Historia ❤️ Eternidad</title>
+    <!-- Fuentes elegantes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+    rel="stylesheet"
+    />
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --morado-oscuro: #140a22;
+            --morado-profundo: #1f0f33;
+            --morado-medio: #3a1f5c;
+            --morado: #6b3fa0;
+            --morado-claro: #9b6fc0;
+            --lavanda: #d4bff0;
+            --lavanda-suave: #ede4f7;
+            --rosa: #f0d9e8;
+            --dorado: #c9a84c;
+            --dorado-claro: #e0cd8b;
+            --blanco: #fdf7fc;
+            --blanco-humo: #f5edfa;
+            --texto-claro: #d4c4e0;
+            --texto-medio: #b098c0;
+            --sombra: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --glass-bg: rgba(30, 15, 50, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --degradado-fondo: radial-gradient(ellipse at 30% 10%, #2d1b4a 0%, #140a22 70%);
+            --degradado-morado: linear-gradient(135deg, #6b3fa0, #9b6fc0, #d4bff0);
+            --degradado-dorado: linear-gradient(135deg, #c9a84c, #e0cd8b);
+            --transicion: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--degradado-fondo);
+            color: var(--texto-claro);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== FONDO CON ONDAS Y PARTÍCULAS ===== */
+        .fondo-ondas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fondo-ondas svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+        }
+
+        .particulas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particula {
+            position: absolute;
+            background: radial-gradient(circle, rgba(180, 140, 220, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: flotarParticula lineal infinito;
+        }
+
+        @keyframes flotarParticula {
+            0% {
+                transform: translateY(100vh) scale(0.2) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 60px;
+            margin: 20px auto 40px;
+            max-width: 1100px;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+            transition: var(--transicion);
+        }
+
+        .navbar:hover {
+            border-color: rgba(180, 140, 220, 0.3);
+        }
+
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
+            background: var(--degradado-dorado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            -webkit-text-fill-color: var(--dorado);
+            font-weight: 700;
+        }
+
+        .nav-enlaces {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-enlaces a {
+            color: var(--texto-claro);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: var(--transicion);
+            position: relative;
+        }
+
+        .nav-enlaces a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--degradado-dorado);
+            transition: width 0.4s ease;
+        }
+
+        .nav-enlaces a:hover {
+            color: var(--dorado-claro);
+        }
+
+        .nav-enlaces a:hover::after {
+            width: 100%;
+        }
+
+        .nav-corazon {
+            font-size: 1.4rem;
+            animation: latido 1.8s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes latido {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(1.25);
+            }
+            40% {
+                transform: scale(1);
+            }
+            60% {
+                transform: scale(1.15);
+            }
+            80% {
+                transform: scale(1);
+            }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 50px;
+            position: relative;
+        }
+
+        .hero-ornamento {
+            font-size: 2.8rem;
+            letter-spacing: 10px;
+            opacity: 0.3;
+            margin-bottom: 6px;
+            color: var(--lavanda);
+        }
+
+        .hero-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.2rem, 8vw, 5.5rem);
+            font-weight: 600;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            animation: aparecerTitulo 1.2s ease-out;
+        }
+
+        @keyframes aparecerTitulo {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .hero-subtitulo {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            color: var(--lavanda);
+            margin-top: 8px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            animation: aparecerSub 1.6s ease-out;
+        }
+
+        @keyframes aparecerSub {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-deco {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.6rem;
+            color: var(--dorado-claro);
+            opacity: 0.5;
+            margin-bottom: 10px;
+        }
+
+        /* ===== CONTADOR DE TIEMPO (TARJETAS FLIP) ===== */
+        .seccion-contador {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 40px 30px;
+            margin: 30px auto 60px;
+            max-width: 1100px;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+        }
+
+        .seccion-contador:hover {
+            border-color: rgba(180, 140, 220, 0.3);
+        }
+
+        .contador-titulo {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--dorado-claro);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .contador-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 16px;
+            justify-items: center;
+        }
+
+        .tarjeta-tiempo {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 18px 12px;
+            text-align: center;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: var(--transicion);
+            backdrop-filter: blur(4px);
+        }
+
+        .tarjeta-tiempo:hover {
+            transform: translateY(-6px);
+            border-color: var(--morado-claro);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .tarjeta-tiempo .numero {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--degradado-dorado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .tarjeta-tiempo .etiqueta {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--texto-medio);
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        .contador-segundos-total {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 1rem;
+            color: var(--texto-medio);
+        }
+
+        .contador-segundos-total span {
+            color: var(--dorado-claro);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* ===== SEPARADOR ===== */
+        .separador {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px auto 40px;
+            font-size: 1.2rem;
+            color: var(--lavanda);
+            opacity: 0.25;
+        }
+
+        .separador-linea {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--lavanda), transparent);
+        }
+
+        /* ===== GALERÍA ===== */
+        .galeria-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .galeria-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .galeria-header p {
+            color: var(--texto-medio);
+            font-size: 1.1rem;
+            margin-top: 6px;
+        }
+
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 28px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+
+        @media (max-width: 1000px) {
+            .gallery-grid {
+                column-count: 2;
+                column-gap: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                column-count: 1;
+                gap: 20px;
+            }
+            .navbar {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+                padding: 14px 20px;
+            }
+            .nav-enlaces {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .contador-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .tarjeta-tiempo .numero {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===== TARJETA DE FOTO ===== */
+        .card {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 28px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transition: var(--transicion);
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(107, 63, 160, 0.15), rgba(180, 140, 220, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.01);
+            border-color: rgba(180, 140, 220, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .image-container {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 18px;
+            position: relative;
+            background: #1a0b2e;
+        }
+
+        .image-container::after {
+            content: '❤️';
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            font-size: 1.8rem;
+            opacity: 0;
+            z-index: 3;
+            transition: var(--transicion);
+            filter: drop-shadow(0 0 10px rgba(200, 100, 200, 0.5));
+            pointer-events: none;
+        }
+
+        .card:hover .image-container::after {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+
+        .drive-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+            border-radius: 18px;
+            filter: brightness(1.02) saturate(1.05);
+        }
+
+        .card:hover .drive-image {
+            transform: scale(1.05);
+            filter: brightness(1.08) saturate(1.1);
+        }
+
+        .card-content {
+            padding: 16px 8px 8px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .card-date-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--texto-medio);
+            letter-spacing: 0.5px;
+            padding: 4px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 12px;
+        }
+
+        .btn-ver {
+            display: inline-block;
+            background: transparent;
+            color: var(--dorado-claro);
+            padding: 8px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border: 1.5px solid rgba(201, 168, 76, 0.3);
+            transition: var(--transicion);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-ver::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--degradado-dorado);
+            opacity: 0;
+            border-radius: 40px;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-ver:hover {
+            color: #140a22;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 168, 76, 0.2);
+        }
+
+        .btn-ver:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(10, 4, 20, 0.96);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            animation: fadeInLight 0.4s ease;
+        }
+
+        @keyframes fadeInLight {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .lightbox:target {
+            display: flex;
+        }
+
+        .lightbox-inner {
+            position: relative;
+            max-width: 92%;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-content {
+            max-width: 100%;
+            max-height: 78vh;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 80px rgba(107, 63, 160, 0.3);
+            object-fit: contain;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            color: var(--texto-claro);
+            font-size: 44px;
+            text-decoration: none;
+            transition: var(--transicion);
+            line-height: 1;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.12);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-caption {
+            color: var(--lavanda);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            margin-top: 14px;
+            text-align: center;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* ===== SECCIÓN DE FRASES ===== */
+        .seccion-frases {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 40px 30px;
+            margin: 50px auto 60px;
+            max-width: 1000px;
+            box-shadow: var(--sombra);
+            text-align: center;
+            transition: var(--transicion);
+        }
+
+        .seccion-frases:hover {
+            border-color: rgba(180, 140, 220, 0.2);
+        }
+
+        .frase-rotatoria {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            color: var(--lavanda);
+            font-weight: 400;
+            min-height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .frase-autor {
+            color: var(--texto-medio);
+            font-size: 1rem;
+            margin-top: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 30px 20px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 40px;
+            color: var(--texto-medio);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .footer .corazon {
+            color: var(--dorado-claro);
+            display: inline-block;
+            animation: latido 1.6s ease-in-out infinite;
+        }
+
+        .footer-deco {
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            color: var(--lavanda);
+            opacity: 0.15;
+            margin-bottom: 8px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #140a22;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--morado);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--morado-claro);
+        }
+
+        /* ===== ANIMACIONES ADICIONALES ===== */
+        @keyframes brillo {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .brillo-sutil {
+            animation: brillo 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== FONDO ONDAS ===== -->
+    <div class="fondo-ondas" aria-hidden="true">
+        <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
+            <path fill="rgba(107,63,160,0.08)" d="M0,300 C360,100 720,500 1080,200 C1260,100 1380,300 1440,250 L1440,600 L0,600 Z" />
+            <path fill="rgba(180,140,220,0.05)" d="M0,400 C300,250 600,550 900,300 C1100,200 1300,400 1440,350 L1440,600 L0,600 Z" />
+        </svg>
+    </div>
+
+    <!-- ===== PARTÍCULAS ===== -->
+    <div class="particulas" id="particulas" aria-hidden="true"></div>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <div class="main-wrapper">
+
+        <!-- ===== NAVBAR ===== -->
+        <nav class="navbar">
+            <div class="logo">✨ <span>Nosotros</span></div>
+            <div class="nav-enlaces">
+                <a href="#contador">Tiempo</a>
+                <a href="#galeria">Recuerdos</a>
+                <a href="#frases">Poesía</a>
+                <span class="nav-corazon">💜</span>
+            </div>
+        </nav>
+
+        <!-- ===== HERO ===== -->
+        <header class="hero" id="inicio">
+            <div class="hero-ornamento">✦ ✦ ✦</div>
+            <h1 class="hero-titulo">Nuestra Historia</h1>
+            <p class="hero-subtitulo">Cada instante contigo es un verso eterno</p>
+            <div class="hero-deco">
+                <span>🪷</span>
+                <span>✦</span>
+                <span>💫</span>
+                <span>✦</span>
+                <span>🪷</span>
+            </div>
+        </header>
+
+        <!-- ===== CONTADOR ===== -->
+        <section class="seccion-contador" id="contador">
+            <h2 class="contador-titulo">💜 Tiempo de amor incondicional</h2>
+            <div class="contador-grid" id="contadorGrid">
+                <div class="tarjeta-tiempo"><div class="numero" id="anos">0</div><div class="etiqueta">Años</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="meses">0</div><div class="etiqueta">Meses</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="dias">0</div><div class="etiqueta">Días</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="horas">0</div><div class="etiqueta">Horas</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="minutos">0</div><div class="etiqueta">Minutos</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="segundos">0</div><div class="etiqueta">Segundos</div></div>
+            </div>
+            <div class="contador-segundos-total">
+                ✦ <span id="totalSegundos">0</span> segundos de felicidad ✦
+            </div>
+        </section>
+
+        <!-- ===== SEPARADOR ===== -->
+        <div class="separador">
+            <span class="separador-linea"></span>
+            <span>🪷</span>
+            <span class="separador-linea"></span>
+        </div>
+
+        <!-- ===== GALERÍA ===== -->
+        <section id="galeria">
+            <div class="galeria-header">
+                <h2>✨ Nuestros instantes eternos</h2>
+                <p>Cada foto guarda un pedacito de nuestro universo</p>
+            </div>
+            <div class="gallery-grid" id="galeriaGrid"></div>
+        </section>
+
+        <!-- ===== FRASES ===== -->
+        <section class="seccion-frases" id="frases">
+            <div class="frase-rotatoria" id="fraseRotatoria">"El amor no se mira, se siente."</div>
+            <div class="frase-autor">— Poesía compartida</div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="footer-deco">✦ ✦ ✦</div>
+            <p>Hecho con <span class="corazon">❤️</span> para ti, mi razón de ser</p>
+            <p style="font-size:0.7rem; opacity:0.3; margin-top:6px;">Por siempre nosotros • 2026</p>
+        </footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ===== SCRIPT ===== -->
+    <script>
+        // ============================================================
+        // 1. PARTÍCULAS
+        // ============================================================
+        (function crearParticulas() {
+            const contenedor = document.getElementById('particulas');
+            const cant = 35;
+            for (let i = 0; i < cant; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particula');
+                const size = Math.random() * 60 + 20;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (Math.random() * 25 + 20) + 's';
+                p.style.animationDelay = (Math.random() * 20) + 's';
+                p.style.opacity = Math.random() * 0.2 + 0.05;
+                contenedor.appendChild(p);
+            }
+        })();
+
+        // ============================================================
+        // 2. CONTADOR DE TIEMPO
+        // ============================================================
+        const fechaInicio = new Date(2023, 6, 25, 0, 0, 0);
+
+        function actualizarContador() {
+            const ahora = new Date();
+            const diffMs = ahora - fechaInicio;
+            const totalSeg = Math.floor(diffMs / 1000);
+
+            let anos = ahora.getFullYear() - fechaInicio.getFullYear();
+            let meses = ahora.getMonth() - fechaInicio.getMonth();
+            let dias = ahora.getDate() - fechaInicio.getDate();
+            let horas = ahora.getHours() - fechaInicio.getHours();
+            let minutos = ahora.getMinutes() - fechaInicio.getMinutes();
+            let segundos = ahora.getSeconds() - fechaInicio.getSeconds();
+
+            if (segundos < 0) { segundos += 60;
+                minutos--; }
+            if (minutos < 0) { minutos += 60;
+                horas--; }
+            if (horas < 0) { horas += 24;
+                dias--; }
+            if (dias < 0) {
+                const ultimoDia = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+                dias += ultimoDia;
+                meses--;
+            }
+            if (meses < 0) { meses += 12;
+                anos--; }
+
+            document.getElementById('anos').textContent = anos;
+            document.getElementById('meses').textContent = meses;
+            document.getElementById('dias').textContent = dias;
+            document.getElementById('horas').textContent = horas;
+            document.getElementById('minutos').textContent = minutos;
+            document.getElementById('segundos').textContent = segundos;
+            document.getElementById('totalSegundos').textContent = totalSeg.toLocaleString('es-ES');
+        }
+
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
+
+        // ============================================================
+        // 3. GALERÍA (RECUERDOS)
+        // ============================================================
+        const misRecuerdos = [
+            { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", titulo: "Nuestro comienzo", fecha: "2023" },
+            { id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", titulo: "Mirada que enamora", fecha: "Agosto 2023" },
+            { id: "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL", titulo: "Atardecer juntos", fecha: "Septiembre 2023" },
+            { id: "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc", titulo: "Sonrisas sinceras", fecha: "Octubre 2024" },
+            { id: "1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-", titulo: "Día perfecto", fecha: "Marzo 2024" },
+            { id: "1-h7ptg3yhupm7dLHLK9gH5LrBBTPXWp7", titulo: "Abrazo eterno", fecha: "Febrero 2024" },
+            { id: "1y783ZM6d33rc9igv2be9m0XrKYtVxbUc", titulo: "Noche mágica", fecha: " 2024" },
+            { id: "1hIsX0LY2SP3QhoxG2fRM0f6sCy6UVAHj", titulo: "Complicidad", fecha: "Septiembre 2023" },
+            { id: "1FjWFkhHRK7_mF4zUXPp7oZRUAQdxl1GT", titulo: "Destino", fecha: "Marzo 2024" },
+            { id: "1Uw1HEWmzd135g4ysusOsi7JLywbLvkHL", titulo: "Refugio", fecha: "Octubre 2023" },
+            { id: "1RXWuiyqGiOGqsxS5yBdQiOIJeMZ4qCFO", titulo: "Instante único", fecha: "2023" },
+            { id: "1LoqaGb3mk8SsdLgkS6KsIQR190QQbmC0", titulo: "Ternura pura", fecha: "2023" },
+            { id: "17EcqwTl7ZgE142WlcI2bSmDBQntQTH5E", titulo: "Risas", fecha: "2023" },
+            { id: "12cFguQajr9ykc5qy0QrmU4Cwq09jqYMf", titulo: "Luz en tus ojos", fecha: "2023" },
+            { id: "10mM0Lyu8vqGp33kIiXKGsGzcO0bAvxJV", titulo: "Sueños compartidos", fecha: "2023" },
+            { id: "1kZ9f5t4D1Z9k2-NJdHM89DwWg-GXQWbQ", titulo: "Juntos", fecha: "2023" },
+            { id: "1-xA0VinFW8UhhQoZWorheYQaOnsk-1EU", titulo: "Amor verdadero", fecha: "2024" },
+            { id: "1aYPNq6lD-n9LRhe2-P_tg1c6DRyutqsp", titulo: "Recuerdo dorado", fecha: "Febrero 2024" },
+            { id: "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp", titulo: "Otoño juntos", fecha: "Noviembre 2023" },
+            { id: "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf", titulo: "Primavera", fecha: "Abril 2024" },
+            { id: "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8", titulo: "Eres mi hogar", fecha: "Abril 2024" },
+            { id: "1GwMRtG-r-DlRdRyZL_h5EJBTXGhrddZE", titulo: "Marzo especial", fecha: "Marzo 2024" },
+            { id: "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l", titulo: "Abril contigo", fecha: "Abril 2024" },
+            { id: "12uhLUJBGFEZRTlekdv54mJuROemFiXs9", titulo: "Eres todo", fecha: "Abril 2024" },
+            { id: "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6", titulo: "Instante bello", fecha: "2024" },
+            { id: "12usQeIxSrt2Mm3Uwsd5q3Pig879XL1AC", titulo: "Calma", fecha: "2024" },
+            { id: "13C45n0Zpxtwx_tBD95-faoNJN7E5SS3B", titulo: "Alegría", fecha: "2024" },
+            { id: "13OECDw5pLX0GoLqhwZiaaRwLU028j-f-", titulo: "Paz a tu lado", fecha: "2024" },
+            { id: "13tpM0Y-cZFwtfx8OQ7elltM8uNQ6kixE", titulo: "Eres luz", fecha: "2024" },
+            { id: "154AxMngzxmcU499NhST8rqgYYELdrUV-", titulo: "Mi persona", fecha: "2024" },
+            { id: "15ZsZScL-ve9taB0R3qt7RDVRXU6_iwin", titulo: "Siempre", fecha: "2025" },
+            { id: "15wEUbxPRhX2sUEtw9t4VIiN0Tcqh6HuV", titulo: "Contigo", fecha: "2025" },
+            { id: "16kD_b7QgxVq4j-cWoDHKgtB9DXgT5wLF", titulo: "Universo nuestro", fecha: "2025" },
+            { id: "17MyIWxYotdnzEae95mPc0rvzzaMsd8Ip", titulo: "Eres magia", fecha: "2025" },
+            { id: "18_9byESKd8A9VU_AaQefjBAZdCV0utyG", titulo: "Corazón latiendo", fecha: "2025" },
+            { id: "18auW03EmZzd16HnOeuNAmC-0Hcldo6qO", titulo: "Días felices", fecha: "2025" },
+            { id: "193jW-umS6YeTiAbSwzkGR00KBbN1hkZs", titulo: "Noches", fecha: "2025" },
+            { id: "1AMBnW_-lXIjmRblyX22JO706GfxZGhtV", titulo: "Estrellas", fecha: "2025" },
+            { id: "1Cj49txzrFOH352gscUQyqXnyjBcBWYys", titulo: "Suspiros", fecha: "2024" },
+            { id: "1Dl_BrttB7I4ejNp-dFOc8mwvB43cuUy_", titulo: "Latido", fecha: "2025" },
+            { id: "1DrTUZTzSSCs9AOUG7NybpXCC9Tn5cuyH", titulo: "Eres sueño", fecha: "2025" },
+            { id: "1EIHypsZ-Molo07ncg4GwdlcfsDm_ihsv", titulo: "Realidad", fecha: "2025" },
+            { id: "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L", titulo: "Bendición", fecha: "2025" },
+            { id: "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS", titulo: "Regalo", fecha: "2025" },
+            { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
+            { id: "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_", titulo: "Perla", fecha: "2025" },
+            { id: "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t", titulo: "Diamante", fecha: "2025" },
+            { id: "1HWydhbUqm0w7-cwbEvn8jzVa2g3Sh0eW", titulo: "Rubí", fecha: "2025" },
+            { id: "1HXNTni0bZbfRWbWfpiECkNN9GMfvG3dt", titulo: "Zafiro", fecha: "2025" },
+            { id: "1Hn0lUiwH9HK-tLX60CCPY0J8MVWyUbDc", titulo: "Esmeralda", fecha: "2025" },
+            { id: "1JzUhCmRV13t3gBgc2zZKUFj3K0H79Etf", titulo: "Topacio", fecha: "2025" },
+            { id: "1K05XnWZ0djY9hKd9Aux7p6FpDfsgz44t", titulo: "Amatista", fecha: "2025" },
+            { id: "1KGZ3EgtT3MYKGjWQyIo--51vj8n1mFUI", titulo: "Cuarzo rosa", fecha: "2025" },
+            { id: "1KQ7GVmBpbphhV74sCMtg6Ofe5cML0Y2D", titulo: "Jade", fecha: "2025" },
+            { id: "1KybgRTrG7ZubIcjoDSzb15_JNJTJpkbc", titulo: "Ópalo", fecha: "2025" },
+            { id: "1LMcnHC5yF-p4cD8wxIeOOjksTPv4CAVa", titulo: "Turquesa", fecha: "2025" },
+            { id: "1LeI-_xynVSpqGwhjZckgGfcvDPzGare_", titulo: "Lapislázuli", fecha: "2025" },
+            { id: "1M-3DoHhw6_TcKlcimCkRKq_GBVzxCz55", titulo: "Ámbar", fecha: "2025" },
+            { id: "1M7vwn9RN0qg1gK07I3KmbiwocfvvVxWO", titulo: "Coral", fecha: "2025" },
+            { id: "1NCmqa2idy_n0VIhQWAcaOv3BT9_RoZKM", titulo: "Nácar", fecha: "2025" },
+            { id: "1SV1RXacphAOd_PBPwnNaHACMBs9VdkJQ", titulo: "Marfil", fecha: "2025" },
+            { id: "1WwpEJ0xN-TH21dmMT76qMMPacrBhovkp", titulo: "Seda", fecha: "2024" },
+            { id: "1YMJRD3zua6KS3IMvlnOeTJ1lljX2Wm5m", titulo: "Terciopelo", fecha: "2025" },
+            { id: "1YfjEEAIHluwhmJLrKSKgs2ndor8HQKK_", titulo: "Encaje", fecha: "2025" },
+            { id: "1ZJsrpUmEntqyg0Bi9NYw6xlVQVke0qgq", titulo: "Susurro", fecha: "2025" },
+            { id: "1ZSc6ZgF0Q9g1O3tClZ6EeuhsmlpCpNw1", titulo: "Melodía", fecha: "2025" },
+            { id: "1am_Q7Isyn9K2kEYUFeR7iFNLeQL9IVcq", titulo: "Armonía", fecha: "2025" },
+            { id: "1bO7EJkx07aiFsBmuyJu4ChEE_YbbH271", titulo: "Sinfonía", fecha: "2025" },
+            { id: "1dETq6y8wNtridMk3-SQLLQmnVRDUPkW3", titulo: "Poesía", fecha: "2025" },
+            { id: "1dNyEoGxA_qVG7kxwsjDm-dP0cxjMiEGk", titulo: "Verso", fecha: "2025" },
+            { id: "1e6JoAGWv0rjbqumugOE60wRL0IrjuUzH", titulo: "Rima", fecha: "2025" },
+            { id: "1euFC7s6vTcE4qVKlIVyZdBzFsWFvvisa", titulo: "Estrofa", fecha: "2025" },
+            { id: "1gmwhEwy1tuWsN_UVvV1_a6ImmFY6bTCc", titulo: "Capítulo", fecha: "2025" },
+            { id: "1jzW6JpuorRkHtunkSsgugtlgFnDnqyh2", titulo: "Página", fecha: "2025" },
+            { id: "1raURod2CDejJ4z27MRp6ZyN4zA9hkliu", titulo: "Tinta", fecha: "2024" },
+            { id: "1rhdwjxZ2G2r6yglLSVOJKWMD8tfcmz7m", titulo: "Pluma", fecha: "2025" },
+            { id: "1sL2vDOhNqwB3eSJ-xfFzOlVUG-QynAII", titulo: "Carta", fecha: "2025" },
+            { id: "1sQy4U96PkSsfJxdAjaV9ESIDmJtseITi", titulo: "Sobre", fecha: "2024" },
+            { id: "1tHjGxG5BDemPEYiv84ytGSUcWFVKWoJc", titulo: "Sello", fecha: "2024" },
+            { id: "1towosIbi-GSdBp87a195-jmXeGQgbrx3", titulo: "Lacre", fecha: "2024" },
+            { id: "1u5KrA4Xg6erBkkA1A73rg5AHe928Wjbt", titulo: "Cinta", fecha: "2024" },
+            { id: "1uPJNqlBHWM1bPp2RfxNdQOpUHnhaWi1V", titulo: "Lazo", fecha: "2024" },
+            { id: "1vg9FJepBIttjQVFJIPhzh2N7EeWO79Jy", titulo: "Nudo", fecha: "2024" },
+            { id: "1wr43q4qxY5INtBVfxPX1vU-18kml6QzZ", titulo: "Eternidad", fecha: "2024" }
+        ];
+
+        const contenedorGaleria = document.getElementById('galeriaGrid');
+
+        misRecuerdos.forEach((recuerdo, index) => {
+            const num = index + 1;
+            const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1000`;
+            const titulo = recuerdo.titulo || 'Momento especial';
+            const fecha = recuerdo.fecha || '✨';
+
+            const cardHTML = `
+                <div class="card">
+                    <div class="image-container">
+                        <img class="drive-image"
+                             src="${url}"
+                             alt="${titulo}"
+                             loading="lazy"
+                             onerror="this.style.opacity='0.4'; this.style.filter='grayscale(40%)';"
+                        />
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${titulo}</h3>
+                        <span class="card-date-badge">${fecha}</span>
+                        <a href="#img-${num}" class="btn-ver">Ver recuerdo ✦</a>
+                    </div>
+                </div>
+
+                <div id="img-${num}" class="lightbox">
+                    <div class="lightbox-inner">
+                        <a href="#" class="close-btn" aria-label="Cerrar">×</a>
+                        <img class="lightbox-content" src="${url}" alt="${titulo}" loading="lazy" />
+                        <p class="lightbox-caption">${titulo} — ${fecha}</p>
+                    </div>
+                </div>
+            `;
+            contenedorGaleria.innerHTML += cardHTML;
+        });
+
+        // ============================================================
+        // 4. FRASES ROTATORIAS
+        // ============================================================
+        const frases = [
+            '"El amor no se mira, se siente."',
+            '"Eres la razón de mi sonrisa más sincera."',
+            '"Contigo, el tiempo es solo un susurro."',
+            '"Cada latido lleva tu nombre."',
+            '"Tu amor es mi lugar favorito en el mundo."',
+            '"Eres poesía hecha persona."',
+            '"La eternidad no es suficiente para amarte."'
+        ];
+
+        let indiceFrase = 0;
+        const elFrase = document.getElementById('fraseRotatoria');
+
+        function cambiarFrase() {
+            elFrase.style.opacity = '0';
+            setTimeout(() => {
+                indiceFrase = (indiceFrase + 1) % frases.length;
+                elFrase.textContent = frases[indiceFrase];
+                elFrase.style.opacity = '1';
+            }, 400);
+        }
+
+        setInterval(cambiarFrase, 4500);
+
+        // ============================================================
+        // 5. CIERRE DE LIGHTBOX CON ESC
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const abierto = document.querySelector('.lightbox:target');
+                if (abierto) {
+                    window.location.hash = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
