@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestros Videos ❤️ Eternidad</title>
+    <!-- Fuentes elegantes (carga optimizada) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --morado-oscuro: #0a0618;
+            --morado-profundo: #160a2b;
+            --morado-medio: #3a1f5c;
+            --morado: #7b4db5;
+            --morado-claro: #b088d6;
+            --lavanda: #d4bff0;
+            --lavanda-suave: #ede4f7;
+            --rosa: #f0d9e8;
+            --dorado: #d4af37;
+            --dorado-claro: #f0d68a;
+            --blanco: #fdf7fc;
+            --texto-claro: #d4c4e0;
+            --texto-medio: #b098c0;
+            --sombra: 0 8px 40px rgba(0, 0, 0, 0.7);
+            --glass-bg: rgba(20, 8, 40, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --degradado-fondo: radial-gradient(ellipse at 30% 10%, #2d1b4a 0%, #0a0618 80%);
+            --degradado-morado: linear-gradient(135deg, #7b4db5, #b088d6, #d4bff0);
+            --degradado-dorado: linear-gradient(135deg, #d4af37, #f0d68a);
+            --transicion: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--degradado-fondo);
+            color: var(--texto-claro);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== FONDO ONDAS (SVG inline) ===== */
+        .fondo-ondas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .fondo-ondas svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.12;
+        }
+
+        /* ===== PARTÍCULAS (con canvas para mejor rendimiento) ===== */
+        #particulas-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 28px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 60px;
+            margin: 20px auto 40px;
+            max-width: 1100px;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 16px;
+            z-index: 100;
+            transition: border-color var(--transicion);
+        }
+        .navbar:hover {
+            border-color: rgba(180, 140, 220, 0.3);
+        }
+        .logo {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
+            background: var(--degradado-dorado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            -webkit-text-fill-color: var(--dorado);
+            font-weight: 700;
+        }
+        .nav-enlaces {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+        .nav-enlaces a {
+            color: var(--texto-claro);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: color var(--transicion);
+            position: relative;
+        }
+        .nav-enlaces a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--degradado-dorado);
+            transition: width 0.4s ease;
+        }
+        .nav-enlaces a:hover {
+            color: var(--dorado-claro);
+        }
+        .nav-enlaces a:hover::after {
+            width: 100%;
+        }
+        .nav-corazon {
+            font-size: 1.4rem;
+            animation: latido 1.8s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.25); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.15); }
+            80% { transform: scale(1); }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 40px 20px 50px;
+            position: relative;
+        }
+        .hero-ornamento {
+            font-size: 2.8rem;
+            letter-spacing: 10px;
+            opacity: 0.3;
+            margin-bottom: 6px;
+            color: var(--lavanda);
+        }
+        .hero-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.2rem, 8vw, 5.5rem);
+            font-weight: 600;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            animation: aparecerTitulo 1.2s ease-out;
+        }
+        @keyframes aparecerTitulo {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .hero-subtitulo {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            color: var(--lavanda);
+            margin-top: 8px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            animation: aparecerSub 1.6s ease-out;
+        }
+        @keyframes aparecerSub {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-deco {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.6rem;
+            color: var(--dorado-claro);
+            opacity: 0.5;
+            margin-bottom: 10px;
+        }
+
+        /* ===== CONTADOR ===== */
+        .seccion-contador {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 40px 30px;
+            margin: 30px auto 60px;
+            max-width: 1100px;
+            box-shadow: var(--sombra);
+            transition: border-color var(--transicion);
+        }
+        .seccion-contador:hover {
+            border-color: rgba(180, 140, 220, 0.3);
+        }
+        .contador-titulo {
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--dorado-claro);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .contador-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 16px;
+            justify-items: center;
+        }
+        .tarjeta-tiempo {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 18px 12px;
+            text-align: center;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform var(--transicion), border-color var(--transicion);
+            backdrop-filter: blur(4px);
+            perspective: 600px;
+        }
+        .tarjeta-tiempo:hover {
+            transform: translateY(-6px);
+            border-color: var(--morado-claro);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .tarjeta-tiempo .numero {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: var(--degradado-dorado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            will-change: transform;
+        }
+        .tarjeta-tiempo:hover .numero {
+            transform: scale(1.1) rotateX(10deg);
+        }
+        .tarjeta-tiempo .etiqueta {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--texto-medio);
+            font-weight: 400;
+            margin-top: 4px;
+        }
+        .contador-segundos-total {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 1rem;
+            color: var(--texto-medio);
+        }
+        .contador-segundos-total span {
+            color: var(--dorado-claro);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* ===== SEPARADOR ===== */
+        .separador {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px auto 40px;
+            font-size: 1.2rem;
+            color: var(--lavanda);
+            opacity: 0.25;
+        }
+        .separador-linea {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--lavanda), transparent);
+        }
+
+        /* ===== GALERÍA ===== */
+        .galeria-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .galeria-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+        .galeria-header p {
+            color: var(--texto-medio);
+            font-size: 1.1rem;
+            margin-top: 6px;
+        }
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 28px;
+            width: auto;
+            margin: 0 auto;
+            padding: 0 10px 30px;
+        }
+        @media (max-width: 1000px) {
+            .gallery-grid { column-count: 2; column-gap: 20px; }
+        }
+        @media (max-width: 600px) {
+            .gallery-grid { column-count: 1; gap: 20px; }
+            .navbar { flex-wrap: wrap; justify-content: center; gap: 12px; padding: 14px 20px; }
+            .nav-enlaces { gap: 16px; flex-wrap: wrap; justify-content: center; }
+            .contador-grid { grid-template-columns: repeat(3, 1fr); }
+            .tarjeta-tiempo .numero { font-size: 2rem; }
+        }
+
+        /* ===== TARJETA DE VIDEO ===== */
+        .card {
+            display: block;
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 28px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            will-change: transform;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(123, 77, 181, 0.2), rgba(180, 140, 220, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(180, 140, 220, 0.4);
+            box-shadow: 0 20px 60px rgba(123, 77, 181, 0.3);
+        }
+        .card:hover::before {
+            opacity: 1;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 18px;
+            background: #0a0618;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 18px;
+        }
+        .card-content {
+            padding: 16px 8px 8px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+        .card-date-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: var(--texto-medio);
+            letter-spacing: 0.5px;
+            padding: 4px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 12px;
+        }
+        .btn-ver {
+            display: inline-block;
+            background: transparent;
+            color: var(--dorado-claro);
+            padding: 8px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border: 1.5px solid rgba(212, 175, 55, 0.3);
+            transition: color var(--transicion), border-color var(--transicion), transform var(--transicion), box-shadow var(--transicion);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background: transparent;
+            z-index: 1;
+        }
+        .btn-ver::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--degradado-dorado);
+            opacity: 0;
+            border-radius: 40px;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+        .btn-ver:hover {
+            color: #0a0618;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        .btn-ver:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(10, 6, 24, 0.96);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            animation: fadeInLight 0.4s ease;
+        }
+        @keyframes fadeInLight {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .lightbox-inner {
+            position: relative;
+            width: 95vw;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: zoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .lightbox-video {
+            width: 95vw;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 0 80px rgba(123, 77, 181, 0.3);
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+        .close-btn {
+            position: absolute;
+            top: -50px;
+            right: -10px;
+            color: var(--texto-claro);
+            font-size: 44px;
+            text-decoration: none;
+            transition: transform var(--transicion), background var(--transicion);
+            line-height: 1;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.12);
+            transform: rotate(90deg);
+        }
+        .lightbox-caption {
+            color: var(--lavanda);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            margin-top: 14px;
+            text-align: center;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        /* ===== FRASES ===== */
+        .seccion-frases {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 40px 30px;
+            margin: 50px auto 60px;
+            max-width: 1000px;
+            box-shadow: var(--sombra);
+            text-align: center;
+            transition: border-color var(--transicion);
+        }
+        .seccion-frases:hover {
+            border-color: rgba(180, 140, 220, 0.2);
+        }
+        .frase-rotatoria {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.6rem, 4vw, 2.8rem);
+            color: var(--lavanda);
+            font-weight: 400;
+            min-height: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        .frase-autor {
+            color: var(--texto-medio);
+            font-size: 1rem;
+            margin-top: 12px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 30px 20px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 40px;
+            color: var(--texto-medio);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        .footer .corazon {
+            color: var(--dorado-claro);
+            display: inline-block;
+            animation: latido 1.6s ease-in-out infinite;
+        }
+        .footer-deco {
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            color: var(--lavanda);
+            opacity: 0.15;
+            margin-bottom: 8px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0618; }
+        ::-webkit-scrollbar-thumb { background: var(--morado); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--morado-claro); }
+
+        /* ===== ANIMACIONES ADICIONALES ===== */
+        @keyframes brillo {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        .brillo-sutil { animation: brillo 4s ease-in-out infinite; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== FONDO ONDAS ===== -->
+    <div class="fondo-ondas" aria-hidden="true">
+        <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
+            <path fill="rgba(123,77,181,0.08)" d="M0,300 C360,100 720,500 1080,200 C1260,100 1380,300 1440,250 L1440,600 L0,600 Z" />
+            <path fill="rgba(180,140,220,0.05)" d="M0,400 C300,250 600,550 900,300 C1100,200 1300,400 1440,350 L1440,600 L0,600 Z" />
+        </svg>
+    </div>
+
+    <!-- ===== PARTÍCULAS (Canvas) ===== -->
+    <canvas id="particulas-canvas" aria-hidden="true"></canvas>
+
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
+    <div class="main-wrapper">
+
+        <!-- ===== NAVBAR ===== -->
+        <nav class="navbar" role="navigation" aria-label="Navegación principal">
+            <div class="logo">✨ <span>Nosotros</span></div>
+            <div class="nav-enlaces">
+                <a href="#contador">Tiempo</a>
+                <a href="#galeria">Recuerdos</a>
+                <a href="#frases">Poesía</a>
+                <span class="nav-corazon" aria-hidden="true">💜</span>
+            </div>
+        </nav>
+
+        <!-- ===== HERO ===== -->
+        <header class="hero" id="inicio">
+            <div class="hero-ornamento" aria-hidden="true">✦ ✦ ✦</div>
+            <h1 class="hero-titulo">Nuestros Videos</h1>
+            <p class="hero-subtitulo">Cada instante contigo es un verso eterno</p>
+            <div class="hero-deco" aria-hidden="true">
+                <span>🪷</span>
+                <span>✦</span>
+                <span>🎥</span>
+                <span>✦</span>
+                <span>🪷</span>
+            </div>
+        </header>
+
+        <!-- ===== CONTADOR ===== -->
+        <section class="seccion-contador" id="contador" aria-labelledby="contador-titulo">
+            <h2 class="contador-titulo" id="contador-titulo">💜 Tiempo de amor incondicional</h2>
+            <div class="contador-grid" id="contadorGrid">
+                <div class="tarjeta-tiempo"><div class="numero" id="anos">0</div><div class="etiqueta">Años</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="meses">0</div><div class="etiqueta">Meses</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="dias">0</div><div class="etiqueta">Días</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="horas">0</div><div class="etiqueta">Horas</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="minutos">0</div><div class="etiqueta">Minutos</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="segundos">0</div><div class="etiqueta">Segundos</div></div>
+            </div>
+            <div class="contador-segundos-total">
+                ✦ <span id="totalSegundos">0</span> segundos de felicidad ✦
+            </div>
+        </section>
+
+        <!-- ===== SEPARADOR ===== -->
+        <div class="separador" aria-hidden="true">
+            <span class="separador-linea"></span>
+            <span>🎬</span>
+            <span class="separador-linea"></span>
+        </div>
+
+        <!-- ===== GALERÍA DE VIDEOS ===== -->
+        <section id="galeria" aria-labelledby="galeria-titulo">
+            <div class="galeria-header">
+                <h2 id="galeria-titulo">✨ Nuestros instantes en movimiento</h2>
+                <p>Cada video guarda un pedacito de nuestro universo</p>
+            </div>
+            <div class="gallery-grid" id="galeriaGrid"></div>
+        </section>
+
+        <!-- ===== FRASES ===== -->
+        <section class="seccion-frases" id="frases" aria-labelledby="frases-titulo">
+            <h2 id="frases-titulo" class="visually-hidden" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;">Frases de amor</h2>
+            <div class="frase-rotatoria" id="fraseRotatoria" role="status" aria-live="polite">"El amor no se mira, se siente."</div>
+            <div class="frase-autor">— Poesía compartida</div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="footer-deco" aria-hidden="true">✦ ✦ ✦</div>
+            <p>Hecho con <span class="corazon" aria-hidden="true">❤️</span> para ti, mi razón de ser</p>
+            <p style="font-size:0.7rem; opacity:0.3; margin-top:6px;">Por siempre nosotros • 2026</p>
+        </footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ===== SCRIPT OPTIMIZADO ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. PARTÍCULAS CON CANVAS (mejor rendimiento)
+            // ============================================================
+            function iniciarParticulas() {
+                const canvas = document.getElementById('particulas-canvas');
+                const ctx = canvas.getContext('2d');
+                let ancho, alto;
+                const particulas = [];
+                const NUM_PARTICULAS = 40; // reducidas para mejor rendimiento
+
+                function redimensionar() {
+                    ancho = canvas.width = window.innerWidth;
+                    alto = canvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', redimensionar);
+                redimensionar();
+
+                class Particula {
+                    constructor() {
+                        this.reset();
+                    }
+                    reset() {
+                        this.x = Math.random() * ancho;
+                        this.y = Math.random() * alto - alto; // comienzan fuera arriba
+                        this.size = Math.random() * 40 + 10;
+                        this.velocidad = Math.random() * 0.5 + 0.2;
+                        this.opacidad = Math.random() * 0.15 + 0.03;
+                        this.rotacion = Math.random() * 360;
+                        this.velRot = (Math.random() - 0.5) * 0.02;
+                    }
+                    update() {
+                        this.y += this.velocidad;
+                        this.rotacion += this.velRot;
+                        if (this.y > alto + this.size) {
+                            this.reset();
+                            this.y = -this.size;
+                        }
+                    }
+                    draw() {
+                        ctx.save();
+                        ctx.globalAlpha = this.opacidad;
+                        ctx.translate(this.x, this.y);
+                        ctx.rotate(this.rotacion);
+                        const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
+                        grad.addColorStop(0, 'rgba(180, 140, 220, 0.4)');
+                        grad.addColorStop(1, 'rgba(180, 140, 220, 0)');
+                        ctx.fillStyle = grad;
+                        ctx.beginPath();
+                        ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                }
+
+                for (let i = 0; i < NUM_PARTICULAS; i++) {
+                    const p = new Particula();
+                    p.y = Math.random() * alto; // distribuir inicialmente
+                    particulas.push(p);
+                }
+
+                function animar() {
+                    ctx.clearRect(0, 0, ancho, alto);
+                    particulas.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+                    requestAnimationFrame(animar);
+                }
+                animar();
+            }
+            iniciarParticulas();
+
+            // ============================================================
+            // 2. CONTADOR DE TIEMPO (optimizado con rAF)
+            // ============================================================
+            const fechaInicio = new Date(2023, 6, 25, 0, 0, 0);
+            const elementos = {
+                anos: document.getElementById('anos'),
+                meses: document.getElementById('meses'),
+                dias: document.getElementById('dias'),
+                horas: document.getElementById('horas'),
+                minutos: document.getElementById('minutos'),
+                segundos: document.getElementById('segundos'),
+                totalSegundos: document.getElementById('totalSegundos')
+            };
+
+            function actualizarContador() {
+                const ahora = new Date();
+                let diff = ahora - fechaInicio;
+                if (diff < 0) diff = 0;
+                const totalSeg = Math.floor(diff / 1000);
+
+                let anos = ahora.getFullYear() - fechaInicio.getFullYear();
+                let meses = ahora.getMonth() - fechaInicio.getMonth();
+                let dias = ahora.getDate() - fechaInicio.getDate();
+                let horas = ahora.getHours() - fechaInicio.getHours();
+                let minutos = ahora.getMinutes() - fechaInicio.getMinutes();
+                let segundos = ahora.getSeconds() - fechaInicio.getSeconds();
+
+                if (segundos < 0) { segundos += 60; minutos--; }
+                if (minutos < 0) { minutos += 60; horas--; }
+                if (horas < 0) { horas += 24; dias--; }
+                if (dias < 0) {
+                    const ultimoDia = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+                    dias += ultimoDia;
+                    meses--;
+                }
+                if (meses < 0) { meses += 12; anos--; }
+
+                elementos.anos.textContent = anos;
+                elementos.meses.textContent = meses;
+                elementos.dias.textContent = dias;
+                elementos.horas.textContent = horas;
+                elementos.minutos.textContent = minutos;
+                elementos.segundos.textContent = segundos;
+                elementos.totalSegundos.textContent = totalSeg.toLocaleString('es-ES');
+            }
+
+            actualizarContador();
+            setInterval(actualizarContador, 1000);
+
+            // ============================================================
+            // 3. GALERÍA DE VIDEOS CON INTERSECTION OBSERVER (carga lazy)
+            // ============================================================
+            // Lista de IDs de Google Drive (corregidos: reemplazar * por -)
+            const misRecuerdos = [
+                { id: "1KFr9jMZQSNK8TN1JiWDznOpaG0tMKC2K" },
+                { id: "10IkPS95QmZ3Ekn1AjT9IdyqHzER0u9sV" },
+                { id: "10zGeDSAdLZ5NXQbUORNvmtDVnwcR35bu" },
+                { id: "115zG8EXfEloQkXl_w5i0v-FcOv4geyY8" },
+                { id: "118Xlm0hO4_WLN6KPzXOPJ99neWJB0f2U" },
+                { id: "11B9tNKeTWpB-ZVJf1t_vFKtshcKzbgkk" },
+                { id: "11tjOsSAaMWrOW5SPa5O8K8m5_yM57LHB" },
+                { id: "11y_5qOlzw5LVl_UTw6QAojRewClOaR5e" },
+                { id: "1364QGmaTlUQag95EetKRrFvnVe0IX_jm" },
+                { id: "14dnKN6GxU3YPncHrcYPPyWQwXoiD4dhg" },
+                { id: "15kVigmSZsiPrencSzJoMqdqPEwawxoh2" },
+                { id: "173pt-AokFtHpmRyEm3kHp31Gu-ut-JV" }, // corregido
+                { id: "17mEQeGdvDJNH4pXZqLg4LhaHzuYo3AJn" },
+                { id: "18AM1bgThOZtnW334o0p2bjYNsjIqdkQz" },
+                { id: "18UENBgerurpvADYlytMx3IcMknzPqdbt" },
+                { id: "18VcK1PlYUQGAqDDZH50xg_YpyMOqgxN7" },
+                { id: "19MAhQ2wD-E-EdXNGwZWwsb1-fMNCy6qU" },
+                { id: "19eE9A8984Dd0X98sK8lyyG9wzrt8dn7Q" },
+                { id: "1A8NxNDck3jnxERfle9cyrDbPpxFJM_84" },
+                { id: "1AR75WynTpuVG0BdJMMJB23kiEmdEsdAQ" },
+                { id: "1BvX--ZiqMQjn4Zg_DXX84muS_TfIwhV6" },
+                { id: "1C83yoJdw6OcT6b_TjY84vzRPOjtSYOe-" },
+                { id: "1CV9XdDNON1Mh49GJJsWlt4Ud3yxcC1GC" },
+                { id: "1Cvfz_o0sO-BcdlnCGkHOtTp6Zh6ojGQP" },
+                { id: "1DqfGHXp50uNWP4dB92R6yzS1_7N8vWZO" },
+                { id: "1EJ00wDAqYP0yz1dSV9bD2DMCC6ioTSm-" }, // corregido
+                { id: "1EKMGYcKouevHzj1WSAdzexMUmZVymty8" },
+                { id: "1EwM-kcTXC2A82N5ax6SjLsh7utOLdFur" },
+                { id: "1GCBxmuqVjy3i2FFvFdSe-SccMxwjfUvp" },
+                { id: "1GP1BV9Pj8G81lyDUyb8Uz6eNp1pSMl6E" },
+                { id: "1GzuUBJ6PlEAkXGsEPYJZubSZqAZLIqId" },
+                { id: "1HAFmiSj9FntAmRVmUbWuhhHtcQh2THHc" },
+                { id: "1HdrOnKavOyRiuhUTcJWJYaPaABd0pbAV" },
+                { id: "1JZCIyEJfRwWYaJmPMPPmKo3exvqzAlIK" },
+                { id: "1JlBN-dHljyvHzZj-a06HPZIHqPBymnEt" },
+                { id: "1JvH5ryOI6qJpHyBieTC7X3faPmeLm4OB" },
+                { id: "1KiGWqI8LKAjVC8akj9ZkT47BSFRfSzN5" },
+                { id: "1LQq80IstF1DYwAnMknq_m0vLxEiJqYLz" },
+                { id: "1P2GZ0gfkSHomUHkAvv-bntdUAe-dQXQ-" },
+                { id: "1PAPKJILlKb5TxQyEsjAp8XafSfMoCBx8" },
+                { id: "1Q6tbdCZF01fyDz2lEOV6ZCA3da948j4a" },
+                { id: "1QDJQVdt3AH_o7FCcu2LQS9Mo0KAVXzjT" },
+                { id: "1Qi3Bo5wlz_BMm4fSdxjH-zZsFfheC3y0" },
+                { id: "1R6oaqcyh_YpoVOCGD4yYdYM3FRfMPx2r" },
+                { id: "1RQ_wFGR8aqWW3jGLdTThtj17bKk-gP3w" },
+                { id: "1RRKZE5fpgYjflY0u-SX03lDzufXwDg8d" },
+                { id: "1TUKfS5uRwKulQQVNLP5-98CGEoN35LaU" },
+                { id: "1T_JbqQjnRcOCNPeaDE58Xv19DJ_uO6-G" },
+                { id: "1UAgW1LdPI0pIX2Rz_PJJg4XBqT4iA3GQ" },
+                { id: "1UFT73EKkFAidedMYqwEN93RoO9h7lTA-" },
+                { id: "1VTvxXAfRCFqdONA9MNqksTxjtqGx92xu" },
+                { id: "1W7OJnOVEYjKUIDg8ZlkxpYCW8drAU-a2" },
+                { id: "1XRABLy1VamtZchZncVZGs2TBNFfUPctT" },
+                { id: "1YFOsYd9BA5gBxNTV_ijAtcgaaP5tRDDl" },
+                { id: "1YKkx7Pt1NdX8LkxkeISnbDk5ebqyvJ4G" },
+                { id: "1YNxmpU3saI9u4RI4tEtlLEov_n4jeMLf" },
+                { id: "1YzfwnswjdSgznWECc9X8oKd6AfvvfHER" },
+                { id: "1Z7fAOZ4N45XVEF7PRGNT_kkW_ZeDCrMt" },
+                { id: "1b8vYJ669M0GaArbzEfp3bXir0vyhEOMA" },
+                { id: "1bZ4DicfJ57QN1oR0zO1VhBc-eukx46vV" },
+                { id: "1c5n4Uwcb74CBvDbv9ZaScuLQyhfAKNXz" },
+                { id: "1cER3utVB9gjK9AT9e-SaMbQzP1xfNkZ-" },
+                { id: "1cxkaLuKMRTjpI34x3OGffgME6NSaKBc5" },
+                { id: "1fnR3T-tP_BYr9_fWLrUiLXFCh_4NYxM-" },
+                { id: "1fpgCD59aM-gDXDPxmPFkAKy8W5k2eA37" },
+                { id: "1gxED3WqAeqQMz47Ho2pHnt0j0OYPPHkx" },
+                { id: "1hVifW00eRwhprtXz98h7uIXZdvt6iLun" },
+                { id: "1in4blVKR8QBEKvBJrHmdfUt5G8iaWqqd" },
+                { id: "1jFpQ6sORh3U89Y0_yZX9rcCGcZNsGZVI" },
+                { id: "1jK7djk1htqykouAmTQFrtSr0LlYCkxwf" },
+                { id: "1jbUL2zFmTv7HmmyNHser0H9wutMJBv5F" },
+                { id: "1lB5ecmYa-Hn1JnaCF6-Hibk79T3HMasd" },
+                { id: "1mMXrJBWD-2Dt1Mm51Q4LNmpF8X-DbGOM" },
+                { id: "1mXHTJ0OcWkkZhu7YjSFyXbLxFnpGbMXm" },
+                { id: "1nX7a_o1wVh_vHWefhLbVUPbJ5um_YR6q" },
+                { id: "1rRYXeBLgmBTLcyiaLUt2oQR4Yq6ON8eU" },
+                { id: "1sQxwAPmVEwG4b0AzhCxev79_oZU5EWuH" },
+                { id: "1tsUMr1CAWtWhWFZ7RQiIYn6zP1AysKgh" },
+                { id: "1uSE4oxn_Ipm36aqodAys-5IfFj4AuW9W" },
+                { id: "1vXhBrzqy3ektabYEZZQgRloolSYTM5sf" },
+                { id: "1xRnz5K_lvQYTwhh8_U1qmAPB__9ABnKi" },
+                { id: "1zKsKovhUY5V0uhMOcPRZD5Gm4g90YFku" }
+            ];
+
+            const contenedor = document.getElementById('galeriaGrid');
+            const fragment = document.createDocumentFragment();
+
+            // Crear tarjetas
+            misRecuerdos.forEach((recuerdo, index) => {
+                const num = index + 1;
+                const videoId = recuerdo.id;
+                const titulo = recuerdo.titulo || 'Momento especial';
+                const fecha = recuerdo.fecha || '✨';
+                const videoSrc = `https://drive.google.com/file/d/${videoId}/preview`;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.video = videoSrc;
+                card.dataset.titulo = titulo;
+                card.dataset.fecha = fecha;
+
+                card.innerHTML = `
+                    <div class="video-container">
+                        <iframe data-src="${videoSrc}" allow="encrypted-media" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${titulo}</h3>
+                        <span class="card-date-badge">${fecha}</span>
+                        <button class="btn-ver" onclick="event.stopPropagation(); abrirModal('${videoSrc}', '${titulo}', '${fecha}')">▶ Ver video</button>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+            contenedor.appendChild(fragment);
+
+            // Intersection Observer para cargar iframes solo cuando son visibles
+            const iframes = document.querySelectorAll('.video-container iframe');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const iframe = entry.target;
+                        const src = iframe.dataset.src;
+                        if (src && !iframe.src) {
+                            iframe.src = src;
+                        }
+                        observer.unobserve(iframe);
+                    }
+                });
+            }, { rootMargin: '200px' });
+
+            iframes.forEach(iframe => observer.observe(iframe));
+
+            // ============================================================
+            // 4. LIGHTBOX / MODAL
+            // ============================================================
+            window.abrirModal = function(src, titulo, fecha) {
+                let modal = document.getElementById('lightboxVideo');
+                if (!modal) {
+                    modal = document.createElement('div');
+                    modal.id = 'lightboxVideo';
+                    modal.className = 'lightbox';
+                    modal.setAttribute('role', 'dialog');
+                    modal.setAttribute('aria-modal', 'true');
+                    modal.onclick = function(e) {
+                        if (e.target === modal) cerrarModal();
+                    };
+                    modal.innerHTML = `
+                        <div class="lightbox-inner" onclick="event.stopPropagation()">
+                            <button class="close-btn" onclick="cerrarModal()" aria-label="Cerrar video">×</button>
+                            <div class="lightbox-video">
+                                <iframe id="modalIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                            <p class="lightbox-caption" id="modalCaption"></p>
+                        </div>
+                    `;
+                    document.body.appendChild(modal);
+                }
+
+                const iframe = document.getElementById('modalIframe');
+                const caption = document.getElementById('modalCaption');
+                iframe.src = src + '?autoplay=1';
+                caption.textContent = `${titulo} — ${fecha}`;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            };
+
+            window.cerrarModal = function() {
+                const modal = document.getElementById('lightboxVideo');
+                if (modal) {
+                    modal.style.display = 'none';
+                    const iframe = document.getElementById('modalIframe');
+                    if (iframe) iframe.src = '';
+                    document.body.style.overflow = '';
+                }
+            };
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') cerrarModal();
+            });
+
+            // ============================================================
+            // 5. FRASES ROTATORIAS
+            // ============================================================
+            const frases = [
+                '"El amor no se mira, se siente."',
+                '"Eres la razón de mi sonrisa más sincera."',
+                '"Contigo, el tiempo es solo un susurro."',
+                '"Cada latido lleva tu nombre."',
+                '"Tu amor es mi lugar favorito en el mundo."',
+                '"Eres poesía hecha persona."',
+                '"La eternidad no es suficiente para amarte."'
+            ];
+            let indiceFrase = 0;
+            const elFrase = document.getElementById('fraseRotatoria');
+
+            function cambiarFrase() {
+                elFrase.style.opacity = '0';
+                setTimeout(() => {
+                    indiceFrase = (indiceFrase + 1) % frases.length;
+                    elFrase.textContent = frases[indiceFrase];
+                    elFrase.style.opacity = '1';
+                }, 400);
+            }
+            setInterval(cambiarFrase, 4500);
+
+            // ============================================================
+            // 6. ANIMACIÓN DE APARICIÓN DE TARJETAS
+            // ============================================================
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = `
+                @keyframes aparecerCard {
+                    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+                    to { opacity: 1; transform: translateY(0) scale(1); }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, i) => {
+                card.style.animation = `aparecerCard 0.6s ease ${i * 0.05}s both`;
+            });
+
+        })();
+    </script>
+</body>
+</html>
