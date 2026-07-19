@@ -67,6 +67,9 @@
         document.getElementById('barraMinutos').style.width = Math.min((minutos / maxMinutos) * 100, 100) + '%';
         document.getElementById('barraSegundos').style.width = Math.min((segundos / maxSegundos) * 100, 100) + '%';
     }
-    actualizarContador();
-    setInterval(actualizarContador, 1000);
+   
 
+document.addEventListener("DOMContentLoaded", () => {
+ actualizarContador();
+    setInterval(actualizarContador, 1000);
+});
