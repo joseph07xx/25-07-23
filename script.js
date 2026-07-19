@@ -14,7 +14,7 @@ function crearParticulas() {
                 p.style.opacity = Math.random() * 0.2 + 0.05;
                 contenedor.appendChild(p);
             }
-        }();
+        };
         const fechaObjetivo = new Date(2026, 6, 20, 18, 0, 0); // mes 6 = julio
 
         function actualizarContador() {
@@ -44,3 +44,6 @@ function crearParticulas() {
 
         actualizarContador();
         setInterval(actualizarContador, 1000);
+crearParticulas();
+
+
