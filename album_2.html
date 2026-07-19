@@ -903,46 +903,7 @@
         // ============================================================
         // 2. CONTADOR
         // ============================================================
-        const fechaInicio = new Date(2023, 6, 25, 0, 0, 0);
-
-        function actualizarContador() {
-            const ahora = new Date();
-            const diffMs = ahora - fechaInicio;
-            const totalSeg = Math.floor(diffMs / 1000);
-
-            let anos = ahora.getFullYear() - fechaInicio.getFullYear();
-            let meses = ahora.getMonth() - fechaInicio.getMonth();
-            let dias = ahora.getDate() - fechaInicio.getDate();
-            let horas = ahora.getHours() - fechaInicio.getHours();
-            let minutos = ahora.getMinutes() - fechaInicio.getMinutes();
-            let segundos = ahora.getSeconds() - fechaInicio.getSeconds();
-
-            if (segundos < 0) { segundos += 60;
-                minutos--; }
-            if (minutos < 0) { minutos += 60;
-                horas--; }
-            if (horas < 0) { horas += 24;
-                dias--; }
-            if (dias < 0) {
-                const ultimoDia = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
-                dias += ultimoDia;
-                meses--;
-            }
-            if (meses < 0) { meses += 12;
-                anos--; }
-
-            document.getElementById('anos').textContent = anos;
-            document.getElementById('meses').textContent = meses;
-            document.getElementById('dias').textContent = dias;
-            document.getElementById('horas').textContent = horas;
-            document.getElementById('minutos').textContent = minutos;
-            document.getElementById('segundos').textContent = segundos;
-            document.getElementById('totalSegundos').textContent = totalSeg.toLocaleString('es-ES');
-        }
-
-        actualizarContador();
-        setInterval(actualizarContador, 1000);
-
+        
         // ============================================================
         // 3. GALERÍA (recuerdos)
         // ============================================================
@@ -1319,5 +1280,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
     </script>
+    <script src="js/contador.js"></script>
 </body>
 </html>
