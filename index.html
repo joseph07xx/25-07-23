@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
@@ -873,30 +873,28 @@
 </head>
 <body>
 
-    <!-- ============================================================
+
     FONDO RADICAL
-    ============================================================ -->
+
     <div class="fondo-radical" aria-hidden="true">
         <div class="grid-lineas"></div>
         <div class="gradiente-animado"></div>
         <div id="contenedorParticulas"></div>
     </div>
 
-    <!-- Partículas interactivas (siguen al ratón) -->
+
     <div id="particulaInteractiva" class="particula-interactiva" style="width:120px;height:120px;opacity:0;"></div>
 
-    <!-- ============================================================
-    CONTENIDO PRINCIPAL
-    ============================================================ -->
+
     <div class="main-container">
 
-        <!-- ===== HEADER ===== -->
+
         <header class="header-radical">
             <h1 class="titulo-principal glitch-efecto">✦ Eternidad ✦</h1>
             <p class="subtitulo">El punto de encuentro de <span>nuestra historia</span></p>
         </header>
 
-        <!-- ===== CONTADOR ===== -->
+
         <section class="seccion-contador-radical" id="contador">
             <h2 class="contador-titulo-radical">
                 <span class="icono">⚡</span> Tiempo de amor incondicional <span class="icono">⚡</span>
@@ -940,7 +938,7 @@
         
 
         
-        <!-- ===== LÍNEA DE TIEMPO ===== -->
+
         <section class="seccion-timeline">
             <h2>📜 Nuestra línea de tiempo</h2>
             <div class="timeline-grid">
@@ -971,7 +969,7 @@
             </div>
         </section>
 
-        <!-- ===== TARJETAS DE ACCESO ===== -->
+
         <div class="grid-tarjetas-radical">
             <a href="album_momentos.html" class="card-radical">
                 <div class="icono-card">𓆝 𓆟 𓆞 𓆝 𓆟</div>
@@ -1016,7 +1014,7 @@
                 <p>Un poco de todas nuestras cosas.</p>
                 <span class="btn-neon">Acceder</span>
             </a>
-            <!-- Tarjeta extra: Mensaje Secreto (abre modal) -->
+
             <div class="card-radical" id="btnMensajeSecreto" style="cursor:pointer;">
                 <div class="icono-card">💌</div>
                 <h2>Mensaje Secreto</h2>
@@ -1025,14 +1023,14 @@
             </div>
         </div>
 
-        <!-- ===== BOTÓN SORPRESA ===== -->
+
         <button class="boton-sorpresa" id="botonSorpresa">🎉 Sorpresa</button>
 
-        <!-- ===== FOOTER ===== -->
+
         <footer class="footer-radical">
             <span class="corazon-neon">❤️</span> Eternidad • 2026 <span class="corazon-neon">❤️</span>
         </footer>
-        <!-- ===== CONTADOR REGRESIVO (hasta fechaFinal) ===== -->
+
 <section class="seccion-contador-radical" id="contadorRegresivo">
     <h2 class="contador-titulo-radical">
         <span class="icono">⏳</span> Tiempo restante para el gran día <span class="icono">⏳</span>
@@ -1075,9 +1073,6 @@
 </section>
     </div>
 
-    <!-- ============================================================
-    MODAL (Mensaje Secreto)
-    ============================================================ -->
     <div class="modal-overlay" id="modalMensaje">
         <div class="modal-contenido">
             <h2>💌 Para ti</h2>
@@ -1088,10 +1083,6 @@
 
 
 
-
-    <!-- ============================================================
-    SCRIPTS
-    ============================================================ -->
     <script>
 // ============================================================
 // 1. PARTÍCULAS DE FONDO (sin cambios)
@@ -1471,6 +1462,409 @@ setInterval(contadornuevo, 1000);
         titulo.style.textShadow = '';
     });
 })();
+    </script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>En mantenimiento ✦ Volvemos pronto</title>
+    <!-- Fuentes elegantes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+    rel="stylesheet"
+    />
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --morado-oscuro: #140a22;
+            --morado-profundo: #1f0f33;
+            --morado-medio: #3a1f5c;
+            --morado: #6b3fa0;
+            --morado-claro: #9b6fc0;
+            --lavanda: #d4bff0;
+            --lavanda-suave: #ede4f7;
+            --dorado: #c9a84c;
+            --dorado-claro: #e0cd8b;
+            --blanco: #fdf7fc;
+            --texto-claro: #d4c4e0;
+            --texto-medio: #b098c0;
+            --sombra: 0 8px 40px rgba(0, 0, 0, 0.6);
+            --glass-bg: rgba(30, 15, 50, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --degradado-fondo: radial-gradient(ellipse at 30% 10%, #2d1b4a 0%, #140a22 70%);
+            --degradado-morado: linear-gradient(135deg, #6b3fa0, #9b6fc0, #d4bff0);
+            --degradado-dorado: linear-gradient(135deg, #c9a84c, #e0cd8b);
+            --transicion: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--degradado-fondo);
+            color: var(--texto-claro);
+            min-height: 100vh;
+            overflow: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== FONDO CON ONDAS Y PARTÍCULAS (visible) ===== */
+        .fondo-ondas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fondo-ondas svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+        }
+
+        .particulas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particula {
+            position: absolute;
+            background: radial-gradient(circle, rgba(180, 140, 220, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: flotarParticula lineal infinite;
+        }
+
+        @keyframes flotarParticula {
+            0% {
+                transform: translateY(100vh) scale(0.2) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== OVERLAY DE MANTENIMIENTO ===== */
+        .mantenimiento-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(20, 10, 34, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px;
+            animation: aparecerOverlay 1s ease-out;
+        }
+
+        @keyframes aparecerOverlay {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .mantenimiento-contenedor {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 60px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .mantenimiento-icono {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: girarIcono 8s linear infinite;
+        }
+
+        @keyframes girarIcono {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mantenimiento-titulo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            font-weight: 600;
+            background: var(--degradado-morado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .mantenimiento-sub {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: var(--lavanda);
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .mantenimiento-frase {
+            color: var(--texto-medio);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 12px 0;
+            display: inline-block;
+        }
+
+        /* ===== CONTADOR REGRESIVO ===== */
+        .contador-regresivo {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 20px 0 10px;
+        }
+
+        @media (max-width: 500px) {
+            .contador-regresivo {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+        }
+
+        .tarjeta-tiempo {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 18px 8px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: var(--transicion);
+            backdrop-filter: blur(4px);
+        }
+
+        .tarjeta-tiempo:hover {
+            transform: translateY(-4px);
+            border-color: var(--morado-claro);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .tarjeta-tiempo .numero {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.6rem);
+            font-weight: 700;
+            background: var(--degradado-dorado);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .tarjeta-tiempo .etiqueta {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--texto-medio);
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        .mensaje-final {
+            margin-top: 24px;
+            font-size: 0.9rem;
+            color: var(--texto-medio);
+            letter-spacing: 0.5px;
+        }
+
+        .mensaje-final span {
+            color: var(--dorado-claro);
+            font-weight: 500;
+        }
+
+        .deco-linea {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin: 16px 0 8px;
+            font-size: 1.2rem;
+            color: var(--lavanda);
+            opacity: 0.2;
+        }
+
+        .deco-linea .linea {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--lavanda), transparent);
+        }
+
+        /* ===== CONTENIDO ORIGINAL OCULTO ===== */
+        .main-wrapper {
+            display: none;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 0;
+        }
+
+        /* ===== ANIMACIONES ===== */
+        @keyframes brillo {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+        .brillo-sutil {
+            animation: brillo 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== FONDO ONDAS ===== -->
+    <div class="fondo-ondas" aria-hidden="true">
+        <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
+            <path fill="rgba(107,63,160,0.08)" d="M0,300 C360,100 720,500 1080,200 C1260,100 1380,300 1440,250 L1440,600 L0,600 Z" />
+            <path fill="rgba(180,140,220,0.05)" d="M0,400 C300,250 600,550 900,300 C1100,200 1300,400 1440,350 L1440,600 L0,600 Z" />
+        </svg>
+    </div>
+
+    <!-- ===== PARTÍCULAS ===== -->
+    <div class="particulas" id="particulas" aria-hidden="true"></div>
+
+    <!-- ===== OVERLAY DE MANTENIMIENTO ===== -->
+    <div class="mantenimiento-overlay" id="mantenimiento">
+        <div class="mantenimiento-contenedor">
+            <div class="mantenimiento-icono">⚙️</div>
+            <h1 class="mantenimiento-titulo">En mantenimiento</h1>
+            <p class="mantenimiento-sub">Estamos mejorando tu experiencia</p>
+            <div class="mantenimiento-frase">✨ Volvemos con más amor y magia ✨</div>
+
+            <div class="contador-regresivo" id="contadorRegresivo">
+                <div class="tarjeta-tiempo"><div class="numero" id="diasRestantes">0</div><div class="etiqueta">Días</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="horasRestantes">0</div><div class="etiqueta">Horas</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="minutosRestantes">0</div><div class="etiqueta">Minutos</div></div>
+                <div class="tarjeta-tiempo"><div class="numero" id="segundosRestantes">0</div><div class="etiqueta">Segundos</div></div>
+            </div>
+
+            <div class="deco-linea">
+                <span class="linea"></span>
+                <span>🪷</span>
+                <span class="linea"></span>
+            </div>
+
+            <p class="mensaje-final">
+                <span>20 de julio de 2026 — 18:00</span>
+                <br />
+                <span style="font-size:0.8rem; opacity:0.5;">Nos vemos muy pronto 💜</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== CONTENIDO ORIGINAL (oculto) ===== -->
+    <div class="main-wrapper">
+        <!-- ... todo el contenido original que ahora está oculto ... -->
+        <nav class="navbar">...</nav>
+        <header class="hero">...</header>
+        <section class="seccion-contador">...</section>
+        <section id="galeria">...</section>
+        <section class="seccion-frases">...</section>
+        <footer class="footer">...</footer>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ===== SCRIPT ===== -->
+    <script>
+        // ============================================================
+        // 1. PARTÍCULAS (igual que antes)
+        // ============================================================
+        (function crearParticulas() {
+            const contenedor = document.getElementById('particulas');
+            const cant = 35;
+            for (let i = 0; i < cant; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particula');
+                const size = Math.random() * 60 + 20;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (Math.random() * 25 + 20) + 's';
+                p.style.animationDelay = (Math.random() * 20) + 's';
+                p.style.opacity = Math.random() * 0.2 + 0.05;
+                contenedor.appendChild(p);
+            }
+        })();
+
+        // ============================================================
+        // 2. CONTADOR REGRESIVO HASTA 20/07/2026 18:00
+        // ============================================================
+        const fechaObjetivo = new Date(2026, 6, 20, 18, 0, 0); // mes 6 = julio
+
+        function actualizarContador() {
+            const ahora = new Date();
+            const diffMs = fechaObjetivo - ahora;
+
+            if (diffMs <= 0) {
+                // Si ya pasó la fecha, mostrar 0
+                document.getElementById('diasRestantes').textContent = '0';
+                document.getElementById('horasRestantes').textContent = '0';
+                document.getElementById('minutosRestantes').textContent = '0';
+                document.getElementById('segundosRestantes').textContent = '0';
+                return;
+            }
+
+            const totalSeg = Math.floor(diffMs / 1000);
+            const dias = Math.floor(totalSeg / 86400);
+            const horas = Math.floor((totalSeg % 86400) / 3600);
+            const minutos = Math.floor((totalSeg % 3600) / 60);
+            const segundos = totalSeg % 60;
+
+            document.getElementById('diasRestantes').textContent = dias;
+            document.getElementById('horasRestantes').textContent = horas;
+            document.getElementById('minutosRestantes').textContent = minutos;
+            document.getElementById('segundosRestantes').textContent = segundos;
+        }
+
+        actualizarContador();
+        setInterval(actualizarContador, 1000);
     </script>
 </body>
 </html>
