@@ -41,9 +41,9 @@ function crearParticulas() {
             document.getElementById('minutosRestantes').textContent = minutos;
             document.getElementById('segundosRestantes').textContent = segundos;
         };
-
-actualizarContador();
-setInterval(actualizarContador, 1000);
-crearParticulas();
-
+document.addEventListener("DOMContentLoaded", () => {
+            crearParticulas();
+            actualizarContador();
+            setInterval(actualizarContador, 1000);
+});
 
