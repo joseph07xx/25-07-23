@@ -40,10 +40,10 @@ function crearParticulas() {
             document.getElementById('horasRestantes').textContent = horas;
             document.getElementById('minutosRestantes').textContent = minutos;
             document.getElementById('segundosRestantes').textContent = segundos;
-        }
+        };
 
-        actualizarContador();
-        setInterval(actualizarContador, 1000);
+actualizarContador();
+setInterval(actualizarContador, 1000);
 crearParticulas();
 
 
