@@ -13,4 +13,5 @@ function crearParticulas() {
                 p.style.animationDelay = (Math.random() * 20) + 's';
                 p.style.opacity = Math.random() * 0.2 + 0.05;
                 contenedor.appendChild(p);
-            };
+            }
+        }();
