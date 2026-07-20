@@ -6,31 +6,38 @@
   <title>Cine · Proyector</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
+    html, body { 
+      width: 100vw; 
+      height: 100vh; 
+      overflow: hidden; 
+      background: #000; 
+    }
 
     #cine-container {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100vw; 
       height: 100vh;
-      position: relative;
       background: #000;
       overflow: hidden;
     }
 
     #cards-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      position: relative;
     }
 
     .card {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw; 
-      height: 100vh;
-      display: flex; 
-      align-items: center; 
-      justify-content: center;
+      inset: 0;
+      width: 100%; 
+      height: 100%;
+      display: grid;
+      place-items: center;
       transition: opacity 1.2s ease-in-out;
       opacity: 0;
       pointer-events: none;
@@ -38,7 +45,7 @@
 
     .card.active { 
       opacity: 1; 
-      z-index: 1; 
+      z-index: 2; 
       pointer-events: auto;
     }
 
@@ -53,8 +60,8 @@
     .drive-image {
       max-width: 100vw; 
       max-height: 100vh;
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
       pointer-events: none;
     }
