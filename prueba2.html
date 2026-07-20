@@ -42,7 +42,6 @@
 </head>
 <body>
 
-  <!-- Contenedor único para el proyector y el audio -->
   <div id="cine-container">
     <audio id="cine-audio" loop preload="auto">
       <source src="https://ia600806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3" type="audio/mpeg" />
@@ -64,14 +63,14 @@
       const container = document.getElementById('cine-container');
       const audioElement = document.getElementById('cine-audio');
       let currentIndex = 0;
+      let proyeccionIniciada = false;   // Evita ejecutar el temporizador más de una vez
 
-      // 1. Carga dinámica de recuerdos (SIN activar ninguna de entrada para que esté todo negro)
+      // Carga las imágenes (todas ocultas por defecto)
       function cargarCine() {
           misRecuerdos.forEach((recuerdo, index) => {
               const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
               const frame = document.createElement('div');
-              // Omitimos 'active' al crear para que nazcan ocultas
-              frame.className = 'frame'; 
+              frame.className = 'frame';
               frame.innerHTML = `
                   <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
                   <div class="info-overlay">
@@ -83,15 +82,18 @@
           });
       }
 
-      // 2. Comienza a mostrar las imágenes tras el retraso exacto
+      // Comienza la proyección de imágenes (se llama tras los 16.20 s)
       function iniciarProyeccion() {
+          if (proyeccionIniciada) return; // ya se inició
+          proyeccionIniciada = true;
+
           const frames = document.querySelectorAll('.frame');
           if (frames.length === 0) return;
 
-          // Muestra la primera imagen de golpe
+          // Mostrar la primera imagen
           frames[currentIndex].classList.add('active');
 
-          // Empieza a cambiarlas cada 5 segundos
+          // Cambiar cada 5 segundos
           setInterval(() => {
               frames[currentIndex].classList.remove('active');
               currentIndex = (currentIndex + 1) % frames.length;
@@ -99,34 +101,51 @@
           }, 5000);
       }
 
-      // 3. Activación de audio y temporizador de 16.27s para el show visual
-      function setupAudioAutoplay() {
-          const playAudio = function() {
-              audioElement.play()
-                  .then(() => {
-                      console.log('🎵 Audio reproducido correctamente');
-                      
-                      // Pantalla en negro durante 16.27s (16270ms) mientras suena la música normal
-                      setTimeout(() => {
-                          iniciarProyeccion();
-                      }, 16270);
+      // Función que inicia el audio y el temporizador de 16.20 s
+      function iniciarAudioYTemporizador() {
+          // Si ya se inició la proyección, no hacer nada (por si se llama de nuevo)
+          if (proyeccionIniciada) return;
 
-                      document.removeEventListener('click', playAudio);
-                      document.removeEventListener('touchstart', playAudio);
-                  })
-                  .catch((err) => {
-                      console.warn('⚠️ Esperando interacción para el audio:', err);
-                  });
-          };
-
-          document.addEventListener('click', playAudio);
-          document.addEventListener('touchstart', playAudio);
+          audioElement.play()
+              .then(() => {
+                  console.log('🎵 Audio reproducido correctamente');
+                  // Esperar 16.20 segundos exactos antes de mostrar imágenes
+                  setTimeout(() => {
+                      iniciarProyeccion();
+                  }, 16200); // 16.20 segundos
+              })
+              .catch((err) => {
+                  console.warn('⚠️ Error al reproducir audio (se espera interacción):', err);
+              });
       }
 
-      // Inicialización general
+      // Configura el autoplay al cargar y, si falla, escucha clic/touch
+      function setupAudio() {
+          // 1) Intentar autoplay
+          iniciarAudioYTemporizador();
+
+          // 2) Si el autoplay falla (por política del navegador), 
+          //    añadimos listeners para que el usuario active manualmente
+          //    pero solo si aún no se ha iniciado la proyección.
+          const handler = function(e) {
+              // Si ya se inició la proyección, no hacemos nada
+              if (proyeccionIniciada) return;
+              // Intentamos de nuevo
+              iniciarAudioYTemporizador();
+              // Después del primer clic, removemos los listeners para no repetir
+              document.removeEventListener('click', handler);
+              document.removeEventListener('touchstart', handler);
+          };
+
+          // Añadimos los listeners (se ejecutarán solo si el usuario interactúa)
+          document.addEventListener('click', handler);
+          document.addEventListener('touchstart', handler);
+      }
+
+      // Inicialización
       function init() {
           cargarCine();
-          setupAudioAutoplay();
+          setupAudio();
       }
 
       if (document.readyState === 'loading') {
