@@ -37,27 +37,10 @@
       z-index: 2;
     }
 
-    /* Mensaje opcional para guiar al usuario a hacer clic */
-    #start-screen {
-      position: absolute;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: #000;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      color: white; font-family: sans-serif; z-index: 9999;
-      cursor: pointer;
-      transition: opacity 1s ease;
-    }
-    #start-screen h2 { font-weight: 300; letter-spacing: 2px; font-size: 1.5rem; }
-
     #cine-audio { display: none; }
   </style>
 </head>
 <body>
-
-  <!-- Pantalla inicial para asegurar el clic del usuario -->
-  <div id="start-screen">
-    <h2>Toca en cualquier lugar para comenzar ✦</h2>
-  </div>
 
   <div id="cine-container">
     <audio id="cine-audio" loop preload="auto">
@@ -79,16 +62,16 @@
 
       const container = document.getElementById('cine-container');
       const audioElement = document.getElementById('cine-audio');
-      const startScreen = document.getElementById('start-screen');
       let currentIndex = 0;
-      let iniciado = false;
+      let proyeccionIniciada = false;    // Ya se mostró alguna imagen
+      let temporizadorActivo = false;    // Ya se programó el temporizador
 
-      // 1. Cargar las imágenes (todas ocultas con opacidad 0, ninguna activa)
+      // 1. Cargar los frames (todos ocultos)
       function cargarCine() {
           misRecuerdos.forEach((recuerdo) => {
               const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
               const frame = document.createElement('div');
-              frame.className = 'frame'; // Nace sin la clase 'active' (totalmente en negro)
+              frame.className = 'frame';  // sin 'active'
               frame.innerHTML = `
                   <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
                   <div class="info-overlay">
@@ -100,15 +83,16 @@
           });
       }
 
-      // 2. Iniciar la proyección de las imágenes de forma cíclica
-      function arrancarProyeccionVisual() {
+      // 2. Iniciar la proyección de imágenes (mostrar primera y luego cambiar cada 5s)
+      function iniciarProyeccion() {
+          if (proyeccionIniciada) return;
+          proyeccionIniciada = true;
+
           const frames = document.querySelectorAll('.frame');
           if (frames.length === 0) return;
 
-          // Mostrar la primera imagen tras los 16.27 segundos
           frames[currentIndex].classList.add('active');
 
-          // Cambiar de imagen cada 5 segundos
           setInterval(() => {
               frames[currentIndex].classList.remove('active');
               currentIndex = (currentIndex + 1) % frames.length;
@@ -116,40 +100,52 @@
           }, 5000);
       }
 
-      // 3. Manejador de la interacción del usuario
-      function activarExperiencia(e) {
-          if (iniciado) return;
-          iniciado = true;
+      // 3. Función que se llama cuando el audio comienza a reproducirse
+      function cuandoAudioComienza() {
+          if (temporizadorActivo) return;
+          temporizadorActivo = true;
 
-          // Ocultar pantalla de inicio
-          startScreen.style.opacity = '0';
-          setTimeout(() => { startScreen.remove(); }, 1000);
+          console.log('🎵 Audio en reproducción. Esperando 16.20s para mostrar imágenes...');
 
-          // Reproducir el audio inmediatamente
-          audioElement.play()
-              .then(() => {
-                  console.log('🎵 Audio reproduciéndose con normalidad');
-              })
-              .catch((err) => {
-                  console.warn('⚠️ Error al reproducir audio:', err);
-              });
-
-          // Exactamente 16.27 segundos (16270 ms) después del clic, arrancan las imágenes
           setTimeout(() => {
-              arrancarProyeccionVisual();
-          }, 16270);
-
-          // Limpiar eventos globales
-          document.removeEventListener('click', activarExperiencia);
-          document.removeEventListener('touchstart', activarExperiencia);
+              iniciarProyeccion();
+          }, 16200); // 16.20 segundos
       }
 
-      // Inicialización
+      // 4. Intento de autoplay al cargar
+      function intentarAutoplay() {
+          const promesa = audioElement.play();
+          if (promesa !== undefined) {
+              promesa
+                  .then(() => {
+                      cuandoAudioComienza();
+                  })
+                  .catch(() => {
+                      console.warn('⚠️ Autoplay bloqueado. Esperando clic/touch del usuario.');
+                      // Listeners para activar con interacción
+                      const handler = function(e) {
+                          audioElement.play()
+                              .then(() => {
+                                  cuandoAudioComienza();
+                                  document.removeEventListener('click', handler);
+                                  document.removeEventListener('touchstart', handler);
+                              })
+                              .catch((err) => console.warn('Error al reproducir con interacción:', err));
+                      };
+                      document.addEventListener('click', handler);
+                      document.addEventListener('touchstart', handler);
+                  });
+          } else {
+              // Navegador antiguo
+              audioElement.play();
+              cuandoAudioComienza();
+          }
+      }
+
+      // 5. Inicialización
       function init() {
           cargarCine();
-          // Esperar estrictamente a que el usuario interactúe
-          document.addEventListener('click', activarExperiencia);
-          document.addEventListener('touchstart', activarExperiencia);
+          intentarAutoplay();
       }
 
       if (document.readyState === 'loading') {
@@ -157,7 +153,6 @@
       } else {
           init();
       }
-
     })();
   </script>
 </body>
