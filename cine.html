@@ -177,8 +177,8 @@
       // Función que construye la URL a partir de un ID.
       // Usamos picsum.photos para tener imágenes variadas y reales.
       // Si prefieres imágenes locales, cambia esta función.
-const buildImageUrl = (item) => `https://lh3.googleusercontent.com/d/${item.id}`;
-      // Tiempo en milisegundos entre cada cambio de imagen
+// Cambia esto:
+const buildImageUrl = (item) => `https://lh3.googleusercontent.com/d/${item.id}`;      // Tiempo en milisegundos entre cada cambio de imagen
       const INTERVAL_MS = 5000; // 5 segundos
 
       // ============================================================
@@ -269,30 +269,26 @@ const buildImageUrl = (item) => `https://lh3.googleusercontent.com/d/${item.id}`
        * Inicia la aplicación: precarga las imágenes, establece la primera,
        * y arranca el intervalo de cambio automático.
        */
+// ============================================================
+      // 6. INICIALIZACIÓN
+      // ============================================================
+
       function init() {
         // Construir array de URLs a partir de los IDs
-        imageUrls = IMAGE_IDS.map(id => buildImageUrl(id));
+        imageUrls = IMAGE_IDS.map(item => buildImageUrl(item));
 
-        // Precargar todas las imágenes
-        preloadImages(imageUrls)
-          .then((loadedUrls) => {
-            console.log(`✅ ${loadedUrls.length} imágenes precargadas correctamente.`);
+        // Verificar que haya al menos una imagen
+        if (imageUrls.length > 0) {
+          // Pon la primera imagen de inmediato
+          imgElement.src = imageUrls[0];
+          imgElement.classList.remove('fade-out');
+          imgElement.style.opacity = '1';
 
-            // Establecer la primera imagen (índice 0)
-            imgElement.src = imageUrls[0];
-            // Asegurar que la opacidad esté en 1 (por si acaso)
-            imgElement.classList.remove('fade-out');
-            imgElement.style.opacity = '1';
-
-            // Iniciar el ciclo de cambios cada INTERVAL_MS
-            intervalId = setInterval(cambiarImagen, INTERVAL_MS);
-          })
-          .catch((error) => {
-            console.error('❌ Error en la precarga de imágenes:', error);
-            // Mostrar un mensaje o imagen de fallback si se desea
-          });
+          // Inicia el ciclo de cambio automático
+          intervalId = setInterval(cambiarImagen, INTERVAL_MS);
+          console.log("✅ Cine iniciado con " + imageUrls.length + " imágenes.");
+        }
       }
-
       // ============================================================
       // 7. AUDIO: REPRODUCCIÓN AUTOMÁTICA DESBLOQUEADA POR CLIC
       // ============================================================
