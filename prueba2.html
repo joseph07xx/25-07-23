@@ -9,25 +9,52 @@
     html, body { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
 
     #cine-container {
-      width: 100vw; height: 100vh;
-      display: flex; align-items: center; justify-content: center;
+      width: 100vw; 
+      height: 100vh;
+      position: relative;
       background: #000;
+      overflow: hidden;
+    }
+
+    #cards-wrapper {
+      width: 100%;
+      height: 100%;
+      position: relative;
     }
 
     .card {
-      width: 100vw; height: 100vh;
-      display: flex; align-items: center; justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw; 
+      height: 100vh;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
       transition: opacity 1.2s ease-in-out;
       opacity: 0;
-      position: absolute;
+      pointer-events: none;
     }
 
-    .card.active { opacity: 1; z-index: 1; }
+    .card.active { 
+      opacity: 1; 
+      z-index: 1; 
+      pointer-events: auto;
+    }
 
-    .image-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .image-container { 
+      width: 100%; 
+      height: 100%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
     
     .drive-image {
-      max-width: 100vw; max-height: 100vh;
+      max-width: 100vw; 
+      max-height: 100vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
       pointer-events: none;
     }
@@ -71,6 +98,7 @@
 
       function cambiarImagen() {
         const cards = document.querySelectorAll('.card');
+        if (cards.length === 0) return;
         cards[currentIndex].classList.remove('active');
         currentIndex = (currentIndex + 1) % cards.length;
         cards[currentIndex].classList.add('active');
@@ -78,10 +106,16 @@
 
       // Audio Autoplay al primer clic
       const playAudio = () => {
-        document.getElementById('cine-audio').play();
+        const audio = document.getElementById('cine-audio');
+        if (audio) {
+          audio.play().catch(() => {});
+        }
         document.removeEventListener('click', playAudio);
+        document.removeEventListener('touchstart', playAudio);
       };
+      
       document.addEventListener('click', playAudio);
+      document.addEventListener('touchstart', playAudio);
 
       init();
     })();
