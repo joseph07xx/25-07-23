@@ -105,7 +105,15 @@
         document.addEventListener('click', playAudio);
         document.addEventListener('touchstart', playAudio);
       }
-
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+          init();
+          setupAudioAutoplay();
+        });
+      } else {
+        init();
+        setupAudioAutoplay();
+      }
   </script>
 </body>
 </html>
