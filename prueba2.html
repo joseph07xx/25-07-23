@@ -6,18 +6,18 @@
   <title>Cine · Proyector</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { 
-      width: 100vw; 
-      height: 100vh; 
-      overflow: hidden; 
-      background: #000; 
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
     }
 
     #cine-container {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw; 
+      width: 100vw;
       height: 100vh;
       background: #000;
       overflow: hidden;
@@ -34,36 +34,38 @@
     .card {
       position: absolute;
       inset: 0;
-      width: 100%; 
+      width: 100%;
       height: 100%;
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: opacity 1.2s ease-in-out;
       opacity: 0;
       pointer-events: none;
+      background: #1a1a1a; /* fondo de respaldo mientras carga */
     }
 
-    .card.active { 
-      opacity: 1; 
-      z-index: 2; 
+    .card.active {
+      opacity: 1;
+      z-index: 2;
       pointer-events: auto;
     }
 
-    .image-container { 
-      width: 100%; 
-      height: 100%; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
+    .image-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    
+
     .drive-image {
-      max-width: 100vw; 
-      max-height: 100vh;
       width: 100%;
       height: 100%;
       object-fit: contain;
+      display: block; /* elimina espacios extra bajo la imagen */
       pointer-events: none;
+      background: #000; /* fondo negro alrededor de la imagen */
     }
 
     #cine-audio { display: none; }
@@ -82,19 +84,25 @@
     (function() {
       'use strict';
 
-      const IMAGE_IDS = ["1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL"]; // Agrega aquí el resto de tus IDs
+      const IMAGE_IDS = [
+        "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-",
+        "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj",
+        "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL"
+      ];
+
       const INTERVAL_MS = 5000;
       const wrapper = document.getElementById('cards-wrapper');
       let currentIndex = 0;
 
       function init() {
         IMAGE_IDS.forEach((id, index) => {
-          const url = `https://lh3.googleusercontent.com/d/${id}=w1000`;
+          // Usamos la URL de exportación directa de Google Drive
+          const url = `https://drive.google.com/uc?export=view&id=${id}`;
           const card = document.createElement('div');
           card.className = `card ${index === 0 ? 'active' : ''}`;
           card.innerHTML = `
             <div class="image-container">
-                <img class="drive-image" src="${url}" alt="Recuerdo ${index + 1}" />
+              <img class="drive-image" src="${url}" alt="Recuerdo ${index + 1}" />
             </div>
           `;
           wrapper.appendChild(card);
@@ -111,7 +119,7 @@
         cards[currentIndex].classList.add('active');
       }
 
-      // Audio Autoplay al primer clic
+      // Autoplay del audio al primer clic
       const playAudio = () => {
         const audio = document.getElementById('cine-audio');
         if (audio) {
@@ -120,7 +128,7 @@
         document.removeEventListener('click', playAudio);
         document.removeEventListener('touchstart', playAudio);
       };
-      
+
       document.addEventListener('click', playAudio);
       document.addEventListener('touchstart', playAudio);
 
