@@ -37,10 +37,27 @@
       z-index: 2;
     }
 
+    /* Mensaje opcional para guiar al usuario a hacer clic */
+    #start-screen {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: #000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: white; font-family: sans-serif; z-index: 9999;
+      cursor: pointer;
+      transition: opacity 1s ease;
+    }
+    #start-screen h2 { font-weight: 300; letter-spacing: 2px; font-size: 1.5rem; }
+
     #cine-audio { display: none; }
   </style>
 </head>
 <body>
+
+  <!-- Pantalla inicial para asegurar el clic del usuario -->
+  <div id="start-screen">
+    <h2>Toca en cualquier lugar para comenzar ✦</h2>
+  </div>
 
   <div id="cine-container">
     <audio id="cine-audio" loop preload="auto">
@@ -62,15 +79,16 @@
 
       const container = document.getElementById('cine-container');
       const audioElement = document.getElementById('cine-audio');
+      const startScreen = document.getElementById('start-screen');
       let currentIndex = 0;
-      let proyeccionIniciada = false;   // Evita ejecutar el temporizador más de una vez
+      let iniciado = false;
 
-      // Carga las imágenes (todas ocultas por defecto)
+      // 1. Cargar las imágenes (todas ocultas con opacidad 0, ninguna activa)
       function cargarCine() {
-          misRecuerdos.forEach((recuerdo, index) => {
+          misRecuerdos.forEach((recuerdo) => {
               const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
               const frame = document.createElement('div');
-              frame.className = 'frame';
+              frame.className = 'frame'; // Nace sin la clase 'active' (totalmente en negro)
               frame.innerHTML = `
                   <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
                   <div class="info-overlay">
@@ -82,18 +100,15 @@
           });
       }
 
-      // Comienza la proyección de imágenes (se llama tras los 16.20 s)
-      function iniciarProyeccion() {
-          if (proyeccionIniciada) return; // ya se inició
-          proyeccionIniciada = true;
-
+      // 2. Iniciar la proyección de las imágenes de forma cíclica
+      function arrancarProyeccionVisual() {
           const frames = document.querySelectorAll('.frame');
           if (frames.length === 0) return;
 
-          // Mostrar la primera imagen
+          // Mostrar la primera imagen tras los 16.27 segundos
           frames[currentIndex].classList.add('active');
 
-          // Cambiar cada 5 segundos
+          // Cambiar de imagen cada 5 segundos
           setInterval(() => {
               frames[currentIndex].classList.remove('active');
               currentIndex = (currentIndex + 1) % frames.length;
@@ -101,51 +116,40 @@
           }, 5000);
       }
 
-      // Función que inicia el audio y el temporizador de 16.20 s
-      function iniciarAudioYTemporizador() {
-          // Si ya se inició la proyección, no hacer nada (por si se llama de nuevo)
-          if (proyeccionIniciada) return;
+      // 3. Manejador de la interacción del usuario
+      function activarExperiencia(e) {
+          if (iniciado) return;
+          iniciado = true;
 
+          // Ocultar pantalla de inicio
+          startScreen.style.opacity = '0';
+          setTimeout(() => { startScreen.remove(); }, 1000);
+
+          // Reproducir el audio inmediatamente
           audioElement.play()
               .then(() => {
-                  console.log('🎵 Audio reproducido correctamente');
-                  // Esperar 16.20 segundos exactos antes de mostrar imágenes
-                  setTimeout(() => {
-                      iniciarProyeccion();
-                  }, 16200); // 16.20 segundos
+                  console.log('🎵 Audio reproduciéndose con normalidad');
               })
               .catch((err) => {
-                  console.warn('⚠️ Error al reproducir audio (se espera interacción):', err);
+                  console.warn('⚠️ Error al reproducir audio:', err);
               });
-      }
 
-      // Configura el autoplay al cargar y, si falla, escucha clic/touch
-      function setupAudio() {
-          // 1) Intentar autoplay
-          iniciarAudioYTemporizador();
+          // Exactamente 16.27 segundos (16270 ms) después del clic, arrancan las imágenes
+          setTimeout(() => {
+              arrancarProyeccionVisual();
+          }, 16270);
 
-          // 2) Si el autoplay falla (por política del navegador), 
-          //    añadimos listeners para que el usuario active manualmente
-          //    pero solo si aún no se ha iniciado la proyección.
-          const handler = function(e) {
-              // Si ya se inició la proyección, no hacemos nada
-              if (proyeccionIniciada) return;
-              // Intentamos de nuevo
-              iniciarAudioYTemporizador();
-              // Después del primer clic, removemos los listeners para no repetir
-              document.removeEventListener('click', handler);
-              document.removeEventListener('touchstart', handler);
-          };
-
-          // Añadimos los listeners (se ejecutarán solo si el usuario interactúa)
-          document.addEventListener('click', handler);
-          document.addEventListener('touchstart', handler);
+          // Limpiar eventos globales
+          document.removeEventListener('click', activarExperiencia);
+          document.removeEventListener('touchstart', activarExperiencia);
       }
 
       // Inicialización
       function init() {
           cargarCine();
-          setupAudio();
+          // Esperar estrictamente a que el usuario interactúe
+          document.addEventListener('click', activarExperiencia);
+          document.addEventListener('touchstart', activarExperiencia);
       }
 
       if (document.readyState === 'loading') {
