@@ -87,6 +87,25 @@
 
     cargarCine();
     proyectar();
+    const audioElement = document.getElementById('cine-audio');
+    function setupAudioAutoplay() {
+        const playAudio = function() {
+          audioElement.play()
+            .then(() => {
+              console.log('🎵 Audio reproducido correctamente');
+              document.removeEventListener('click', playAudio);
+              document.removeEventListener('touchstart', playAudio);
+            })
+            .catch((err) => {
+              console.warn('⚠️ No se pudo reproducir el audio:', err);
+            });
+        };
+
+        // Escuchar tanto clic como touch (para móviles)
+        document.addEventListener('click', playAudio);
+        document.addEventListener('touchstart', playAudio);
+      }
+
   </script>
 </body>
 </html>
