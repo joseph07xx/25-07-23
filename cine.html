@@ -227,36 +227,28 @@ const buildImageUrl = (item) => `https://lh3.googleusercontent.com/d/${item.id}`
        * Usa el evento 'transitionend' para sincronizar los pasos.
        */
       function cambiarImagen() {
-        // Si ya hay una transición en curso o no hay URLs, salimos
         if (isTransitioning || imageUrls.length === 0) return;
 
-        // Marcar inicio de transición
         isTransitioning = true;
 
-        // 1. Aplicar fade-out a la imagen actual
+        // 1. Aplicar fade-out
         imgElement.classList.add('fade-out');
 
-        // 2. Escuchar el fin de la transición de opacidad
-        const onTransitionEnd = function(e) {
-          // Asegurarnos de que es la transición de opacidad
-          if (e.propertyName !== 'opacity') return;
-
-          // Remover el listener para evitar acumulación
-          imgElement.removeEventListener('transitionend', onTransitionEnd);
-
-          // 3. Calcular siguiente índice (cíclico)
+        // 2. Usamos setTimeout para asegurar el cambio después de la duración de la transición (1.2s)
+        setTimeout(() => {
+          // 3. Calcular siguiente índice
           currentIndex = (currentIndex + 1) % imageUrls.length;
 
-          // 4. Cambiar la fuente de la imagen (nueva imagen)
+          // 4. Cambiar la fuente
           imgElement.src = imageUrls[currentIndex];
 
-          // 5. Quitar la clase fade-out para que entre con fade-in
+          // 5. Quitar el fade-out (esto dispara el fade-in)
           imgElement.classList.remove('fade-out');
 
           // 6. Marcar fin de transición
           isTransitioning = false;
-        };
-
+        }, 1200); // 1200ms coincide con tu transición CSS
+      }
         imgElement.addEventListener('transitionend', onTransitionEnd);
       }
 
