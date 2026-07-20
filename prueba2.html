@@ -43,7 +43,8 @@
 <body>
 
   <div id="cine-container">
-    <audio id="cine-audio" loop preload="auto">
+    <!-- 🔹 QUITÉ el atributo 'loop' para que el audio se reproduzca solo una vez -->
+    <audio id="cine-audio" preload="auto">
       <source src="https://ia601904.us.archive.org/26/items/coldplay-yellow-official-video-y-knxe-f-4-kms-y/Coldplay%20-%20Yellow%20%28Official%20Video%29%20%5ByKNxeF4KMsY%5D.mp3" />
       Tu navegador no soporta la reproducción de audio.
     </audio>
@@ -75,7 +76,6 @@
             { id: "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp", titulo: "Otoño juntos", fecha: "Noviembre 2023" },
             { id: "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf", titulo: "Primavera", fecha: "Abril 2024" },
             { id: "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8", titulo: "Eres mi hogar", fecha: "Abril 2024" },
-            { id: "1GwMRtG-r-DlRdRyZL_h5EJBTXGhrddZE", titulo: "Marzo especial", fecha: "Marzo 2024" },
             { id: "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l", titulo: "Abril contigo", fecha: "Abril 2024" },
             { id: "12uhLUJBGFEZRTlekdv54mJuROemFiXs9", titulo: "Eres todo", fecha: "Abril 2024" },
             { id: "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6", titulo: "Instante bello", fecha: "2024" },
@@ -100,21 +100,22 @@
             { id: "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS", titulo: "Regalo", fecha: "2025" },
             { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
             { id: "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_", titulo: "Perla", fecha: "2025" },
-            { id: "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t", titulo: "Diamante", fecha: "2025" }
+            { id: "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t", titulo: "Diamante", fecha: "2025" },
       ];
 
       const container = document.getElementById('cine-container');
       const audioElement = document.getElementById('cine-audio');
       let currentIndex = 0;
-      let proyeccionIniciada = false;    // Ya se mostró alguna imagen
-      let temporizadorActivo = false;    // Ya se programó el temporizador
+      let proyeccionIniciada = false;
+      let temporizadorActivo = false;
+      let intervaloCambio = null;
 
       // 1. Cargar los frames (todos ocultos)
       function cargarCine() {
           misRecuerdos.forEach((recuerdo) => {
               const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
               const frame = document.createElement('div');
-              frame.className = 'frame';  // sin 'active'
+              frame.className = 'frame';
               frame.innerHTML = `
                   <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
                   <div class="info-overlay">
@@ -136,26 +137,43 @@
 
           frames[currentIndex].classList.add('active');
 
-          setInterval(() => {
+          intervaloCambio = setInterval(() => {
               frames[currentIndex].classList.remove('active');
               currentIndex = (currentIndex + 1) % frames.length;
               frames[currentIndex].classList.add('active');
           }, 5000);
       }
 
-      // 3. Función que se llama cuando el audio comienza a reproducirse
+      // 3. Función para ocultar todas las imágenes y detener el intervalo
+      function ocultarImagenes() {
+          const frames = document.querySelectorAll('.frame');
+          frames.forEach(frame => frame.classList.remove('active'));
+
+          if (intervaloCambio) {
+              clearInterval(intervaloCambio);
+              intervaloCambio = null;
+          }
+
+          console.log('⏹️ Imágenes ocultadas (audio terminado)');
+      }
+
+      // 4. Función que se llama cuando el audio comienza a reproducirse
       function cuandoAudioComienza() {
           if (temporizadorActivo) return;
           temporizadorActivo = true;
 
-          console.log('🎵 Audio en reproducción. Esperando 16.20s para mostrar imágenes...');
+          console.log('🎵 Audio en reproducción. Esperando 34.5s para mostrar imágenes...');
 
+          // Iniciar proyección a los 34.5 segundos
           setTimeout(() => {
               iniciarProyeccion();
-          }, 34500); // 34.5 segundos
+          }, 34500);
+
+          // 🔹 Ya no necesitamos el temporizador de 4m34s porque ahora usamos el evento 'ended'
+          // Elimino ese setTimeout para que sea el fin del audio el que active el ocultamiento.
       }
 
-      // 4. Intento de autoplay al cargar
+      // 5. Intento de autoplay al cargar
       function intentarAutoplay() {
           const promesa = audioElement.play();
           if (promesa !== undefined) {
@@ -165,7 +183,6 @@
                   })
                   .catch(() => {
                       console.warn('⚠️ Autoplay bloqueado. Esperando clic/touch del usuario.');
-                      // Listeners para activar con interacción
                       const handler = function(e) {
                           audioElement.play()
                               .then(() => {
@@ -179,16 +196,23 @@
                       document.addEventListener('touchstart', handler);
                   });
           } else {
-              // Navegador antiguo
               audioElement.play();
               cuandoAudioComienza();
           }
       }
 
-      // 5. Inicialización
+      // 6. Inicialización
       function init() {
           cargarCine();
           intentarAutoplay();
+
+          // 🔹 NUEVO: Escuchar el final del audio para ocultar imágenes y detener el intervalo
+          audioElement.addEventListener('ended', function() {
+              ocultarImagenes();
+              // Opcional: también podrías pausar el audio (ya terminó)
+              // audioElement.pause();
+              console.log('🔚 Audio finalizado, pantalla negra.');
+          });
       }
 
       if (document.readyState === 'loading') {
