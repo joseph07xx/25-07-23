@@ -65,12 +65,13 @@
       const audioElement = document.getElementById('cine-audio');
       let currentIndex = 0;
 
-      // 1. Carga dinámica de recuerdos
+      // 1. Carga dinámica de recuerdos (SIN activar ninguna de entrada para que esté todo negro)
       function cargarCine() {
           misRecuerdos.forEach((recuerdo, index) => {
               const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
               const frame = document.createElement('div');
-              frame.className = `frame ${index === 0 ? 'active' : ''}`;
+              // Omitimos 'active' al crear para que nazcan ocultas
+              frame.className = 'frame'; 
               frame.innerHTML = `
                   <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
                   <div class="info-overlay">
@@ -82,11 +83,15 @@
           });
       }
 
-      // 2. Lógica de proyección automática
-      function proyectar() {
+      // 2. Comienza a mostrar las imágenes tras el retraso exacto
+      function iniciarProyeccion() {
           const frames = document.querySelectorAll('.frame');
           if (frames.length === 0) return;
-          
+
+          // Muestra la primera imagen de golpe
+          frames[currentIndex].classList.add('active');
+
+          // Empieza a cambiarlas cada 5 segundos
           setInterval(() => {
               frames[currentIndex].classList.remove('active');
               currentIndex = (currentIndex + 1) % frames.length;
@@ -94,12 +99,18 @@
           }, 5000);
       }
 
-      // 3. Activación de audio por interacción del usuario (Políticas del navegador)
+      // 3. Activación de audio y temporizador de 16.27s para el show visual
       function setupAudioAutoplay() {
           const playAudio = function() {
               audioElement.play()
                   .then(() => {
                       console.log('🎵 Audio reproducido correctamente');
+                      
+                      // Pantalla en negro durante 16.27s (16270ms) mientras suena la música normal
+                      setTimeout(() => {
+                          iniciarProyeccion();
+                      }, 16270);
+
                       document.removeEventListener('click', playAudio);
                       document.removeEventListener('touchstart', playAudio);
                   })
@@ -115,7 +126,6 @@
       // Inicialización general
       function init() {
           cargarCine();
-          proyectar();
           setupAudioAutoplay();
       }
 
