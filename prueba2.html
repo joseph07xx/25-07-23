@@ -34,14 +34,16 @@
     .info-overlay {
       position: absolute; bottom: 50px; color: white; text-align: center;
       font-family: sans-serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      z-index: 2;
     }
+
+    #cine-audio { display: none; }
   </style>
 </head>
 <body>
 
-  <div id="cine-container"></div>
+  <!-- Contenedor único para el proyector y el audio -->
   <div id="cine-container">
-    <img id="cine-image" src="" alt="Proyección cinematográfica" />
     <audio id="cine-audio" loop preload="auto">
       <source src="https://ia600806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3" type="audio/mpeg" />
       Tu navegador no soporta la reproducción de audio.
@@ -49,71 +51,81 @@
   </div>
 
   <script>
-    const misRecuerdos = [
-        { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", titulo: "Nuestro comienzo", fecha: "2023" },
-        { id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", titulo: "Mirada que enamora", fecha: "Agosto 2023" },
-        // ... (agrega aquí todos tus objetos del array)
-    ];
+    (function() {
+      'use strict';
 
-    const container = document.getElementById('cine-container');
-    let currentIndex = 0;
+      const misRecuerdos = [
+          { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", titulo: "Nuestro comienzo", fecha: "2023" },
+          { id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", titulo: "Mirada que enamora", fecha: "Agosto 2023" },
+          { id: "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL", titulo: "Atardecer juntos", fecha: "Septiembre 2023" },
+          { id: "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc", titulo: "Sonrisas sinceras", fecha: "Octubre 2024" }
+      ];
 
-    // 1. Carga dinámica tipo "Partículas"
-    function cargarCine() {
-        misRecuerdos.forEach((recuerdo, index) => {
-            const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
-            const frame = document.createElement('div');
-            frame.className = `frame ${index === 0 ? 'active' : ''}`;
-            frame.innerHTML = `
-                <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
-                <div class="info-overlay">
-                    <h1>${recuerdo.titulo}</h1>
-                    <p>${recuerdo.fecha}</p>
-                </div>
-            `;
-            container.appendChild(frame);
-        });
-    }
+      const container = document.getElementById('cine-container');
+      const audioElement = document.getElementById('cine-audio');
+      let currentIndex = 0;
 
-    // 2. Lógica de proyección
-    function proyectar() {
-        const frames = document.querySelectorAll('.frame');
-        setInterval(() => {
-            frames[currentIndex].classList.remove('active');
-            currentIndex = (currentIndex + 1) % frames.length;
-            frames[currentIndex].classList.add('active');
-        }, 5000);
-    }
-
-    cargarCine();
-    proyectar();
-    const audioElement = document.getElementById('cine-audio');
-    function setupAudioAutoplay() {
-        const playAudio = function() {
-          audioElement.play()
-            .then(() => {
-              console.log('🎵 Audio reproducido correctamente');
-              document.removeEventListener('click', playAudio);
-              document.removeEventListener('touchstart', playAudio);
-            })
-            .catch((err) => {
-              console.warn('⚠️ No se pudo reproducir el audio:', err);
-            });
-        };
-
-        // Escuchar tanto clic como touch (para móviles)
-        document.addEventListener('click', playAudio);
-        document.addEventListener('touchstart', playAudio);
+      // 1. Carga dinámica de recuerdos
+      function cargarCine() {
+          misRecuerdos.forEach((recuerdo, index) => {
+              const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
+              const frame = document.createElement('div');
+              frame.className = `frame ${index === 0 ? 'active' : ''}`;
+              frame.innerHTML = `
+                  <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
+                  <div class="info-overlay">
+                      <h1>${recuerdo.titulo}</h1>
+                      <p>${recuerdo.fecha}</p>
+                  </div>
+              `;
+              container.appendChild(frame);
+          });
       }
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          init();
+
+      // 2. Lógica de proyección automática
+      function proyectar() {
+          const frames = document.querySelectorAll('.frame');
+          if (frames.length === 0) return;
+          
+          setInterval(() => {
+              frames[currentIndex].classList.remove('active');
+              currentIndex = (currentIndex + 1) % frames.length;
+              frames[currentIndex].classList.add('active');
+          }, 5000);
+      }
+
+      // 3. Activación de audio por interacción del usuario (Políticas del navegador)
+      function setupAudioAutoplay() {
+          const playAudio = function() {
+              audioElement.play()
+                  .then(() => {
+                      console.log('🎵 Audio reproducido correctamente');
+                      document.removeEventListener('click', playAudio);
+                      document.removeEventListener('touchstart', playAudio);
+                  })
+                  .catch((err) => {
+                      console.warn('⚠️ Esperando interacción para el audio:', err);
+                  });
+          };
+
+          document.addEventListener('click', playAudio);
+          document.addEventListener('touchstart', playAudio);
+      }
+
+      // Inicialización general
+      function init() {
+          cargarCine();
+          proyectar();
           setupAudioAutoplay();
-        });
-      } else {
-        init();
-        setupAudioAutoplay();
       }
+
+      if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+      } else {
+          init();
+      }
+
+    })();
   </script>
 </body>
 </html>
