@@ -5,167 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cine · Proyector</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
 
     #cine-container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
       position: relative;
     }
 
-    #cine-image {
-      max-width: 100vw;
-      max-height: 100vh;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      opacity: 1;
-      transition: opacity 1.2s ease-in-out;
-      pointer-events: none;
-      -webkit-user-drag: none;
-    }
-
-    #cine-image.fade-out {
+    .frame {
+      position: absolute;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
       opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      pointer-events: none;
     }
 
-    #cine-audio {
-      display: none;
+    .frame.active { opacity: 1; z-index: 1; }
+
+    .drive-image {
+      max-width: 90vw; max-height: 80vh;
+      object-fit: contain;
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    }
+
+    .info-overlay {
+      position: absolute; bottom: 50px; color: white; text-align: center;
+      font-family: sans-serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
   </style>
 </head>
 <body>
 
-  <div id="cine-container">
-    <img id="cine-image" src="" alt="Proyección cinematográfica" />
-    <audio id="cine-audio" loop preload="auto">
-      <source src="https://ia600806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3" type="audio/mpeg" />
-      Tu navegador no soporta la reproducción de audio.
-    </audio>
-  </div>
+  <div id="cine-container"></div>
 
   <script>
-    (function() {
-      'use strict';
+    const misRecuerdos = [
+        { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", titulo: "Nuestro comienzo", fecha: "2023" },
+        { id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", titulo: "Mirada que enamora", fecha: "Agosto 2023" },
+        // ... (agrega aquí todos tus objetos del array)
+    ];
 
-      // ============================================================
-      // 1. CONFIGURACIÓN DE IDs (Agrega todos tus IDs aquí)
-      // ============================================================
-      const IMAGE_IDS = [
-        "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-",
-        "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj",
-        "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL"
-      ];
+    const container = document.getElementById('cine-container');
+    let currentIndex = 0;
 
-      // Formato directo compatible con navegadores de Google Drive
-      const buildImageUrl = (id) => 
-        `https://lh3.googleusercontent.com/d/${id}=w1920`;
+    // 1. Carga dinámica tipo "Partículas"
+    function cargarCine() {
+        misRecuerdos.forEach((recuerdo, index) => {
+            const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
+            const frame = document.createElement('div');
+            frame.className = `frame ${index === 0 ? 'active' : ''}`;
+            frame.innerHTML = `
+                <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
+                <div class="info-overlay">
+                    <h1>${recuerdo.titulo}</h1>
+                    <p>${recuerdo.fecha}</p>
+                </div>
+            `;
+            container.appendChild(frame);
+        });
+    }
 
-      const INTERVAL_MS = 5000;
+    // 2. Lógica de proyección
+    function proyectar() {
+        const frames = document.querySelectorAll('.frame');
+        setInterval(() => {
+            frames[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % frames.length;
+            frames[currentIndex].classList.add('active');
+        }, 5000);
+    }
 
-      // ============================================================
-      // 2. ELEMENTOS DOM Y ESTADO
-      // ============================================================
-      const imgElement = document.getElementById('cine-image');
-      const audioElement = document.getElementById('cine-audio');
-
-      let currentIndex = 0;
-      let imageUrls = [];
-      let isTransitioning = false;
-      let intervalId = null;
-
-      // ============================================================
-      // 3. CAMBIO DE IMAGEN CON EFECTO FADE SUAVE
-      // ============================================================
-      function cambiarImagen() {
-        if (isTransitioning || imageUrls.length === 0) return;
-        isTransitioning = true;
-
-        // Activar desvanecimiento (Fade-out)
-        imgElement.classList.add('fade-out');
-
-        setTimeout(() => {
-          // Cambiar al siguiente índice de manera circular
-          currentIndex = (currentIndex + 1) % imageUrls.length;
-          imgElement.src = imageUrls[currentIndex];
-
-          // Una vez cargada la nueva imagen, quitar el fade (Fade-in)
-          imgElement.onload = () => {
-            imgElement.classList.remove('fade-out');
-            isTransitioning = false;
-          };
-
-          imgElement.onerror = () => {
-            console.warn('⚠️ Error al cargar una imagen, saltando...');
-            imgElement.classList.remove('fade-out');
-            isTransitioning = false;
-          };
-        }, 1200); // Debe coincidir con la duración de la transición CSS (1.2s)
-      }
-
-      // ============================================================
-      // 4. INICIALIZACIÓN
-      // ============================================================
-      function init() {
-        imageUrls = IMAGE_IDS.map(id => buildImageUrl(id));
-
-        if (imageUrls.length === 0) return;
-
-        // Cargar la primera imagen directamente
-        imgElement.src = imageUrls[0];
-        imgElement.onload = () => {
-          imgElement.classList.remove('fade-out');
-        };
-
-        // Iniciar el ciclo automático del proyector
-        intervalId = setInterval(cambiarImagen, INTERVAL_MS);
-      }
-
-      // ============================================================
-      // 5. AUDIO: REPRODUCCIÓN AL PRIMER CLIC / TOQUE
-      // ============================================================
-      function setupAudioAutoplay() {
-        const playAudio = () => {
-          audioElement.play()
-            .then(() => {
-              document.removeEventListener('click', playAudio);
-              document.removeEventListener('touchstart', playAudio);
-            })
-            .catch((err) => {
-              console.warn('⚠️ Esperando interacción para reproducir audio:', err);
-            });
-        };
-
-        document.addEventListener('click', playAudio);
-        document.addEventListener('touchstart', playAudio);
-      }
-
-      // Seguridad básica contra clic derecho
-      document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-      // Arrancar el sistema
-      init();
-      setupAudioAutoplay();
-
-    })();
+    cargarCine();
+    proyectar();
   </script>
 </body>
 </html>
