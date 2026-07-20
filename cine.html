@@ -5,28 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cine · Proyector</title>
   <style>
-    /* ===== RESET Y LAYOUT ===== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Fondo negro absoluto, ocupa toda la pantalla, sin scroll */
     html,
     body {
       width: 100vw;
       height: 100vh;
       overflow: hidden;
       background: #000;
-      /* Bloquear selección de texto e imágenes */
       user-select: none;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
     }
 
-    /* Contenedor principal: centra la imagen con flex */
     #cine-container {
       width: 100vw;
       height: 100vh;
@@ -36,7 +32,6 @@
       background: #000;
     }
 
-    /* Imagen: se adapta sin deformarse, transición suave para el efecto cine */
     #cine-image {
       max-width: 100vw;
       max-height: 100vh;
@@ -45,18 +40,15 @@
       object-fit: contain;
       opacity: 1;
       transition: opacity 1.2s ease-in-out;
-      /* Bloquea la selección de la imagen en navegadores */
       pointer-events: none;
       user-select: none;
       -webkit-user-drag: none;
     }
 
-    /* Clase auxiliar para fade-out (se aplica antes de cambiar la imagen) */
     #cine-image.fade-out {
       opacity: 0;
     }
 
-    /* El audio está oculto pero presente */
     #cine-audio {
       display: none;
     }
@@ -64,14 +56,9 @@
 </head>
 <body>
 
-  <!-- ===== ESTRUCTURA HTML ===== -->
   <div id="cine-container">
-    <!-- Imagen principal que se irá actualizando -->
     <img id="cine-image" src="" alt="Proyección cinematográfica" />
-
-    <!-- Elemento de audio con bucle y música de fondo -->
     <audio id="cine-audio" loop preload="auto">
-      <!-- Reemplaza la ruta por tu propio archivo de música -->
       <source src="https://ia600806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3" type="audio/mpeg" />
       Tu navegador no soporta la reproducción de audio.
     </audio>
@@ -85,100 +72,96 @@
       // 1. CONFIGURACIÓN
       // ============================================================
 
-      // Array de identificadores (IDs) de imágenes.
-      // Se usarán para construir las URLs de las imágenes.
-      // Puedes cambiar estos IDs por los tuyos o usar nombres de archivo.
       const IMAGE_IDS = [
-        { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-" },
-{ id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj" },
-{ id: "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL" },
-{ id: "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc" },
-{ id: "1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-" },
-{ id: "1-h7ptg3yhupm7dLHLK9gH5LrBBTPXWp7" },
-{ id: "1y783ZM6d33rc9igv2be9m0XrKYtVxbUc" },
-{ id: "1hIsX0LY2SP3QhoxG2fRM0f6sCy6UVAHj" },
-{ id: "1FjWFkhHRK7_mF4zUXPp7oZRUAQdxl1GT" },
-{ id: "1Uw1HEWmzd135g4ysusOsi7JLywbLvkHL" },
-{ id: "1RXWuiyqGiOGqsxS5yBdQiOIJeMZ4qCFO" },
-{ id: "1LoqaGb3mk8SsdLgkS6KsIQR190QQbmC0" },
-{ id: "17EcqwTl7ZgE142WlcI2bSmDBQntQTH5E" },
-{ id: "12cFguQajr9ykc5qy0QrmU4Cwq09jqYMf" },
-{ id: "10mM0Lyu8vqGp33kIiXKGsGzcO0bAvxJV" },
-{ id: "1kZ9f5t4D1Z9k2-NJdHM89DwWg-GXQWbQ" },
-{ id: "1-xA0VinFW8UhhQoZWorheYQaOnsk-1EU" },
-{ id: "1aYPNq6lD-n9LRhe2-P_tg1c6DRyutqsp" },
-{ id: "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp" },
-{ id: "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf" },
-{ id: "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8" },
-{ id: "1GwMRtG-r-DlRdRyZL_h5EJBTXGhrddZE" },
-{ id: "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l" },
-{ id: "12uhLUJBGFEZRTlekdv54mJuROemFiXs9" },
-{ id: "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6" },
-{ id: "12usQeIxSrt2Mm3Uwsd5q3Pig879XL1AC" },
-{ id: "13C45n0Zpxtwx_tBD95-faoNJN7E5SS3B" },
-{ id: "13OECDw5pLX0GoLqhwZiaaRwLU028j-f-" },
-{ id: "13tpM0Y-cZFwtfx8OQ7elltM8uNQ6kixE" },
-{ id: "154AxMngzxmcU499NhST8rqgYYELdrUV-" },
-{ id: "15ZsZScL-ve9taB0R3qt7RDVRXU6_iwin" },
-{ id: "15wEUbxPRhX2sUEtw9t4VIiN0Tcqh6HuV" },
-{ id: "16kD_b7QgxVq4j-cWoDHKgtB9DXgT5wLF" },
-{ id: "17MyIWxYotdnzEae95mPc0rvzzaMsd8Ip" },
-{ id: "18_9byESKd8A9VU_AaQefjBAZdCV0utyG" },
-{ id: "18auW03EmZzd16HnOeuNAmC-0Hcldo6qO" },
-{ id: "193jW-umS6YeTiAbSwzkGR00KBbN1hkZs" },
-{ id: "1AMBnW_-lXIjmRblyX22JO706GfxZGhtV" },
-{ id: "1Cj49txzrFOH352gscUQyqXnyjBcBWYys" },
-{ id: "1Dl_BrttB7I4ejNp-dFOc8mwvB43cuUy_" },
-{ id: "1DrTUZTzSSCs9AOUG7NybpXCC9Tn5cuyH" },
-{ id: "1EIHypsZ-Molo07ncg4GwdlcfsDm_ihsv" },
-{ id: "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L" },
-{ id: "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS" },
-{ id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq" },
-{ id: "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_" },
-{ id: "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t" },
-{ id: "1HWydhbUqm0w7-cwbEvn8jzVa2g3Sh0eW" },
-{ id: "1HXNTni0bZbfRWbWfpiECkNN9GMfvG3dt" },
-{ id: "1Hn0lUiwH9HK-tLX60CCPY0J8MVWyUbDc" },
-{ id: "1JzUhCmRV13t3gBgc2zZKUFj3K0H79Etf" },
-{ id: "1K05XnWZ0djY9hKd9Aux7p6FpDfsgz44t" },
-{ id: "1KGZ3EgtT3MYKGjWQyIo--51vj8n1mFUI" },
-{ id: "1KQ7GVmBpbphhV74sCMtg6Ofe5cML0Y2D" },
-{ id: "1KybgRTrG7ZubIcjoDSzb15_JNJTJpkbc" },
-{ id: "1LMcnHC5yF-p4cD8wxIeOOjksTPv4CAVa" },
-{ id: "1LeI-_xynVSpqGwhjZckgGfcvDPzGare_" },
-{ id: "1M-3DoHhw6_TcKlcimCkRKq_GBVzxCz55" },
-{ id: "1M7vwn9RN0qg1gK07I3KmbiwocfvvVxWO" },
-{ id: "1NCmqa2idy_n0VIhQWAcaOv3BT9_RoZKM" },
-{ id: "1SV1RXacphAOd_PBPwnNaHACMBs9VdkJQ" },
-{ id: "1WwpEJ0xN-TH21dmMT76qMMPacrBhovkp" },
-{ id: "1YMJRD3zua6KS3IMvlnOeTJ1lljX2Wm5m" },
-{ id: "1YfjEEAIHluwhmJLrKSKgs2ndor8HQKK_" },
-{ id: "1ZJsrpUmEntqyg0Bi9NYw6xlVQVke0qgq" },
-{ id: "1ZSc6ZgF0Q9g1O3tClZ6EeuhsmlpCpNw1" },
-{ id: "1am_Q7Isyn9K2kEYUFeR7iFNLeQL9IVcq" },
-{ id: "1bO7EJkx07aiFsBmuyJu4ChEE_YbbH271" },
-{ id: "1dETq6y8wNtridMk3-SQLLQmnVRDUPkW3" },
-{ id: "1dNyEoGxA_qVG7kxwsjDm-dP0cxjMiEGk" },
-{ id: "1e6JoAGWv0rjbqumugOE60wRL0IrjuUzH" },
-{ id: "1euFC7s6vTcE4qVKlIVyZdBzFsWFvvisa" },
-{ id: "1gmwhEwy1tuWsN_UVvV1_a6ImmFY6bTCc" },
-{ id: "1jzW6JpuorRkHtunkSsgugtlgFnDnqyh2" },
-{ id: "1raURod2CDejJ4z27MRp6ZyN4zA9hkliu" },
-{ id: "1rhdwjxZ2G2r6yglLSVOJKWMD8tfcmz7m" },
-{ id: "1sL2vDOhNqwB3eSJ-xfFzOlVUG-QynAII" },
-{ id: "1sQy4U96PkSsfJxdAjaV9ESIDmJtseITi" },
-{ id: "1tHjGxG5BDemPEYiv84ytGSUcWFVKWoJc" },
-{ id: "1towosIbi-GSdBp87a195-jmXeGQgbrx3" },
-{ id: "1u5KrA4Xg6erBkkA1A73rg5AHe928Wjbt" },
-{ id: "1uPJNqlBHWM1bPp2RfxNdQOpUHnhaWi1V" }
+        "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-",
+        "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj",
+        "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL",
+        "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc",
+        "1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-",
+        "1-h7ptg3yhupm7dLHLK9gH5LrBBTPXWp7",
+        "1y783ZM6d33rc9igv2be9m0XrKYtVxbUc",
+        "1hIsX0LY2SP3QhoxG2fRM0f6sCy6UVAHj",
+        "1FjWFkhHRK7_mF4zUXPp7oZRUAQdxl1GT",
+        "1Uw1HEWmzd135g4ysusOsi7JLywbLvkHL",
+        "1RXWuiyqGiOGqsxS5yBdQiOIJeMZ4qCFO",
+        "1LoqaGb3mk8SsdLgkS6KsIQR190QQbmC0",
+        "17EcqwTl7ZgE142WlcI2bSmDBQntQTH5E",
+        "12cFguQajr9ykc5qy0QrmU4Cwq09jqYMf",
+        "10mM0Lyu8vqGp33kIiXKGsGzcO0bAvxJV",
+        "1kZ9f5t4D1Z9k2-NJdHM89DwWg-GXQWbQ",
+        "1-xA0VinFW8UhhQoZWorheYQaOnsk-1EU",
+        "1aYPNq6lD-n9LRhe2-P_tg1c6DRyutqsp",
+        "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp",
+        "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf",
+        "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8",
+        "1GwMRtG-r-DlRdRyZL_h5EJBTXGhrddZE",
+        "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l",
+        "12uhLUJBGFEZRTlekdv54mJuROemFiXs9",
+        "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6",
+        "12usQeIxSrt2Mm3Uwsd5q3Pig879XL1AC",
+        "13C45n0Zpxtwx_tBD95-faoNJN7E5SS3B",
+        "13OECDw5pLX0GoLqhwZiaaRwLU028j-f-",
+        "13tpM0Y-cZFwtfx8OQ7elltM8uNQ6kixE",
+        "154AxMngzxmcU499NhST8rqgYYELdrUV-",
+        "15ZsZScL-ve9taB0R3qt7RDVRXU6_iwin",
+        "15wEUbxPRhX2sUEtw9t4VIiN0Tcqh6HuV",
+        "16kD_b7QgxVq4j-cWoDHKgtB9DXgT5wLF",
+        "17MyIWxYotdnzEae95mPc0rvzzaMsd8Ip",
+        "18_9byESKd8A9VU_AaQefjBAZdCV0utyG",
+        "18auW03EmZzd16HnOeuNAmC-0Hcldo6qO",
+        "193jW-umS6YeTiAbSwzkGR00KBbN1hkZs",
+        "1AMBnW_-lXIjmRblyX22JO706GfxZGhtV",
+        "1Cj49txzrFOH352gscUQyqXnyjBcBWYys",
+        "1Dl_BrttB7I4ejNp-dFOc8mwvB43cuUy_",
+        "1DrTUZTzSSCs9AOUG7NybpXCC9Tn5cuyH",
+        "1EIHypsZ-Molo07ncg4GwdlcfsDm_ihsv",
+        "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L",
+        "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS",
+        "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq",
+        "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_",
+        "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t",
+        "1HWydhbUqm0w7-cwbEvn8jzVa2g3Sh0eW",
+        "1HXNTni0bZbfRWbWfpiECkNN9GMfvG3dt",
+        "1Hn0lUiwH9HK-tLX60CCPY0J8MVWyUbDc",
+        "1JzUhCmRV13t3gBgc2zZKUFj3K0H79Etf",
+        "1K05XnWZ0djY9hKd9Aux7p6FpDfsgz44t",
+        "1KGZ3EgtT3MYKGjWQyIo--51vj8n1mFUI",
+        "1KQ7GVmBpbphhV74sCMtg6Ofe5cML0Y2D",
+        "1KybgRTrG7ZubIcjoDSzb15_JNJTJpkbc",
+        "1LMcnHC5yF-p4cD8wxIeOOjksTPv4CAVa",
+        "1LeI-_xynVSpqGwhjZckgGfcvDPzGare_",
+        "1M-3DoHhw6_TcKlcimCkRKq_GBVzxCz55",
+        "1M7vwn9RN0qg1gK07I3KmbiwocfvvVxWO",
+        "1NCmqa2idy_n0VIhQWAcaOv3BT9_RoZKM",
+        "1SV1RXacphAOd_PBPwnNaHACMBs9VdkJQ",
+        "1WwpEJ0xN-TH21dmMT76qMMPacrBhovkp",
+        "1YMJRD3zua6KS3IMvlnOeTJ1lljX2Wm5m",
+        "1YfjEEAIHluwhmJLrKSKgs2ndor8HQKK_",
+        "1ZJsrpUmEntqyg0Bi9NYw6xlVQVke0qgq",
+        "1ZSc6ZgF0Q9g1O3tClZ6EeuhsmlpCpNw1",
+        "1am_Q7Isyn9K2kEYUFeR7iFNLeQL9IVcq",
+        "1bO7EJkx07aiFsBmuyJu4ChEE_YbbH271",
+        "1dETq6y8wNtridMk3-SQLLQmnVRDUPkW3",
+        "1dNyEoGxA_qVG7kxwsjDm-dP0cxjMiEGk",
+        "1e6JoAGWv0rjbqumugOE60wRL0IrjuUzH",
+        "1euFC7s6vTcE4qVKlIVyZdBzFsWFvvisa",
+        "1gmwhEwy1tuWsN_UVvV1_a6ImmFY6bTCc",
+        "1jzW6JpuorRkHtunkSsgugtlgFnDnqyh2",
+        "1raURod2CDejJ4z27MRp6ZyN4zA9hkliu",
+        "1rhdwjxZ2G2r6yglLSVOJKWMD8tfcmz7m",
+        "1sL2vDOhNqwB3eSJ-xfFzOlVUG-QynAII",
+        "1sQy4U96PkSsfJxdAjaV9ESIDmJtseITi",
+        "1tHjGxG5BDemPEYiv84ytGSUcWFVKWoJc",
+        "1towosIbi-GSdBp87a195-jmXeGQgbrx3",
+        "1u5KrA4Xg6erBkkA1A73rg5AHe928Wjbt",
+        "1uPJNqlBHWM1bPp2RfxNdQOpUHnhaWi1V"
       ];
 
-      // Función que construye la URL a partir de un ID.
-      // Usamos picsum.photos para tener imágenes variadas y reales.
-      // Si prefieres imágenes locales, cambia esta función.
-// Cambia esto:
-const buildImageUrl = (item) => `https://lh3.googleusercontent.com/d/${item.id}`;      // Tiempo en milisegundos entre cada cambio de imagen
-      const INTERVAL_MS = 5000; // 5 segundos
+      // URL para Google Drive (formato que funciona en móviles y desktop)
+      const buildImageUrl = (id) => 
+        `https://drive.google.com/uc?export=view&id=${id}`;
+
+      const INTERVAL_MS = 5000;
 
       // ============================================================
       // 2. ELEMENTOS DOM
@@ -191,134 +174,155 @@ const buildImageUrl = (item) => `https://lh3.googleusercontent.com/d/${item.id}`
       // 3. ESTADO
       // ============================================================
 
-      let currentIndex = 0; // Índice de la imagen actual
-      let imageUrls = []; // Array de URLs completas
-      let isTransitioning = false; // Evita cambios múltiples durante la transición
-      let intervalId = null; // ID del intervalo para detenerlo si es necesario
+      let currentIndex = 0;
+      let imageUrls = [];
+      let isTransitioning = false;
+      let intervalId = null;
 
       // ============================================================
-      // 4. PRECARGA DE IMÁGENES (evita parpadeos en blanco)
+      // 4. PRECARGA DE IMÁGENES
       // ============================================================
 
-      /**
-       * Precarga un array de URLs de imágenes.
-       * Devuelve una promesa que se resuelve cuando todas las imágenes
-       * han sido cargadas exitosamente.
-       */
       function preloadImages(urls) {
-        const promises = urls.map((url) => {
-          return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
+          let loaded = 0;
+          const total = urls.length;
+          
+          if (total === 0) {
+            resolve([]);
+            return;
+          }
+
+          urls.forEach((url, index) => {
             const img = new Image();
-            img.onload = () => resolve(url);
-            img.onerror = () => reject(new Error(`Error al cargar la imagen: ${url}`));
+            img.onload = () => {
+              loaded++;
+              if (loaded === total) {
+                resolve(urls);
+              }
+            };
+            img.onerror = () => {
+              console.warn(`⚠️ Error cargando imagen ${index + 1}/${total}`);
+              loaded++;
+              if (loaded === total) {
+                resolve(urls); // Resolvemos aunque algunas fallen
+              }
+            };
             img.src = url;
           });
         });
-        return Promise.all(promises);
       }
 
       // ============================================================
-      // 5. CAMBIO DE IMAGEN CON EFECTO CINE (fade in / fade out)
+      // 5. CAMBIO DE IMAGEN CON FADE
       // ============================================================
 
-      /**
-       * Cambia la imagen actual por la siguiente del array.
-       * Aplica un fade-out, actualiza el src y luego un fade-in.
-       * Usa el evento 'transitionend' para sincronizar los pasos.
-       */
       function cambiarImagen() {
         if (isTransitioning || imageUrls.length === 0) return;
 
         isTransitioning = true;
 
-        // 1. Aplicar fade-out
+        // Fade-out
         imgElement.classList.add('fade-out');
 
-        // 2. Usamos setTimeout para asegurar el cambio después de la duración de la transición (1.2s)
-        setTimeout(() => {
-          // 3. Calcular siguiente índice
+        // Esperar a que termine el fade-out
+        const handleTransitionEnd = function(e) {
+          if (e.propertyName !== 'opacity') return;
+          imgElement.removeEventListener('transitionend', handleTransitionEnd);
+
+          // Calcular siguiente índice
           currentIndex = (currentIndex + 1) % imageUrls.length;
 
-          // 4. Cambiar la fuente
+          // Cambiar la imagen
           imgElement.src = imageUrls[currentIndex];
 
-          // 5. Quitar el fade-out (esto dispara el fade-in)
-          imgElement.classList.remove('fade-out');
+          // Esperar a que cargue la nueva imagen
+          imgElement.onload = function() {
+            imgElement.onload = null;
+            imgElement.onerror = null;
+            // Quitar fade-out (fade-in)
+            imgElement.classList.remove('fade-out');
+            isTransitioning = false;
+          };
 
-          // 6. Marcar fin de transición
-          isTransitioning = false;
-        }, 1200); // 1200ms coincide con tu transición CSS
-      }
-        imgElement.addEventListener('transitionend', onTransitionEnd);
+          imgElement.onerror = function() {
+            imgElement.onload = null;
+            imgElement.onerror = null;
+            console.warn('⚠️ Error cargando imagen, continuando...');
+            imgElement.classList.remove('fade-out');
+            isTransitioning = false;
+          };
+        };
+
+        imgElement.addEventListener('transitionend', handleTransitionEnd);
       }
 
       // ============================================================
-      // 6. INICIALIZACIÓN
-      // ============================================================
-
-      /**
-       * Inicia la aplicación: precarga las imágenes, establece la primera,
-       * y arranca el intervalo de cambio automático.
-       */
-// ============================================================
       // 6. INICIALIZACIÓN
       // ============================================================
 
       function init() {
-        // Construir array de URLs a partir de los IDs
-        imageUrls = IMAGE_IDS.map(item => buildImageUrl(item));
+        imageUrls = IMAGE_IDS.map(id => buildImageUrl(id));
 
-        // Verificar que haya al menos una imagen
-        if (imageUrls.length > 0) {
-          // Pon la primera imagen de inmediato
-          imgElement.src = imageUrls[0];
-          imgElement.classList.remove('fade-out');
-          imgElement.style.opacity = '1';
-
-          // Inicia el ciclo de cambio automático
-          intervalId = setInterval(cambiarImagen, INTERVAL_MS);
-          console.log("✅ Cine iniciado con " + imageUrls.length + " imágenes.");
+        if (imageUrls.length === 0) {
+          console.error('❌ No hay imágenes para mostrar');
+          return;
         }
+
+        // Precargar todas las imágenes
+        preloadImages(imageUrls)
+          .then(() => {
+            console.log('✅ Imágenes precargadas correctamente');
+            
+            // Mostrar primera imagen
+            imgElement.src = imageUrls[0];
+            imgElement.classList.remove('fade-out');
+            imgElement.style.opacity = '1';
+
+            // Iniciar ciclo
+            intervalId = setInterval(cambiarImagen, INTERVAL_MS);
+            console.log(`🎬 Cine iniciado con ${imageUrls.length} imágenes`);
+          })
+          .catch((err) => {
+            console.error('❌ Error en precarga:', err);
+            // Intentar mostrar la primera imagen igualmente
+            imgElement.src = imageUrls[0];
+            intervalId = setInterval(cambiarImagen, INTERVAL_MS);
+          });
       }
+
       // ============================================================
-      // 7. AUDIO: REPRODUCCIÓN AUTOMÁTICA DESBLOQUEADA POR CLIC
+      // 7. AUDIO: REPRODUCCIÓN AL PRIMER CLIC
       // ============================================================
 
-      /**
-       * Detecta el primer clic del usuario en cualquier parte de la pantalla
-       * y reproduce el audio, respetando la política de autoplay de los navegadores.
-       * Una vez reproducido, se elimina el listener.
-       */
       function setupAudioAutoplay() {
         const playAudio = function() {
           audioElement.play()
             .then(() => {
-              console.log('🎵 Audio reproducido correctamente.');
-              // Eliminar el listener después del primer clic exitoso
+              console.log('🎵 Audio reproducido correctamente');
               document.removeEventListener('click', playAudio);
+              document.removeEventListener('touchstart', playAudio);
             })
             .catch((err) => {
-              // Si falla, mantenemos el listener para otro intento
-              console.warn('⚠️ No se pudo reproducir el audio en este clic:', err);
+              console.warn('⚠️ No se pudo reproducir el audio:', err);
             });
         };
 
-        // Escuchamos el primer clic en el documento
+        // Escuchar tanto clic como touch (para móviles)
         document.addEventListener('click', playAudio);
+        document.addEventListener('touchstart', playAudio);
       }
 
       // ============================================================
-      // 8. BLOQUEOS DE SEGURIDAD Y USABILIDAD
+      // 8. BLOQUEOS DE SEGURIDAD
       // ============================================================
 
-      // Bloquear clic derecho (menú contextual)
       document.addEventListener('contextmenu', (e) => e.preventDefault());
 
       // ============================================================
       // 9. ARRANQUE
       // ============================================================
 
-      // Iniciar la aplicación cuando el DOM esté listo
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
           init();
