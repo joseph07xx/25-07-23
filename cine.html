@@ -5,61 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cine · Proyector</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100vw; height: 100vh; overflow: hidden; background: #000; }
 
     #cine-container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
     }
 
-    #cine-image {
-      max-width: 100vw;
-      max-height: 100vh;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      opacity: 1;
-      transition: opacity 1.2s ease-in-out;
-      pointer-events: none;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    #cine-image.fade-out {
+    .frame {
+      position: absolute;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
       opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      pointer-events: none;
     }
 
-    #cine-audio {
-      display: none;
+    .frame.active { opacity: 1; z-index: 1; }
+
+    .drive-image {
+      max-width: 90vw; max-height: 80vh;
+      object-fit: contain;
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
     }
+
+    .info-overlay {
+      position: absolute; bottom: 50px; color: white; text-align: center;
+      font-family: sans-serif; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      z-index: 2;
+    }
+
+    #cine-audio { display: none; }
   </style>
 </head>
 <body>
 
   <div id="cine-container">
-    <img id="cine-image" src="" alt="Proyección cinematográfica" />
-    <audio id="cine-audio" loop preload="auto">
-      <source src="https://ia600806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3" type="audio/mpeg" />
+    <!-- 🔹 QUITÉ el atributo 'loop' para que el audio se reproduzca solo una vez -->
+    <audio id="cine-audio" preload="auto">
+      <source src="https://ia601904.us.archive.org/26/items/coldplay-yellow-official-video-y-knxe-f-4-kms-y/Coldplay%20-%20Yellow%20%28Official%20Video%29%20%5ByKNxeF4KMsY%5D.mp3" />
       Tu navegador no soporta la reproducción de audio.
     </audio>
   </div>
@@ -68,273 +54,173 @@
     (function() {
       'use strict';
 
-      // ============================================================
-      // 1. CONFIGURACIÓN
-      // ============================================================
-
-      const IMAGE_IDS = [
-        "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-",
-        "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj",
-        "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL",
-        "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc",
-        "1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-",
-        "1-h7ptg3yhupm7dLHLK9gH5LrBBTPXWp7",
-        "1y783ZM6d33rc9igv2be9m0XrKYtVxbUc",
-        "1hIsX0LY2SP3QhoxG2fRM0f6sCy6UVAHj",
-        "1FjWFkhHRK7_mF4zUXPp7oZRUAQdxl1GT",
-        "1Uw1HEWmzd135g4ysusOsi7JLywbLvkHL",
-        "1RXWuiyqGiOGqsxS5yBdQiOIJeMZ4qCFO",
-        "1LoqaGb3mk8SsdLgkS6KsIQR190QQbmC0",
-        "17EcqwTl7ZgE142WlcI2bSmDBQntQTH5E",
-        "12cFguQajr9ykc5qy0QrmU4Cwq09jqYMf",
-        "10mM0Lyu8vqGp33kIiXKGsGzcO0bAvxJV",
-        "1kZ9f5t4D1Z9k2-NJdHM89DwWg-GXQWbQ",
-        "1-xA0VinFW8UhhQoZWorheYQaOnsk-1EU",
-        "1aYPNq6lD-n9LRhe2-P_tg1c6DRyutqsp",
-        "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp",
-        "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf",
-        "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8",
-        "1GwMRtG-r-DlRdRyZL_h5EJBTXGhrddZE",
-        "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l",
-        "12uhLUJBGFEZRTlekdv54mJuROemFiXs9",
-        "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6",
-        "12usQeIxSrt2Mm3Uwsd5q3Pig879XL1AC",
-        "13C45n0Zpxtwx_tBD95-faoNJN7E5SS3B",
-        "13OECDw5pLX0GoLqhwZiaaRwLU028j-f-",
-        "13tpM0Y-cZFwtfx8OQ7elltM8uNQ6kixE",
-        "154AxMngzxmcU499NhST8rqgYYELdrUV-",
-        "15ZsZScL-ve9taB0R3qt7RDVRXU6_iwin",
-        "15wEUbxPRhX2sUEtw9t4VIiN0Tcqh6HuV",
-        "16kD_b7QgxVq4j-cWoDHKgtB9DXgT5wLF",
-        "17MyIWxYotdnzEae95mPc0rvzzaMsd8Ip",
-        "18_9byESKd8A9VU_AaQefjBAZdCV0utyG",
-        "18auW03EmZzd16HnOeuNAmC-0Hcldo6qO",
-        "193jW-umS6YeTiAbSwzkGR00KBbN1hkZs",
-        "1AMBnW_-lXIjmRblyX22JO706GfxZGhtV",
-        "1Cj49txzrFOH352gscUQyqXnyjBcBWYys",
-        "1Dl_BrttB7I4ejNp-dFOc8mwvB43cuUy_",
-        "1DrTUZTzSSCs9AOUG7NybpXCC9Tn5cuyH",
-        "1EIHypsZ-Molo07ncg4GwdlcfsDm_ihsv",
-        "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L",
-        "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS",
-        "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq",
-        "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_",
-        "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t",
-        "1HWydhbUqm0w7-cwbEvn8jzVa2g3Sh0eW",
-        "1HXNTni0bZbfRWbWfpiECkNN9GMfvG3dt",
-        "1Hn0lUiwH9HK-tLX60CCPY0J8MVWyUbDc",
-        "1JzUhCmRV13t3gBgc2zZKUFj3K0H79Etf",
-        "1K05XnWZ0djY9hKd9Aux7p6FpDfsgz44t",
-        "1KGZ3EgtT3MYKGjWQyIo--51vj8n1mFUI",
-        "1KQ7GVmBpbphhV74sCMtg6Ofe5cML0Y2D",
-        "1KybgRTrG7ZubIcjoDSzb15_JNJTJpkbc",
-        "1LMcnHC5yF-p4cD8wxIeOOjksTPv4CAVa",
-        "1LeI-_xynVSpqGwhjZckgGfcvDPzGare_",
-        "1M-3DoHhw6_TcKlcimCkRKq_GBVzxCz55",
-        "1M7vwn9RN0qg1gK07I3KmbiwocfvvVxWO",
-        "1NCmqa2idy_n0VIhQWAcaOv3BT9_RoZKM",
-        "1SV1RXacphAOd_PBPwnNaHACMBs9VdkJQ",
-        "1WwpEJ0xN-TH21dmMT76qMMPacrBhovkp",
-        "1YMJRD3zua6KS3IMvlnOeTJ1lljX2Wm5m",
-        "1YfjEEAIHluwhmJLrKSKgs2ndor8HQKK_",
-        "1ZJsrpUmEntqyg0Bi9NYw6xlVQVke0qgq",
-        "1ZSc6ZgF0Q9g1O3tClZ6EeuhsmlpCpNw1",
-        "1am_Q7Isyn9K2kEYUFeR7iFNLeQL9IVcq",
-        "1bO7EJkx07aiFsBmuyJu4ChEE_YbbH271",
-        "1dETq6y8wNtridMk3-SQLLQmnVRDUPkW3",
-        "1dNyEoGxA_qVG7kxwsjDm-dP0cxjMiEGk",
-        "1e6JoAGWv0rjbqumugOE60wRL0IrjuUzH",
-        "1euFC7s6vTcE4qVKlIVyZdBzFsWFvvisa",
-        "1gmwhEwy1tuWsN_UVvV1_a6ImmFY6bTCc",
-        "1jzW6JpuorRkHtunkSsgugtlgFnDnqyh2",
-        "1raURod2CDejJ4z27MRp6ZyN4zA9hkliu",
-        "1rhdwjxZ2G2r6yglLSVOJKWMD8tfcmz7m",
-        "1sL2vDOhNqwB3eSJ-xfFzOlVUG-QynAII",
-        "1sQy4U96PkSsfJxdAjaV9ESIDmJtseITi",
-        "1tHjGxG5BDemPEYiv84ytGSUcWFVKWoJc",
-        "1towosIbi-GSdBp87a195-jmXeGQgbrx3",
-        "1u5KrA4Xg6erBkkA1A73rg5AHe928Wjbt",
-        "1uPJNqlBHWM1bPp2RfxNdQOpUHnhaWi1V"
+      const misRecuerdos = [
+            { id: "1pm2svUFVCKT20qZb9E367L_oBgRJZFx-", titulo: "Nuestro comienzo", fecha: "2023" },
+            { id: "1ImtKk7UWGNKHqpLvwVlCd5NrW99pgFuj", titulo: "Mirada que enamora", fecha: "Agosto 2023" },
+            { id: "1_hqX3nT0VXInR_Z38Y4ZxDRYZWnS0uJL", titulo: "Atardecer juntos", fecha: "Septiembre 2023" },
+            { id: "1WN4bmVzBAEt43aTIfbwcNDsclg2k7BQc", titulo: "Sonrisas sinceras", fecha: "Octubre 2024" },
+            { id: "1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-", titulo: "Día perfecto", fecha: "Marzo 2024" },
+            { id: "1-h7ptg3yhupm7dLHLK9gH5LrBBTPXWp7", titulo: "Abrazo eterno", fecha: "Febrero 2024" },
+            { id: "1y783ZM6d33rc9igv2be9m0XrKYtVxbUc", titulo: "Noche mágica", fecha: " 2024" },
+            { id: "1hIsX0LY2SP3QhoxG2fRM0f6sCy6UVAHj", titulo: "Complicidad", fecha: "Septiembre 2023" },
+            { id: "1FjWFkhHRK7_mF4zUXPp7oZRUAQdxl1GT", titulo: "Destino", fecha: "Marzo 2024" },
+            { id: "1Uw1HEWmzd135g4ysusOsi7JLywbLvkHL", titulo: "Refugio", fecha: "Octubre 2023" },
+            { id: "1RXWuiyqGiOGqsxS5yBdQiOIJeMZ4qCFO", titulo: "Instante único", fecha: "2023" },
+            { id: "1LoqaGb3mk8SsdLgkS6KsIQR190QQbmC0", titulo: "Ternura pura", fecha: "2023" },
+            { id: "17EcqwTl7ZgE142WlcI2bSmDBQntQTH5E", titulo: "Risas", fecha: "2023" },
+            { id: "12cFguQajr9ykc5qy0QrmU4Cwq09jqYMf", titulo: "Luz en tus ojos", fecha: "2023" },
+            { id: "10mM0Lyu8vqGp33kIiXKGsGzcO0bAvxJV", titulo: "Sueños compartidos", fecha: "2023" },
+            { id: "1kZ9f5t4D1Z9k2-NJdHM89DwWg-GXQWbQ", titulo: "Juntos", fecha: "2023" },
+            { id: "1-xA0VinFW8UhhQoZWorheYQaOnsk-1EU", titulo: "Amor verdadero", fecha: "2024" },
+            { id: "1aYPNq6lD-n9LRhe2-P_tg1c6DRyutqsp", titulo: "Recuerdo dorado", fecha: "Febrero 2024" },
+            { id: "1Zn4nC7C6aGDRawsfPVwzKtXZs13pjwJp", titulo: "Otoño juntos", fecha: "Noviembre 2023" },
+            { id: "1W-5xSTh9Cz4_Ejgcr7xftfkbHgEFYTVf", titulo: "Primavera", fecha: "Abril 2024" },
+            { id: "1VIGb4E9L0ZnMujg-dTEtfyGwk_zQHhQ8", titulo: "Eres mi hogar", fecha: "Abril 2024" },
+            { id: "1FhzwmBUVv5YzTTGaHB7_b26J5KIWGv5l", titulo: "Abril contigo", fecha: "Abril 2024" },
+            { id: "12uhLUJBGFEZRTlekdv54mJuROemFiXs9", titulo: "Eres todo", fecha: "Abril 2024" },
+            { id: "12VAgMbTlqNkmaL3-h552BXxeCtYsY8x6", titulo: "Instante bello", fecha: "2024" },
+            { id: "12usQeIxSrt2Mm3Uwsd5q3Pig879XL1AC", titulo: "Calma", fecha: "2024" },
+            { id: "13C45n0Zpxtwx_tBD95-faoNJN7E5SS3B", titulo: "Alegría", fecha: "2024" },
+            { id: "13OECDw5pLX0GoLqhwZiaaRwLU028j-f-", titulo: "Paz a tu lado", fecha: "2024" },
+            { id: "13tpM0Y-cZFwtfx8OQ7elltM8uNQ6kixE", titulo: "Eres luz", fecha: "2024" },
+            { id: "154AxMngzxmcU499NhST8rqgYYELdrUV-", titulo: "Mi persona", fecha: "2024" },
+            { id: "15ZsZScL-ve9taB0R3qt7RDVRXU6_iwin", titulo: "Siempre", fecha: "2025" },
+            { id: "15wEUbxPRhX2sUEtw9t4VIiN0Tcqh6HuV", titulo: "Contigo", fecha: "2025" },
+            { id: "16kD_b7QgxVq4j-cWoDHKgtB9DXgT5wLF", titulo: "Universo nuestro", fecha: "2025" },
+            { id: "17MyIWxYotdnzEae95mPc0rvzzaMsd8Ip", titulo: "Eres magia", fecha: "2025" },
+            { id: "18_9byESKd8A9VU_AaQefjBAZdCV0utyG", titulo: "Corazón latiendo", fecha: "2025" },
+            { id: "18auW03EmZzd16HnOeuNAmC-0Hcldo6qO", titulo: "Días felices", fecha: "2025" },
+            { id: "193jW-umS6YeTiAbSwzkGR00KBbN1hkZs", titulo: "Noches", fecha: "2025" },
+            { id: "1AMBnW_-lXIjmRblyX22JO706GfxZGhtV", titulo: "Estrellas", fecha: "2025" },
+            { id: "1Cj49txzrFOH352gscUQyqXnyjBcBWYys", titulo: "Suspiros", fecha: "2024" },
+            { id: "1Dl_BrttB7I4ejNp-dFOc8mwvB43cuUy_", titulo: "Latido", fecha: "2025" },
+            { id: "1DrTUZTzSSCs9AOUG7NybpXCC9Tn5cuyH", titulo: "Eres sueño", fecha: "2025" },
+            { id: "1EIHypsZ-Molo07ncg4GwdlcfsDm_ihsv", titulo: "Realidad", fecha: "2025" },
+            { id: "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L", titulo: "Bendición", fecha: "2025" },
+            { id: "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS", titulo: "Regalo", fecha: "2025" },
+            { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
+            { id: "1GnM__iXXq1Of0pVU69bRE2hAOfElATP_", titulo: "Perla", fecha: "2025" },
+            { id: "1HM_nuJiiJslTYhuvSOC5L8LkjgWJnL4t", titulo: "Diamante", fecha: "2025" },
       ];
 
-      // URL para Google Drive (formato que funciona en móviles y desktop)
-      const buildImageUrl = (id) => 
-        `https://drive.google.com/uc?export=view&id=${id}`;
-
-      const INTERVAL_MS = 5000;
-
-      // ============================================================
-      // 2. ELEMENTOS DOM
-      // ============================================================
-
-      const imgElement = document.getElementById('cine-image');
+      const container = document.getElementById('cine-container');
       const audioElement = document.getElementById('cine-audio');
-
-      // ============================================================
-      // 3. ESTADO
-      // ============================================================
-
       let currentIndex = 0;
-      let imageUrls = [];
-      let isTransitioning = false;
-      let intervalId = null;
+      let proyeccionIniciada = false;
+      let temporizadorActivo = false;
+      let intervaloCambio = null;
 
-      // ============================================================
-      // 4. PRECARGA DE IMÁGENES
-      // ============================================================
+      // 1. Cargar los frames (todos ocultos)
+      function cargarCine() {
+          misRecuerdos.forEach((recuerdo) => {
+              const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
+              const frame = document.createElement('div');
+              frame.className = 'frame';
+              frame.innerHTML = `
+                  <img class="drive-image" src="${url}" alt="${recuerdo.titulo}" loading="lazy" />
+                  <div class="info-overlay">
+                      <h1>${recuerdo.titulo}</h1>
+                      <p>${recuerdo.fecha}</p>
+                  </div>
+              `;
+              container.appendChild(frame);
+          });
+      }
 
-      function preloadImages(urls) {
-        return new Promise((resolve, reject) => {
-          let loaded = 0;
-          const total = urls.length;
-          
-          if (total === 0) {
-            resolve([]);
-            return;
+      // 2. Iniciar la proyección de imágenes (mostrar primera y luego cambiar cada 5s)
+      function iniciarProyeccion() {
+          if (proyeccionIniciada) return;
+          proyeccionIniciada = true;
+
+          const frames = document.querySelectorAll('.frame');
+          if (frames.length === 0) return;
+
+          frames[currentIndex].classList.add('active');
+
+          intervaloCambio = setInterval(() => {
+              frames[currentIndex].classList.remove('active');
+              currentIndex = (currentIndex + 1) % frames.length;
+              frames[currentIndex].classList.add('active');
+          }, 5000);
+      }
+
+      // 3. Función para ocultar todas las imágenes y detener el intervalo
+      function ocultarImagenes() {
+          const frames = document.querySelectorAll('.frame');
+          frames.forEach(frame => frame.classList.remove('active'));
+
+          if (intervaloCambio) {
+              clearInterval(intervaloCambio);
+              intervaloCambio = null;
           }
 
-          urls.forEach((url, index) => {
-            const img = new Image();
-            img.onload = () => {
-              loaded++;
-              if (loaded === total) {
-                resolve(urls);
-              }
-            };
-            img.onerror = () => {
-              console.warn(`⚠️ Error cargando imagen ${index + 1}/${total}`);
-              loaded++;
-              if (loaded === total) {
-                resolve(urls); // Resolvemos aunque algunas fallen
-              }
-            };
-            img.src = url;
-          });
-        });
+          console.log('⏹️ Imágenes ocultadas (audio terminado)');
       }
 
-      // ============================================================
-      // 5. CAMBIO DE IMAGEN CON FADE
-      // ============================================================
+      // 4. Función que se llama cuando el audio comienza a reproducirse
+      function cuandoAudioComienza() {
+          if (temporizadorActivo) return;
+          temporizadorActivo = true;
 
-      function cambiarImagen() {
-        if (isTransitioning || imageUrls.length === 0) return;
+          console.log('🎵 Audio en reproducción. Esperando 34.5s para mostrar imágenes...');
 
-        isTransitioning = true;
+          // Iniciar proyección a los 34.5 segundos
+          setTimeout(() => {
+              iniciarProyeccion();
+          }, 34500);
 
-        // Fade-out
-        imgElement.classList.add('fade-out');
-
-        // Esperar a que termine el fade-out
-        const handleTransitionEnd = function(e) {
-          if (e.propertyName !== 'opacity') return;
-          imgElement.removeEventListener('transitionend', handleTransitionEnd);
-
-          // Calcular siguiente índice
-          currentIndex = (currentIndex + 1) % imageUrls.length;
-
-          // Cambiar la imagen
-          imgElement.src = imageUrls[currentIndex];
-
-          // Esperar a que cargue la nueva imagen
-          imgElement.onload = function() {
-            imgElement.onload = null;
-            imgElement.onerror = null;
-            // Quitar fade-out (fade-in)
-            imgElement.classList.remove('fade-out');
-            isTransitioning = false;
-          };
-
-          imgElement.onerror = function() {
-            imgElement.onload = null;
-            imgElement.onerror = null;
-            console.warn('⚠️ Error cargando imagen, continuando...');
-            imgElement.classList.remove('fade-out');
-            isTransitioning = false;
-          };
-        };
-
-        imgElement.addEventListener('transitionend', handleTransitionEnd);
+          // 🔹 Ya no necesitamos el temporizador de 4m34s porque ahora usamos el evento 'ended'
+          // Elimino ese setTimeout para que sea el fin del audio el que active el ocultamiento.
       }
 
-      // ============================================================
-      // 6. INICIALIZACIÓN
-      // ============================================================
+      // 5. Intento de autoplay al cargar
+      function intentarAutoplay() {
+          const promesa = audioElement.play();
+          if (promesa !== undefined) {
+              promesa
+                  .then(() => {
+                      cuandoAudioComienza();
+                  })
+                  .catch(() => {
+                      console.warn('⚠️ Autoplay bloqueado. Esperando clic/touch del usuario.');
+                      const handler = function(e) {
+                          audioElement.play()
+                              .then(() => {
+                                  cuandoAudioComienza();
+                                  document.removeEventListener('click', handler);
+                                  document.removeEventListener('touchstart', handler);
+                              })
+                              .catch((err) => console.warn('Error al reproducir con interacción:', err));
+                      };
+                      document.addEventListener('click', handler);
+                      document.addEventListener('touchstart', handler);
+                  });
+          } else {
+              audioElement.play();
+              cuandoAudioComienza();
+          }
+      }
 
+      // 6. Inicialización
       function init() {
-        imageUrls = IMAGE_IDS.map(id => buildImageUrl(id));
+          cargarCine();
+          intentarAutoplay();
 
-        if (imageUrls.length === 0) {
-          console.error('❌ No hay imágenes para mostrar');
-          return;
-        }
-
-        // Precargar todas las imágenes
-        preloadImages(imageUrls)
-          .then(() => {
-            console.log('✅ Imágenes precargadas correctamente');
-            
-            // Mostrar primera imagen
-            imgElement.src = imageUrls[0];
-            imgElement.classList.remove('fade-out');
-            imgElement.style.opacity = '1';
-
-            // Iniciar ciclo
-            intervalId = setInterval(cambiarImagen, INTERVAL_MS);
-            console.log(`🎬 Cine iniciado con ${imageUrls.length} imágenes`);
-          })
-          .catch((err) => {
-            console.error('❌ Error en precarga:', err);
-            // Intentar mostrar la primera imagen igualmente
-            imgElement.src = imageUrls[0];
-            intervalId = setInterval(cambiarImagen, INTERVAL_MS);
+          // 🔹 NUEVO: Escuchar el final del audio para ocultar imágenes y detener el intervalo
+          audioElement.addEventListener('ended', function() {
+              ocultarImagenes();
+              // Opcional: también podrías pausar el audio (ya terminó)
+              // audioElement.pause();
+              console.log('🔚 Audio finalizado, pantalla negra.');
           });
       }
-
-      // ============================================================
-      // 7. AUDIO: REPRODUCCIÓN AL PRIMER CLIC
-      // ============================================================
-
-      function setupAudioAutoplay() {
-        const playAudio = function() {
-          audioElement.play()
-            .then(() => {
-              console.log('🎵 Audio reproducido correctamente');
-              document.removeEventListener('click', playAudio);
-              document.removeEventListener('touchstart', playAudio);
-            })
-            .catch((err) => {
-              console.warn('⚠️ No se pudo reproducir el audio:', err);
-            });
-        };
-
-        // Escuchar tanto clic como touch (para móviles)
-        document.addEventListener('click', playAudio);
-        document.addEventListener('touchstart', playAudio);
-      }
-
-      // ============================================================
-      // 8. BLOQUEOS DE SEGURIDAD
-      // ============================================================
-
-      document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-      // ============================================================
-      // 9. ARRANQUE
-      // ============================================================
 
       if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          init();
-          setupAudioAutoplay();
-        });
+          document.addEventListener('DOMContentLoaded', init);
       } else {
-        init();
-        setupAudioAutoplay();
+          init();
       }
-
     })();
   </script>
-
 </body>
 </html>
