@@ -1,11 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+    const prefiereMenosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // ============================================================
     // 1. PARTÍCULAS DE FONDO (neón)
     // ============================================================
     (function crearParticulasFondo() {
         const contenedor = document.getElementById('contenedorParticulas');
-        const cant = 50;
+        if (!contenedor || prefiereMenosMovimiento) return;
+
+        // Menos partículas en pantallas chicas: menos trabajo para el navegador del celular
+        const cant = window.innerWidth < 600 ? 22 : 50;
         const colores = ['#ff2d75', '#00e5ff', '#b026ff', '#ff9e00'];
+        const frag = document.createDocumentFragment();
+
         for (let i = 0; i < cant; i++) {
             const p = document.createElement('div');
             p.classList.add('particula-neon');
@@ -17,8 +25,16 @@ document.addEventListener("DOMContentLoaded", () => {
             p.style.animationDuration = (Math.random() * 30 + 25) + 's';
             p.style.animationDelay = (Math.random() * 25) + 's';
             p.style.opacity = Math.random() * 0.25 + 0.05;
-            contenedor.appendChild(p);
+            frag.appendChild(p);
         }
+        contenedor.appendChild(frag);
+
+        // Pausa las animaciones cuando la pestaña no está visible (ahorra batería)
+        document.addEventListener('visibilitychange', () => {
+            contenedor.querySelectorAll('.particula-neon').forEach(el => {
+                el.style.animationPlayState = document.hidden ? 'paused' : 'running';
+            });
+        });
     })();
 
     // ============================================================
@@ -26,10 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // ============================================================
     (function particulaInteractiva() {
         const particula = document.getElementById('particulaInteractiva');
-        let mouseX = -200,
-            mouseY = -200;
-        let currentX = -200,
-            currentY = -200;
+        if (!particula || prefiereMenosMovimiento) return;
+        // Solo tiene sentido con mouse; en táctil no aporta nada
+        if (window.matchMedia('(hover: none)').matches) return;
+
+        let mouseX = -200, mouseY = -200;
+        let currentX = -200, currentY = -200;
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
@@ -51,178 +69,111 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     // ============================================================
-    // 3. CONTADOR PRINCIPAL (desde el 25/07/2023)
+    // 3 y 4. CONTADORES (tiempo juntos + cuenta regresiva)
+    //    Unificados en una sola función reutilizable para evitar
+    //    código duplicado y facilitar el mantenimiento.
     // ============================================================
     const fechaInicio = new Date(2023, 6, 25, 0, 0, 0);
     const fechaFinal = new Date(2026, 9, 31, 0, 0, 0); // 09 = octubre
 
-    let valoresAnteriores = {};
-    let valoresAnterioresRegresivo = {};
+    function calcularDiferencia(desde, hasta) {
+        let anos = hasta.getFullYear() - desde.getFullYear();
+        let meses = hasta.getMonth() - desde.getMonth();
+        let dias = hasta.getDate() - desde.getDate();
+        let horas = hasta.getHours() - desde.getHours();
+        let minutos = hasta.getMinutes() - desde.getMinutes();
+        let segundos = hasta.getSeconds() - desde.getSeconds();
 
-    function actualizarContador() {
-        const ahora = new Date();
-        const diffMs = ahora - fechaInicio;
-        const totalSeg = Math.floor(diffMs / 1000);
-
-        let anos = ahora.getFullYear() - fechaInicio.getFullYear();
-        let meses = ahora.getMonth() - fechaInicio.getMonth();
-        let dias = ahora.getDate() - fechaInicio.getDate();
-        let horas = ahora.getHours() - fechaInicio.getHours();
-        let minutos = ahora.getMinutes() - fechaInicio.getMinutes();
-        let segundos = ahora.getSeconds() - fechaInicio.getSeconds();
-
-        if (segundos < 0) { segundos += 60;
-            minutos--; }
-        if (minutos < 0) { minutos += 60;
-            horas--; }
-        if (horas < 0) { horas += 24;
-            dias--; }
+        if (segundos < 0) { segundos += 60; minutos--; }
+        if (minutos < 0) { minutos += 60; horas--; }
+        if (horas < 0) { horas += 24; dias--; }
         if (dias < 0) {
-            const ultimoDia = new Date(ahora.getFullYear(), ahora.getMonth(), 0).getDate();
+            const ultimoDia = new Date(hasta.getFullYear(), hasta.getMonth(), 0).getDate();
             dias += ultimoDia;
             meses--;
         }
-        if (meses < 0) { meses += 12;
-            anos--; }
+        if (meses < 0) { meses += 12; anos--; }
 
-        const elementos = {
-            anos: document.getElementById('anos'),
-            meses: document.getElementById('meses'),
-            dias: document.getElementById('dias'),
-            horas: document.getElementById('horas'),
-            minutos: document.getElementById('minutos'),
-            segundos: document.getElementById('segundos')
+        return {
+            anos: Math.max(anos, 0),
+            meses: Math.max(meses, 0),
+            dias: Math.max(dias, 0),
+            horas: Math.max(horas, 0),
+            minutos: Math.max(minutos, 0),
+            segundos: Math.max(segundos, 0)
         };
-
-        const valores = { anos, meses, dias, horas, minutos, segundos };
-
-        for (const [key, el] of Object.entries(elementos)) {
-            const nuevoValor = valores[key];
-            if (valoresAnteriores[key] !== nuevoValor) {
-                el.textContent = nuevoValor;
-                el.classList.remove('numero-saltar');
-                void el.offsetWidth;
-                el.classList.add('numero-saltar');
-                valoresAnteriores[key] = nuevoValor;
-            }
-        }
-
-        document.getElementById('totalSegundos').textContent = totalSeg.toLocaleString('es-ES');
-
-        const maxAnos = 100,
-            maxMeses = 12,
-            maxDias = 31,
-            maxHoras = 24,
-            maxMinutos = 60,
-            maxSegundos = 60;
-        document.getElementById('barraAnos').style.width = Math.min((anos / maxAnos) * 100, 100) + '%';
-        document.getElementById('barraMeses').style.width = Math.min((meses / maxMeses) * 100, 100) + '%';
-        document.getElementById('barraDias').style.width = Math.min((dias / maxDias) * 100, 100) + '%';
-        document.getElementById('barraHoras').style.width = Math.min((horas / maxHoras) * 100, 100) + '%';
-        document.getElementById('barraMinutos').style.width = Math.min((minutos / maxMinutos) * 100, 100) + '%';
-        document.getElementById('barraSegundos').style.width = Math.min((segundos / maxSegundos) * 100, 100) + '%';
     }
 
-    // ============================================================
-    // 4. CONTADOR REGRESIVO (hasta el 31/10/2026)
-    // ============================================================
-    function contadornuevo() {
-        const ahora = new Date();
-        const diffMs = fechaFinal - ahora;
-        const totalSeg = Math.floor(diffMs / 1000);
+    function crearActualizadorContador({ sufijo, obtenerDiferencia, obtenerTotalSegundos, obtenerPorcentajes }) {
+        const valoresAnteriores = {};
+        const claves = ['anos', 'meses', 'dias', 'horas', 'minutos', 'segundos'];
 
-        if (diffMs < 0) {
-            ['anos-restan', 'meses-restan', 'dias-restan', 'horas-restan', 'minutos-restan', 'segundos-restan']
-                .forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) el.textContent = '0';
-                });
-            document.getElementById('totalSegundos-restan').textContent = '0';
-            ['barraAnos-restan', 'barraMeses-restan', 'barraDias-restan', 'barraHoras-restan', 'barraMinutos-restan', 'barraSegundos-restan']
-                .forEach(id => {
-                    const barra = document.getElementById(id);
-                    if (barra) barra.style.width = '0%';
-                });
-            return;
-        }
+        return function actualizar() {
+            const valores = obtenerDiferencia();
 
-        let anos = fechaFinal.getFullYear() - ahora.getFullYear();
-        let meses = fechaFinal.getMonth() - ahora.getMonth();
-        let dias = fechaFinal.getDate() - ahora.getDate();
-        let horas = fechaFinal.getHours() - ahora.getHours();
-        let minutos = fechaFinal.getMinutes() - ahora.getMinutes();
-        let segundos = fechaFinal.getSeconds() - ahora.getSeconds();
-
-        if (segundos < 0) { segundos += 60;
-            minutos--; }
-        if (minutos < 0) { minutos += 60;
-            horas--; }
-        if (horas < 0) { horas += 24;
-            dias--; }
-        if (dias < 0) {
-            const ultimoDia = new Date(fechaFinal.getFullYear(), fechaFinal.getMonth(), 0).getDate();
-            dias += ultimoDia;
-            meses--;
-        }
-        if (meses < 0) { meses += 12;
-            anos--; }
-
-        if (anos < 0) anos = 0;
-        if (meses < 0) meses = 0;
-        if (dias < 0) dias = 0;
-        if (horas < 0) horas = 0;
-        if (minutos < 0) minutos = 0;
-        if (segundos < 0) segundos = 0;
-
-        const elementos = {
-            anos: document.getElementById('anos-restan'),
-            meses: document.getElementById('meses-restan'),
-            dias: document.getElementById('dias-restan'),
-            horas: document.getElementById('horas-restan'),
-            minutos: document.getElementById('minutos-restan'),
-            segundos: document.getElementById('segundos-restan')
-        };
-
-        const valores = { anos, meses, dias, horas, minutos, segundos };
-
-        for (const [key, el] of Object.entries(elementos)) {
-            if (!el) continue;
-            const nuevoValor = valores[key];
-            if (valoresAnterioresRegresivo[key] !== nuevoValor) {
-                el.textContent = nuevoValor;
-                el.classList.remove('numero-saltar');
-                void el.offsetWidth;
-                el.classList.add('numero-saltar');
-                valoresAnterioresRegresivo[key] = nuevoValor;
+            for (const key of claves) {
+                const el = document.getElementById(sufijo ? `${key}-${sufijo}` : key);
+                if (!el) continue;
+                const nuevoValor = valores[key];
+                if (valoresAnteriores[key] !== nuevoValor) {
+                    el.textContent = nuevoValor;
+                    el.classList.remove('numero-saltar');
+                    void el.offsetWidth;
+                    el.classList.add('numero-saltar');
+                    valoresAnteriores[key] = nuevoValor;
+                }
             }
-        }
 
-        const totalEl = document.getElementById('totalSegundos-restan');
-        if (totalEl) totalEl.textContent = totalSeg.toLocaleString('es-ES');
+            const totalEl = document.getElementById(sufijo ? `totalSegundos-${sufijo}` : 'totalSegundos');
+            if (totalEl) totalEl.textContent = obtenerTotalSegundos().toLocaleString('es-ES');
 
-        const totalDiff = fechaFinal - fechaInicio;
-        const porcentajeRestante = totalDiff > 0 ? (diffMs / totalDiff) * 100 : 0;
-        const barras = {
-            anos: document.getElementById('barraAnos-restan'),
-            meses: document.getElementById('barraMeses-restan'),
-            dias: document.getElementById('barraDias-restan'),
-            horas: document.getElementById('barraHoras-restan'),
-            minutos: document.getElementById('barraMinutos-restan'),
-            segundos: document.getElementById('barraSegundos-restan')
-        };
-        for (const barra of Object.values(barras)) {
-            if (barra) {
-                barra.style.width = Math.min(Math.max(porcentajeRestante, 0), 100) + '%';
+            const porcentajes = obtenerPorcentajes(valores);
+            for (const key of claves) {
+                const barraId = sufijo
+                    ? `barra${key.charAt(0).toUpperCase()}${key.slice(1)}-${sufijo}`
+                    : `barra${key.charAt(0).toUpperCase()}${key.slice(1)}`;
+                const barra = document.getElementById(barraId);
+                if (barra) barra.style.width = Math.min(Math.max(porcentajes[key], 0), 100) + '%';
             }
-        }
+        };
     }
 
-    // Iniciar contadores
-    actualizarContador();
-    setInterval(actualizarContador, 1000);
+    const actualizarTiempoJuntos = crearActualizadorContador({
+        sufijo: '',
+        obtenerDiferencia: () => calcularDiferencia(fechaInicio, new Date()),
+        obtenerTotalSegundos: () => Math.floor((new Date() - fechaInicio) / 1000),
+        obtenerPorcentajes: (v) => ({
+            anos: (v.anos / 100) * 100,
+            meses: (v.meses / 12) * 100,
+            dias: (v.dias / 31) * 100,
+            horas: (v.horas / 24) * 100,
+            minutos: (v.minutos / 60) * 100,
+            segundos: (v.segundos / 60) * 100
+        })
+    });
 
-    contadornuevo();
-    setInterval(contadornuevo, 1000);
+    const actualizarCuentaRegresiva = crearActualizadorContador({
+        sufijo: 'restan',
+        obtenerDiferencia: () => {
+            const ahora = new Date();
+            if (fechaFinal - ahora < 0) return { anos: 0, meses: 0, dias: 0, horas: 0, minutos: 0, segundos: 0 };
+            return calcularDiferencia(ahora, fechaFinal);
+        },
+        obtenerTotalSegundos: () => Math.max(Math.floor((fechaFinal - new Date()) / 1000), 0),
+        obtenerPorcentajes: () => {
+            const totalDiff = fechaFinal - fechaInicio;
+            const restante = fechaFinal - new Date();
+            const porcentaje = totalDiff > 0 ? (1 - restante / totalDiff) * 100 : 0;
+            return { anos: porcentaje, meses: porcentaje, dias: porcentaje, horas: porcentaje, minutos: porcentaje, segundos: porcentaje };
+        }
+    });
+
+    actualizarTiempoJuntos();
+    actualizarCuentaRegresiva();
+    setInterval(() => {
+        actualizarTiempoJuntos();
+        actualizarCuentaRegresiva();
+    }, 1000);
 
     // ============================================================
     // 5. MODAL DE MENSAJE SECRETO
@@ -231,7 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const btnAbrir = document.getElementById('btnMensajeSecreto');
         const modal = document.getElementById('modalMensaje');
         const cerrar = document.getElementById('cerrarModal');
+        const btnCompartir = document.getElementById('btnCompartirMensaje');
         const texto = document.getElementById('mensajeModal');
+        if (!btnAbrir || !modal || !cerrar || !texto) return;
+
+        let elementoConFocoPrevio = null;
 
         const mensajes = [
             "Cada día a tu lado es un regalo del universo. Eres mi luz, mi paz y mi locura favorita. 💫",
@@ -277,30 +232,74 @@ document.addEventListener("DOMContentLoaded", () => {
             return mensajes[Math.floor(Math.random() * mensajes.length)];
         }
 
-        btnAbrir.addEventListener('click', () => {
+        function abrirModal() {
+            elementoConFocoPrevio = document.activeElement;
             texto.textContent = generarMensaje();
             modal.classList.add('activo');
             document.body.style.overflow = 'hidden';
-        });
+            cerrar.focus();
+        }
 
-        cerrar.addEventListener('click', () => {
+        function cerrarModal() {
             modal.classList.remove('activo');
             document.body.style.overflow = '';
+            if (elementoConFocoPrevio) elementoConFocoPrevio.focus();
+        }
+
+        btnAbrir.addEventListener('click', abrirModal);
+        btnAbrir.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                abrirModal();
+            }
         });
+        btnAbrir.setAttribute('tabindex', '0');
+        btnAbrir.setAttribute('role', 'button');
+
+        cerrar.addEventListener('click', cerrarModal);
 
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.classList.remove('activo');
-                document.body.style.overflow = '';
-            }
+            if (e.target === modal) cerrarModal();
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.classList.contains('activo')) {
-                modal.classList.remove('activo');
-                document.body.style.overflow = '';
+            if (e.key === 'Escape' && modal.classList.contains('activo')) cerrarModal();
+            // Atrapa el foco (Tab) dentro del modal mientras está abierto
+            if (e.key === 'Tab' && modal.classList.contains('activo')) {
+                const focoElems = modal.querySelectorAll('button');
+                const primero = focoElems[0];
+                const ultimo = focoElems[focoElems.length - 1];
+                if (e.shiftKey && document.activeElement === primero) {
+                    e.preventDefault();
+                    ultimo.focus();
+                } else if (!e.shiftKey && document.activeElement === ultimo) {
+                    e.preventDefault();
+                    primero.focus();
+                }
             }
         });
+
+        if (btnCompartir) {
+            btnCompartir.addEventListener('click', async () => {
+                const mensajeActual = texto.textContent;
+                if (navigator.share) {
+                    try {
+                        await navigator.share({ text: mensajeActual, title: 'Para ti 💌' });
+                    } catch (err) {
+                        // El usuario canceló el compartir; no hacemos nada
+                    }
+                } else if (navigator.clipboard) {
+                    try {
+                        await navigator.clipboard.writeText(mensajeActual);
+                        const textoOriginal = btnCompartir.textContent;
+                        btnCompartir.textContent = '¡Copiado! 💜';
+                        setTimeout(() => { btnCompartir.textContent = textoOriginal; }, 1800);
+                    } catch (err) {
+                        // Silencioso: si falla, el usuario igual puede seleccionar y copiar el texto
+                    }
+                }
+            });
+        }
     })();
 
     // ============================================================
@@ -308,8 +307,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // ============================================================
     (function botonSorpresa() {
         const btn = document.getElementById('botonSorpresa');
+        if (!btn) return;
 
         function lanzarConfeti() {
+            if (prefiereMenosMovimiento) return;
             const colores = ['#ff2d75', '#00e5ff', '#b026ff', '#ff9e00', '#ffdd00', '#ff6b6b'];
             const emojis = ['❤️', '✨', '🌟', '💖', '🌈', '🎉', '💫', '🥰', '💞', '🌸', '🌺', '🎊', '💝', '💗'];
 
@@ -366,6 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ============================================================
     (function glitchMejorado() {
         const titulo = document.querySelector('.titulo-principal');
+        if (!titulo || prefiereMenosMovimiento) return;
         let intervalo;
 
         titulo.addEventListener('mouseenter', () => {
@@ -386,5 +388,70 @@ document.addEventListener("DOMContentLoaded", () => {
             titulo.style.transform = '';
             titulo.style.textShadow = '';
         });
+    })();
+
+    // ============================================================
+    // 8. MÚSICA DE FONDO (opcional — agreguen su canción como musica.mp3)
+    // ============================================================
+    (function musicaFondo() {
+        const btn = document.getElementById('botonMusica');
+        const audio = document.getElementById('musicaFondo');
+        if (!btn || !audio) return;
+
+        let sonando = false;
+
+        btn.addEventListener('click', async () => {
+            if (!sonando) {
+                try {
+                    await audio.play();
+                    sonando = true;
+                    btn.textContent = '🔊';
+                    btn.setAttribute('aria-pressed', 'true');
+                    btn.setAttribute('aria-label', 'Pausar música de fondo');
+                } catch (err) {
+                    // No hay archivo de audio o el navegador bloqueó la reproducción
+                    btn.textContent = '⚠️';
+                    setTimeout(() => { btn.textContent = '🔇'; }, 1500);
+                }
+            } else {
+                audio.pause();
+                sonando = false;
+                btn.textContent = '🔇';
+                btn.setAttribute('aria-pressed', 'false');
+                btn.setAttribute('aria-label', 'Reproducir música de fondo');
+            }
+        });
+    })();
+
+    // ============================================================
+    // 9. BOTÓN VOLVER ARRIBA
+    // ============================================================
+    (function volverArriba() {
+        const btn = document.getElementById('botonArriba');
+        if (!btn) return;
+
+        window.addEventListener('scroll', () => {
+            btn.classList.toggle('visible', window.scrollY > 500);
+        }, { passive: true });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: prefiereMenosMovimiento ? 'auto' : 'smooth' });
+        });
+    })();
+
+    // ============================================================
+    // 10. CONTADOR DE VISITAS (local, solo en este dispositivo)
+    // ============================================================
+    (function contadorVisitas() {
+        const el = document.getElementById('contadorVisitas');
+        if (!el || !window.localStorage) return;
+
+        try {
+            const visitas = (parseInt(localStorage.getItem('eternidad_visitas'), 10) || 0) + 1;
+            localStorage.setItem('eternidad_visitas', visitas);
+            el.textContent = `✧ visita nº ${visitas.toLocaleString('es-ES')} desde este dispositivo ✧`;
+        } catch (err) {
+            // Almacenamiento no disponible (modo privado, etc.) — se omite en silencio
+        }
     })();
 });
