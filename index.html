@@ -1,8 +1,21 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Eternidad · un rincón privado con nuestra historia, nuestro tiempo juntos y nuestros recuerdos." />
+    <meta name="theme-color" content="#0b0a0f" />
+    <!-- Página privada: pedimos a los buscadores que no la indexen -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Vista previa al compartir el enlace (WhatsApp, Telegram, etc.) -->
+    <meta property="og:title" content="✦ Eternidad · Portal del Amor ✦" />
+    <meta property="og:description" content="El punto de encuentro de nuestra historia." />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+    <link rel="manifest" href="manifest.json" />
+
     <title>✦ Eternidad · Portal del Amor ✦</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -869,12 +882,122 @@
         .oculto {
             display: none !important;
         }
+
+        /* ============================================================
+           ACCESIBILIDAD
+           ============================================================ */
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 12px;
+            z-index: 2000;
+            background: var(--cian-neon);
+            color: var(--negro-fondo);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: top 0.2s ease;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        .card-radical:focus-visible,
+        [tabindex]:focus-visible {
+            outline: 2px solid var(--cian-neon);
+            outline-offset: 4px;
+            border-radius: 20px;
+        }
+
+        /* Respeta a quienes prefieren menos movimiento */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .particula-neon,
+            .particula-interactiva {
+                display: none !important;
+            }
+        }
+
+        /* ============================================================
+           CONTROLES FLOTANTES (música / volver arriba)
+           ============================================================ */
+        .controles-flotantes {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 500;
+            display: flex;
+            gap: 10px;
+        }
+
+        .boton-control {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 1px solid var(--border-glass);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--texto-claro);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .boton-control:hover {
+            border-color: var(--cian-neon);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+            transform: scale(1.08);
+        }
+
+        .boton-volver-arriba {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: 0.3s ease;
+        }
+
+        .boton-volver-arriba.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .contador-visitas {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-acciones {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
 
-
-    
+    <a href="#main" class="skip-link">Saltar al contenido</a>
 
     <div class="fondo-radical" aria-hidden="true">
         <div class="grid-lineas"></div>
@@ -883,10 +1006,19 @@
     </div>
 
 
-    <div id="particulaInteractiva" class="particula-interactiva" style="width:120px;height:120px;opacity:0;"></div>
+    <div id="particulaInteractiva" class="particula-interactiva" style="width:120px;height:120px;opacity:0;" aria-hidden="true"></div>
 
+    <div class="controles-flotantes">
+        <button class="boton-control" id="botonMusica" type="button" aria-pressed="false" aria-label="Reproducir música de fondo">🔇</button>
+    </div>
+    <audio id="musicaFondo" loop preload="none">
+        <!-- Coloca aquí el archivo de su canción, ej: <source src="musica.mp3" type="audio/mpeg"> -->
+        <source src="https://ia601806.us.archive.org/8/items/3-doors-down-here-without-you-official-music-video-k-pbz-tx-zqg-5-q/3%20Doors%20Down%20-%20Here%20Without%20You%20%28Official%20Music%20Video%29%20%5BkPBzTxZQG5Q%5D.mp3" type="audio/mpeg" />
+    </audio>
 
-    <div class="main-container">
+    <button class="boton-control boton-volver-arriba" id="botonArriba" type="button" aria-label="Volver arriba">↑</button>
+
+    <main class="main-container" id="main">
 
 
         <header class="header-radical">
@@ -899,7 +1031,7 @@
             <h2 class="contador-titulo-radical">
                 <span class="icono">⚡</span> Tiempo de amor incondicional <span class="icono">⚡</span>
             </h2>
-            <div class="contador-grid-radical" id="contadorGrid">
+            <div class="contador-grid-radical" id="contadorGrid" aria-hidden="true">
                 <div class="tarjeta-tiempo-radical">
                     <div class="numero" id="anos">0</div>
                     <div class="etiqueta">Años</div>
@@ -952,7 +1084,7 @@
                     <span class="emoji">🌹</span>
                     <div class="fecha">14 Feb 2024</div>
                     <div class="evento">Primer San Valentín</div>
-                    <div class="descripcion">Una dia mágico lleno de risas y promesas.</div>
+                    <div class="descripcion">Un día mágico lleno de risas y promesas.</div>
                 </div>
                 <div class="timeline-item">
                     <span class="emoji">✈️</span>
@@ -962,9 +1094,9 @@
                 </div>
                 <div class="timeline-item">
                     <span class="emoji">💍</span>
-                    <div class="fecha">## ### ####</div>
+                    <div class="fecha">Por definir ✨</div>
                     <div class="evento">Una promesa eterna</div>
-                    <div class="descripcion">Fecha Especial.</div>
+                    <div class="descripcion">Fecha especial, aún por escribir.</div>
                 </div>
             </div>
         </section>
@@ -1037,13 +1169,14 @@
 
         <footer class="footer-radical">
             <span class="corazon-neon">❤️</span> Eternidad • 2026 <span class="corazon-neon">❤️</span>
+            <span class="contador-visitas" id="contadorVisitas" aria-hidden="true"></span>
         </footer>
 
 <section class="seccion-contador-radical" id="contadorRegresivo">
     <h2 class="contador-titulo-radical">
         <span class="icono">⏳</span> Tiempo restante para el gran día <span class="icono">⏳</span>
     </h2>
-    <div class="contador-grid-radical" id="contadorGridRestan">
+    <div class="contador-grid-radical" id="contadorGridRestan" aria-hidden="true">
         <div class="tarjeta-tiempo-radical">
             <div class="numero" id="anos-restan">0</div>
             <div class="etiqueta">Años</div>
@@ -1079,13 +1212,16 @@
         ✦ <span id="totalSegundos-restan">0</span> segundos para el gran momento ✦
     </div>
 </section>
-    </div>
+    </main>
 
-    <div class="modal-overlay" id="modalMensaje">
+    <div class="modal-overlay" id="modalMensaje" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
         <div class="modal-contenido">
-            <h2>💌 Para ti</h2>
+            <h2 id="modalTitulo">💌 Para ti</h2>
             <p id="mensajeModal">Cargando mensaje...</p>
-            <button class="cerrar-modal" id="cerrarModal">Cerrar</button>
+            <div class="modal-acciones">
+                <button class="cerrar-modal" id="btnCompartirMensaje" type="button">Compartir</button>
+                <button class="cerrar-modal" id="cerrarModal" type="button">Cerrar</button>
+            </div>
         </div>
     </div>
 
@@ -1093,353 +1229,3 @@
 
 </body>
 </html>
-<!--
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="script.js"></script>
-
-    <title>En mantenimiento ✦ Volvemos pronto</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=Dancing+Script:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
-    rel="stylesheet"
-    />
-    <style>
-        /* ===== RESET Y BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --morado-oscuro: #140a22;
-            --morado-profundo: #1f0f33;
-            --morado-medio: #3a1f5c;
-            --morado: #6b3fa0;
-            --morado-claro: #9b6fc0;
-            --lavanda: #d4bff0;
-            --lavanda-suave: #ede4f7;
-            --dorado: #c9a84c;
-            --dorado-claro: #e0cd8b;
-            --blanco: #fdf7fc;
-            --texto-claro: #d4c4e0;
-            --texto-medio: #b098c0;
-            --sombra: 0 8px 40px rgba(0, 0, 0, 0.6);
-            --glass-bg: rgba(30, 15, 50, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --degradado-fondo: radial-gradient(ellipse at 30% 10%, #2d1b4a 0%, #140a22 70%);
-            --degradado-morado: linear-gradient(135deg, #6b3fa0, #9b6fc0, #d4bff0);
-            --degradado-dorado: linear-gradient(135deg, #c9a84c, #e0cd8b);
-            --transicion: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--degradado-fondo);
-            color: var(--texto-claro);
-            min-height: 100vh;
-            overflow: hidden;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ===== FONDO CON ONDAS Y PARTÍCULAS (visible) ===== */
-        .fondo-ondas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .fondo-ondas svg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.15;
-        }
-
-        .particulas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .particula {
-            position: absolute;
-            background: radial-gradient(circle, rgba(180, 140, 220, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: flotarParticula lineal infinite;
-        }
-
-        @keyframes flotarParticula {
-            0% {
-                transform: translateY(100vh) scale(0.2) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-10vh) scale(1.2) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* ===== OVERLAY DE MANTENIMIENTO ===== */
-        .mantenimiento-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(20, 10, 34, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 20px;
-            animation: aparecerOverlay 1s ease-out;
-        }
-
-        @keyframes aparecerOverlay {
-            from {
-                opacity: 0;
-                transform: scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .mantenimiento-contenedor {
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-            padding: 40px 30px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 60px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
-
-        .mantenimiento-icono {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            display: inline-block;
-            animation: girarIcono 8s linear infinite;
-        }
-
-        @keyframes girarIcono {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .mantenimiento-titulo {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.8rem, 7vw, 4.5rem);
-            font-weight: 600;
-            background: var(--degradado-morado);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .mantenimiento-sub {
-            font-family: 'Dancing Script', cursive;
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-            color: var(--lavanda);
-            font-weight: 300;
-            margin-bottom: 30px;
-            opacity: 0.8;
-        }
-
-        .mantenimiento-frase {
-            color: var(--texto-medio);
-            font-size: 1rem;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            padding: 12px 0;
-            display: inline-block;
-        }
-
-        /* ===== CONTADOR REGRESIVO ===== */
-        .contador-regresivo {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin: 20px 0 10px;
-        }
-
-        @media (max-width: 500px) {
-            .contador-regresivo {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-            }
-        }
-
-        .tarjeta-tiempo {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 24px;
-            padding: 18px 8px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: var(--transicion);
-            backdrop-filter: blur(4px);
-        }
-
-        .tarjeta-tiempo:hover {
-            transform: translateY(-4px);
-            border-color: var(--morado-claro);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .tarjeta-tiempo .numero {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.4rem, 5vw, 3.6rem);
-            font-weight: 700;
-            background: var(--degradado-dorado);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
-        }
-
-        .tarjeta-tiempo .etiqueta {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--texto-medio);
-            font-weight: 400;
-            margin-top: 4px;
-        }
-
-        .mensaje-final {
-            margin-top: 24px;
-            font-size: 0.9rem;
-            color: var(--texto-medio);
-            letter-spacing: 0.5px;
-        }
-
-        .mensaje-final span {
-            color: var(--dorado-claro);
-            font-weight: 500;
-        }
-
-        .deco-linea {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            margin: 16px 0 8px;
-            font-size: 1.2rem;
-            color: var(--lavanda);
-            opacity: 0.2;
-        }
-
-        .deco-linea .linea {
-            width: 50px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, var(--lavanda), transparent);
-        }
-
-        /* ===== CONTENIDO ORIGINAL OCULTO ===== */
-        .main-wrapper {
-            display: none;
-        }
-
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 0;
-        }
-
-        /* ===== ANIMACIONES ===== */
-        @keyframes brillo {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.8; }
-        }
-        .brillo-sutil {
-            animation: brillo 4s ease-in-out infinite;
-        }
-    </style>
-</head>
-<body>
-
-    
-    <div class="fondo-ondas" aria-hidden="true">
-        <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
-            <path fill="rgba(107,63,160,0.08)" d="M0,300 C360,100 720,500 1080,200 C1260,100 1380,300 1440,250 L1440,600 L0,600 Z" />
-            <path fill="rgba(180,140,220,0.05)" d="M0,400 C300,250 600,550 900,300 C1100,200 1300,400 1440,350 L1440,600 L0,600 Z" />
-        </svg>
-    </div>
-
-    
-    <div class="particulas" id="particulas" aria-hidden="true"></div>
-
-    
-    <div class="mantenimiento-overlay" id="mantenimiento">
-        <div class="mantenimiento-contenedor">
-            <div class="mantenimiento-icono">⚙️</div>
-            <h1 class="mantenimiento-titulo">En mantenimiento</h1>
-            <p class="mantenimiento-sub">Estamos mejorando tu experiencia</p>
-            <div class="mantenimiento-frase">✨ Volvemos con más amor y magia ✨</div>
-
-            <div class="contador-regresivo" id="contadorRegresivo">
-                <div class="tarjeta-tiempo"><div class="numero" id="diasRestantes">0</div><div class="etiqueta">Días</div></div>
-                <div class="tarjeta-tiempo"><div class="numero" id="horasRestantes">0</div><div class="etiqueta">Horas</div></div>
-                <div class="tarjeta-tiempo"><div class="numero" id="minutosRestantes">0</div><div class="etiqueta">Minutos</div></div>
-                <div class="tarjeta-tiempo"><div class="numero" id="segundosRestantes">0</div><div class="etiqueta">Segundos</div></div>
-            </div>
-
-            <div class="deco-linea">
-                <span class="linea"></span>
-                <span>🪷</span>
-                <span class="linea"></span>
-            </div>
-
-            <p class="mensaje-final">
-                <span>20 de julio de 2026 — 18:00</span>
-                <br />
-                <span style="font-size:0.8rem; opacity:0.5;">Nos vemos muy pronto 💜</span>
-            </p>
-        </div>
-    </div>
-
-
-    <div class="main-wrapper">
-
-        <nav class="navbar">...</nav>
-        <header class="hero">...</header>
-        <section class="seccion-contador">...</section>
-        <section id="galeria">...</section>
-        <section class="seccion-frases">...</section>
-        <footer class="footer">...</footer>
-    </div>
-
-</body>
-</html>
--->
