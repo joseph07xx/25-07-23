@@ -36,37 +36,23 @@
         { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
     ];
 
-    // Algoritmo Fisher-Yates para mezclar los recuerdos
-    function mezclarArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    mezclarArray(misRecuerdos);
-
+    // 🔗 ARRAY DE AUDIOS (Puedes agregar más enlaces aquí si lo deseas)
     const urlAudio = [
         "https://ia902800.us.archive.org/5/items/stephen-sanchez-until-i-found-you-official-video-gxld-q-9e-x-2wo_202607/Stephen%20Sanchez%20-%20Until%20I%20Found%20You%20%28Official%20Video%29%20%5BGxldQ9eX2wo%5D.mp3"
     ];
 
-    let container, audioElement;
+    const container = document.getElementById('cine-container');
+    const audioElement = document.getElementById('cine-audio');
     let currentIndex = 0;
     let proyeccionIniciada = false;
     let temporizadorActivo = false;
     let intervaloCambio = null;
 
     function cargarCine() {
-        container = document.getElementById('cine-container');
-        audioElement = document.getElementById('cine-audio');
-
-        if (!container || !audioElement) return;
-
+        // Tomamos el primer elemento del array (índice 0) para colocarlo en el audio
         if (urlAudio.length > 0) {
             const source = document.createElement('source');
-            source.src = urlAudio[0];
-            source.type = 'audio/mp3';
+            source.src = urlAudio[0]; // Usamos la primera pista del array
             audioElement.appendChild(source);
             audioElement.load();
         }
@@ -110,15 +96,19 @@
             clearInterval(intervaloCambio);
             intervaloCambio = null;
         }
+
+        console.log('⏹️ Imágenes ocultadas (audio terminado)');
     }
 
     function cuandoAudioComienza() {
         if (temporizadorActivo) return;
         temporizadorActivo = true;
 
+        console.log('🎵 Audio en reproducción. Esperando 10s para mostrar imágenes...');
+
         setTimeout(() => {
             iniciarProyeccion();
-        }, 10000); // 10 segundos de espera antes de mostrar las imágenes
+        }, 10000);
     }
 
     function intentarAutoplay() {
@@ -129,18 +119,22 @@
                     cuandoAudioComienza();
                 })
                 .catch(() => {
-                    const handler = function() {
+                    console.warn('⚠️ Autoplay bloqueado. Esperando clic/touch del usuario.');
+                    const handler = function(e) {
                         audioElement.play()
                             .then(() => {
                                 cuandoAudioComienza();
                                 document.removeEventListener('click', handler);
                                 document.removeEventListener('touchstart', handler);
                             })
-                            .catch((err) => console.warn('Error al reproducir:', err));
+                            .catch((err) => console.warn('Error al reproducir con interacción:', err));
                     };
                     document.addEventListener('click', handler);
                     document.addEventListener('touchstart', handler);
                 });
+        } else {
+            audioElement.play();
+            cuandoAudioComienza();
         }
     }
 
@@ -150,6 +144,7 @@
 
         audioElement.addEventListener('ended', function() {
             ocultarImagenes();
+            console.log('🔚 Audio finalizado, pantalla negra.');
         });
     }
 
