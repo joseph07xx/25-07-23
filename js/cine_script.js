@@ -34,7 +34,16 @@
             { id: "1EMN0jK74e7xZDffIVQbHHSUXX8yPDr3L", titulo: "Bendición", fecha: "2025" },
             { id: "1F1gQFuTi1QJAhKiCJJBU-4mYQi3k1trS", titulo: "Regalo", fecha: "2025" },
             { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
+      ];
 
+      function generarFoto(){
+          // ⚠️ Corregido: 'Math' con mayúscula, 'misRecuerdos' bien escrito y 'length' en lugar de 'lenght'
+          return misRecuerdos[Math.floor(Math.random() * misRecuerdos.length)];
+      }
+
+      // ⚠️ Corregido: Faltaba el signo '=' para declarar el array
+      const urlAudio = [
+          "https://ia902800.us.archive.org/5/items/stephen-sanchez-until-i-found-you-official-video-gxld-q-9e-x-2wo_202607/Stephen%20Sanchez%20-%20Until%20I%20Found%20You%20%28Official%20Video%29%20%5BGxldQ9eX2wo%5D.mp3"
       ];
 
       const container = document.getElementById('cine-container');
@@ -46,6 +55,14 @@
 
       // 1. Cargar los frames (todos ocultos)
       function cargarCine() {
+          // ⚠️ Corregido: 'length' (estaba escrito 'lenght')
+          if (urlAudio.length > 0){
+              const source = document.createElement('source');
+              source.src = urlAudio[0];
+              // ⚠️ Corregido: 'appendChild' lleva la 'C' en mayúscula
+              audioElement.appendChild(source);
+              audioElement.load();
+          }
           misRecuerdos.forEach((recuerdo) => {
               const url = `https://lh3.googleusercontent.com/d/${recuerdo.id}=w1200`;
               const frame = document.createElement('div');
@@ -96,15 +113,12 @@
           if (temporizadorActivo) return;
           temporizadorActivo = true;
 
-          console.log('🎵 Audio en reproducción. Esperando 34.5s para mostrar imágenes...');
+          console.log('🎵 Audio en reproducción. Esperando 10s para mostrar imágenes...');
 
-          // Iniciar proyección a los 34.5 segundos
+          // Iniciar proyección a los 10 segundos
           setTimeout(() => {
               iniciarProyeccion();
           }, 10000);
-
-          // 🔹 Ya no necesitamos el temporizador de 4m34s porque ahora usamos el evento 'ended'
-          // Elimino ese setTimeout para que sea el fin del audio el que active el ocultamiento.
       }
 
       // 5. Intento de autoplay al cargar
@@ -140,11 +154,8 @@
           cargarCine();
           intentarAutoplay();
 
-          // 🔹 NUEVO: Escuchar el final del audio para ocultar imágenes y detener el intervalo
           audioElement.addEventListener('ended', function() {
               ocultarImagenes();
-              // Opcional: también podrías pausar el audio (ya terminó)
-              // audioElement.pause();
               console.log('🔚 Audio finalizado, pantalla negra.');
           });
       }
@@ -154,4 +165,4 @@
       } else {
           init();
       }
-    })();
+  })();
