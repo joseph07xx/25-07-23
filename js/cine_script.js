@@ -36,12 +36,18 @@
             { id: "1FXvCxZe7bTF44hD_WYPopc_SsuyO0DNq", titulo: "Tesoro", fecha: "2025" },
       ];
 
-      function generarFoto(){
-          // ⚠️ Corregido: 'Math' con mayúscula, 'misRecuerdos' bien escrito y 'length' en lugar de 'lenght'
-          return misRecuerdos[Math.floor(Math.random() * misRecuerdos.length)];
+      // 🔀 Función para desordenar el array de forma aleatoria (Algoritmo Fisher-Yates)
+      function mezclarArray(array) {
+          for (let i = array.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [array[i], array[j]] = [array[j], array[i]];
+          }
+          return array;
       }
 
-      // ⚠️ Corregido: Faltaba el signo '=' para declarar el array
+      // Mezclamos los recuerdos en orden aleatorio justo al arrancar
+      mezclarArray(misRecuerdos);
+
       const urlAudio = [
           "https://ia902800.us.archive.org/5/items/stephen-sanchez-until-i-found-you-official-video-gxld-q-9e-x-2wo_202607/Stephen%20Sanchez%20-%20Until%20I%20Found%20You%20%28Official%20Video%29%20%5BGxldQ9eX2wo%5D.mp3"
       ];
@@ -53,13 +59,11 @@
       let temporizadorActivo = false;
       let intervaloCambio = null;
 
-      // 1. Cargar los frames (todos ocultos)
+      // 1. Cargar los frames (ya saldrán en orden aleatorio gracias al mezclado)
       function cargarCine() {
-          // ⚠️ Corregido: 'length' (estaba escrito 'lenght')
           if (urlAudio.length > 0){
               const source = document.createElement('source');
               source.src = urlAudio[0];
-              // ⚠️ Corregido: 'appendChild' lleva la 'C' en mayúscula
               audioElement.appendChild(source);
               audioElement.load();
           }
@@ -78,7 +82,7 @@
           });
       }
 
-      // 2. Iniciar la proyección de imágenes (mostrar primera y luego cambiar cada 5s)
+      // 2. Iniciar la proyección de imágenes
       function iniciarProyeccion() {
           if (proyeccionIniciada) return;
           proyeccionIniciada = true;
@@ -115,7 +119,6 @@
 
           console.log('🎵 Audio en reproducción. Esperando 10s para mostrar imágenes...');
 
-          // Iniciar proyección a los 10 segundos
           setTimeout(() => {
               iniciarProyeccion();
           }, 10000);
