@@ -3,47 +3,138 @@ document.addEventListener("DOMContentLoaded", () => {
     const prefiereMenosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ============================================================
-    // 1. PARTÍCULAS DE FONDO (neón)
+    // 1. CORTINA DE INICIO (bienvenida cinematográfica)
     // ============================================================
-    (function crearParticulasFondo() {
-        const contenedor = document.getElementById('contenedorParticulas');
-        if (!contenedor || prefiereMenosMovimiento) return;
+    (function cortinaInicio() {
+        const cortina = document.getElementById('cortinaInicio');
+        const btnAbrir = document.getElementById('btnAbrirHistoria');
+        const btnMusica = document.getElementById('botonMusica');
+        if (!cortina || !btnAbrir) return;
 
-        // Menos partículas en pantallas chicas: menos trabajo para el navegador del celular
-        const cant = window.innerWidth < 600 ? 22 : 50;
-        const colores = ['#ff2d75', '#00e5ff', '#b026ff', '#ff9e00'];
-        const frag = document.createDocumentFragment();
+        document.body.classList.add('bloqueado');
+        btnAbrir.focus();
 
-        for (let i = 0; i < cant; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particula-neon');
-            const size = Math.random() * 50 + 10;
-            p.style.width = size + 'px';
-            p.style.height = size + 'px';
-            p.style.left = Math.random() * 100 + '%';
-            p.style.background = `radial-gradient(circle, ${colores[Math.floor(Math.random() * colores.length)]} 0%, transparent 70%)`;
-            p.style.animationDuration = (Math.random() * 30 + 25) + 's';
-            p.style.animationDelay = (Math.random() * 25) + 's';
-            p.style.opacity = Math.random() * 0.25 + 0.05;
-            frag.appendChild(p);
+        function abrirHistoria() {
+            cortina.classList.add('cerrada');
+            document.body.classList.remove('bloqueado');
+            // Intentamos iniciar la música reutilizando la lógica del botón de música,
+            // ya que este clic sí cuenta como una interacción real del usuario.
+            if (btnMusica) btnMusica.click();
+            document.removeEventListener('keydown', escapeCierra);
         }
-        contenedor.appendChild(frag);
+
+        function escapeCierra(e) {
+            if (e.key === 'Enter' || e.key === ' ') return; // dejamos que el botón lo maneje
+        }
+
+        btnAbrir.addEventListener('click', abrirHistoria);
+        document.addEventListener('keydown', escapeCierra);
+    })();
+
+    // ============================================================
+    // 2. BARRA DE PROGRESO DE LECTURA
+    // ============================================================
+    (function barraProgreso() {
+        const barra = document.getElementById('barraProgreso');
+        if (!barra) return;
+
+        function actualizar() {
+            const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+            const progreso = alturaTotal > 0 ? (window.scrollY / alturaTotal) * 100 : 0;
+            barra.style.width = Math.min(Math.max(progreso, 0), 100) + '%';
+        }
+
+        window.addEventListener('scroll', actualizar, { passive: true });
+        window.addEventListener('resize', actualizar);
+        actualizar();
+    })();
+
+    // ============================================================
+    // 3. AMBIENTE: ESTRELLAS, PÉTALOS Y LUCES SUAVES
+    // ============================================================
+    (function crearAmbiente() {
+        if (prefiereMenosMovimiento) return;
+
+        const esMovil = window.innerWidth < 600;
+
+        // --- Estrellas ---
+        const capaEstrellas = document.getElementById('capaEstrellas');
+        if (capaEstrellas) {
+            const cantEstrellas = esMovil ? 40 : 90;
+            const frag = document.createDocumentFragment();
+            for (let i = 0; i < cantEstrellas; i++) {
+                const e = document.createElement('div');
+                e.classList.add('estrella');
+                const size = Math.random() * 2 + 1;
+                e.style.width = size + 'px';
+                e.style.height = size + 'px';
+                e.style.left = Math.random() * 100 + '%';
+                e.style.top = Math.random() * 100 + '%';
+                e.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+                e.style.animationDelay = (Math.random() * 5) + 's';
+                frag.appendChild(e);
+            }
+            capaEstrellas.appendChild(frag);
+        }
+
+        // --- Pétalos cayendo ---
+        const capaPetalos = document.getElementById('capaPetalos');
+        if (capaPetalos) {
+            const colores = ['#e3b0b6', '#cda45e', '#f7ecdd', '#b5486a'];
+            const cantPetalos = esMovil ? 10 : 20;
+            const frag = document.createDocumentFragment();
+            for (let i = 0; i < cantPetalos; i++) {
+                const p = document.createElement('div');
+                p.classList.add('petalo');
+                const size = Math.random() * 10 + 8;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.background = colores[Math.floor(Math.random() * colores.length)];
+                p.style.opacity = Math.random() * 0.3 + 0.15;
+                p.style.animationDuration = (Math.random() * 14 + 14) + 's';
+                p.style.animationDelay = (Math.random() * 18) + 's';
+                frag.appendChild(p);
+            }
+            capaPetalos.appendChild(frag);
+        }
+
+        // --- Luces suaves flotando ---
+        const capaLuces = document.getElementById('capaLuces');
+        if (capaLuces) {
+            const coloresLuz = ['rgba(205,164,94,0.25)', 'rgba(227,176,182,0.2)', 'rgba(74,22,40,0.3)'];
+            const cantLuces = esMovil ? 4 : 8;
+            const frag = document.createDocumentFragment();
+            for (let i = 0; i < cantLuces; i++) {
+                const l = document.createElement('div');
+                l.classList.add('luz-suave');
+                const size = Math.random() * 180 + 120;
+                l.style.width = size + 'px';
+                l.style.height = size + 'px';
+                l.style.left = Math.random() * 100 + '%';
+                l.style.top = Math.random() * 100 + '%';
+                l.style.background = `radial-gradient(circle, ${coloresLuz[Math.floor(Math.random() * coloresLuz.length)]} 0%, transparent 70%)`;
+                l.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                l.style.animationDelay = (Math.random() * 8) + 's';
+                frag.appendChild(l);
+            }
+            capaLuces.appendChild(frag);
+        }
 
         // Pausa las animaciones cuando la pestaña no está visible (ahorra batería)
         document.addEventListener('visibilitychange', () => {
-            contenedor.querySelectorAll('.particula-neon').forEach(el => {
+            document.querySelectorAll('.estrella, .petalo, .luz-suave').forEach(el => {
                 el.style.animationPlayState = document.hidden ? 'paused' : 'running';
             });
         });
     })();
 
     // ============================================================
-    // 2. PARTÍCULA INTERACTIVA (sigue al mouse)
+    // 4. LUZ INTERACTIVA (sigue al mouse)
     // ============================================================
-    (function particulaInteractiva() {
-        const particula = document.getElementById('particulaInteractiva');
-        if (!particula || prefiereMenosMovimiento) return;
-        // Solo tiene sentido con mouse; en táctil no aporta nada
+    (function luzInteractiva() {
+        const luz = document.getElementById('luzInteractiva');
+        if (!luz || prefiereMenosMovimiento) return;
         if (window.matchMedia('(hover: none)').matches) return;
 
         let mouseX = -200, mouseY = -200;
@@ -52,24 +143,60 @@ document.addEventListener("DOMContentLoaded", () => {
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            particula.style.opacity = '0.6';
+            luz.style.opacity = '0.6';
         });
 
         document.addEventListener('mouseleave', () => {
-            particula.style.opacity = '0';
+            luz.style.opacity = '0';
         });
 
-        function animateParticula() {
+        function animarLuz() {
             currentX += (mouseX - currentX) * 0.08;
             currentY += (mouseY - currentY) * 0.08;
-            particula.style.transform = `translate(${currentX - 60}px, ${currentY - 60}px)`;
-            requestAnimationFrame(animateParticula);
+            luz.style.transform = `translate(${currentX - 70}px, ${currentY - 70}px)`;
+            requestAnimationFrame(animarLuz);
         }
-        animateParticula();
+        animarLuz();
     })();
 
     // ============================================================
-    // 3 y 4. CONTADORES (tiempo juntos + cuenta regresiva)
+    // 5. REVELADO SUAVE AL HACER SCROLL
+    // ============================================================
+    (function revelarAlScroll() {
+        const elementos = document.querySelectorAll('.revelar');
+        if (!elementos.length) return;
+
+        if (prefiereMenosMovimiento || !('IntersectionObserver' in window)) {
+            elementos.forEach(el => el.classList.add('visible'));
+            return;
+        }
+
+        const observador = new IntersectionObserver((entradas) => {
+            entradas.forEach(entrada => {
+                if (entrada.isIntersecting) {
+                    entrada.target.classList.add('visible');
+                    observador.unobserve(entrada.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        elementos.forEach(el => observador.observe(el));
+    })();
+
+    // ============================================================
+    // 6. SCROLL CUE (flecha del hero)
+    // ============================================================
+    (function scrollCue() {
+        const btn = document.getElementById('scrollCue');
+        const destino = document.getElementById('contador');
+        if (!btn || !destino) return;
+        btn.addEventListener('click', () => {
+            destino.scrollIntoView({ behavior: prefiereMenosMovimiento ? 'auto' : 'smooth', block: 'start' });
+        });
+    })();
+
+    // ============================================================
+    // 7 y 8. CONTADORES (tiempo juntos + cuenta regresiva simbólica)
     //    Unificados en una sola función reutilizable para evitar
     //    código duplicado y facilitar el mantenimiento.
     // ============================================================
@@ -176,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
 
     // ============================================================
-    // 5. MODAL DE MENSAJE SECRETO
+    // 9. MODAL DE MENSAJE SECRETO (carta)
     // ============================================================
     (function modalMensaje() {
         const btnAbrir = document.getElementById('btnMensajeSecreto');
@@ -303,7 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     // ============================================================
-    // 6. BOTÓN SORPRESA (confeti)
+    // 10. BOTÓN CELEBRAR (confeti cálido)
     // ============================================================
     (function botonSorpresa() {
         const btn = document.getElementById('botonSorpresa');
@@ -311,8 +438,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function lanzarConfeti() {
             if (prefiereMenosMovimiento) return;
-            const colores = ['#ff2d75', '#00e5ff', '#b026ff', '#ff9e00', '#ffdd00', '#ff6b6b'];
-            const emojis = ['❤️', '✨', '🌟', '💖', '🌈', '🎉', '💫', '🥰', '💞', '🌸', '🌺', '🎊', '💝', '💗'];
+            const colores = ['#cda45e', '#e8cd97', '#e3b0b6', '#4a1628', '#f7ecdd'];
+            const emojis = ['❤️', '✨', '🌟', '💖', '🕊️', '🎉', '💫', '🥰', '💞', '🌸', '🌺', '🎊', '💝', '🥂'];
 
             for (let i = 0; i < 80; i++) {
                 const confeti = document.createElement('div');
@@ -327,7 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 confeti.style.pointerEvents = 'none';
                 confeti.style.opacity = '0.9';
                 confeti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                confeti.style.boxShadow = '0 0 10px rgba(255,255,255,0.2)';
+                confeti.style.boxShadow = '0 0 10px rgba(0,0,0,0.15)';
 
                 if (Math.random() < 0.25) {
                     confeti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -363,35 +490,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     // ============================================================
-    // 7. EFECTO GLITCH EN EL TÍTULO
-    // ============================================================
-    (function glitchMejorado() {
-        const titulo = document.querySelector('.titulo-principal');
-        if (!titulo || prefiereMenosMovimiento) return;
-        let intervalo;
-
-        titulo.addEventListener('mouseenter', () => {
-            intervalo = setInterval(() => {
-                if (Math.random() < 0.2) {
-                    titulo.style.transform = `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px) skew(${Math.random() * 2 - 1}deg)`;
-                    titulo.style.textShadow = `0 0 20px rgba(255,45,117,0.8), 0 0 60px rgba(0,229,255,0.8)`;
-                    setTimeout(() => {
-                        titulo.style.transform = '';
-                        titulo.style.textShadow = '';
-                    }, 120);
-                }
-            }, 100);
-        });
-
-        titulo.addEventListener('mouseleave', () => {
-            clearInterval(intervalo);
-            titulo.style.transform = '';
-            titulo.style.textShadow = '';
-        });
-    })();
-
-    // ============================================================
-    // 8. MÚSICA DE FONDO (opcional — agreguen su canción como musica.mp3)
+    // 11. MÚSICA DE FONDO (opcional — agreguen su canción como musica.mp3)
     // ============================================================
     (function musicaFondo() {
         const btn = document.getElementById('botonMusica');
@@ -410,8 +509,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.setAttribute('aria-label', 'Pausar música de fondo');
                 } catch (err) {
                     // No hay archivo de audio o el navegador bloqueó la reproducción
-                    btn.textContent = '⚠️';
-                    setTimeout(() => { btn.textContent = '🔇'; }, 1500);
+                    btn.textContent = '🔇';
+                    btn.setAttribute('aria-pressed', 'false');
                 }
             } else {
                 audio.pause();
@@ -424,7 +523,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     // ============================================================
-    // 9. BOTÓN VOLVER ARRIBA
+    // 12. BOTÓN VOLVER ARRIBA
     // ============================================================
     (function volverArriba() {
         const btn = document.getElementById('botonArriba');
@@ -440,7 +539,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })();
 
     // ============================================================
-    // 10. CONTADOR DE VISITAS (local, solo en este dispositivo)
+    // 13. CONTADOR DE VISITAS (local, solo en este dispositivo)
     // ============================================================
     (function contadorVisitas() {
         const el = document.getElementById('contadorVisitas');
