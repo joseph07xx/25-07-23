@@ -131,9 +131,7 @@
     ];
 
     // 🔗 ARRAY DE AUDIOS (Puedes agregar más enlaces aquí si lo deseas)
-    const urlAudio = [
-        "https://ia903208.us.archive.org/28/items/john-denver-annies-song-official-audio-rnotf-zn-qyw/John%20Denver%20-%20Annie%27s%20Song%20%28Official%20Audio%29%20%5BRNOTF-znQyw%5D.mp3","https://ia902800.us.archive.org/5/items/stephen-sanchez-until-i-found-you-official-video-gxld-q-9e-x-2wo_202607/Stephen%20Sanchez%20-%20Until%20I%20Found%20You%20%28Official%20Video%29%20%5BGxldQ9eX2wo%5D.mp3"
-    ];
+    
 
     const container = document.getElementById('cine-container');
     const audioElement = document.getElementById('cine-audio');
