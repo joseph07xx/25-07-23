@@ -644,106 +644,90 @@
         }
 
         /* ============================================================
-           CARRUSEL DE IMÁGENES
+           COFRE DE RECUERDOS (nuevas cards)
            ============================================================ */
-        .carrusel-container {
-            position: relative;
+        .cofre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            background: var(--noche-2);
         }
 
-        .carrusel-pista {
+        .card-radical {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--borde-glass);
+            border-radius: 32px;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: var(--crema);
+            transition: var(--transicion-suave);
             display: flex;
-            transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1);
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 200px;
+            justify-content: center;
+            gap: 8px;
             will-change: transform;
         }
 
-        .carrusel-item {
-            flex: 0 0 100%;
-            aspect-ratio: 16 / 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--noche-3);
-            overflow: hidden;
+        .card-radical:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--morado-brillante);
+            box-shadow: var(--sombra-morada);
+            background: rgba(45, 27, 51, 0.8);
         }
 
-        .carrusel-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+        .card-radical .icono-card {
+            font-size: 2.8rem;
+            line-height: 1;
+            filter: drop-shadow(0 0 12px rgba(154, 90, 158, 0.2));
+            transition: transform 0.4s ease;
         }
 
-        .carrusel-item .placeholder {
-            color: var(--crema-suave);
-            font-family: var(--fuente-cuerpo);
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 20px;
+        .card-radical:hover .icono-card {
+            transform: scale(1.1) rotate(-4deg);
         }
 
-        .carrusel-controles {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            pointer-events: none;
-            padding: 0 12px;
+        .card-radical h2 {
+            font-family: var(--fuente-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--morado-suave);
+            margin: 4px 0;
         }
 
-        .carrusel-controles button {
-            pointer-events: all;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid var(--borde-glass);
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
+        .card-radical p {
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: var(--crema-tenue);
+            max-width: 240px;
+            line-height: 1.4;
+        }
+
+        .card-radical .btn-neon {
+            margin-top: 8px;
+            padding: 8px 28px;
+            border-radius: 40px;
+            background: transparent;
+            border: 1.5px solid rgba(212, 176, 212, 0.25);
             color: var(--crema);
-            font-size: 1.4rem;
-            cursor: pointer;
+            font-family: var(--fuente-cuerpo);
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             transition: var(--transicion-suave);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: default;
         }
 
-        .carrusel-controles button:hover {
-            background: var(--morado-brillante);
+        .card-radical:hover .btn-neon {
             border-color: transparent;
             color: var(--noche);
-            transform: scale(1.1);
-        }
-
-        .carrusel-indicadores {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            padding: 16px 0 8px;
-        }
-
-        .carrusel-indicadores span {
-            display: block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--borde-glass);
-            cursor: pointer;
-            transition: var(--transicion-suave);
-        }
-
-        .carrusel-indicadores span.activo {
-            background: var(--morado-brillante);
-            box-shadow: 0 0 16px rgba(154, 90, 158, 0.5);
-            transform: scale(1.2);
+            background: linear-gradient(135deg, var(--morado-suave), var(--morado-brillante));
+            box-shadow: 0 0 20px rgba(154, 90, 158, 0.3);
         }
 
         /* ============================================================
@@ -1315,30 +1299,55 @@
         }
 
         /* ============================================================
-           FOOTER
+           FOOTER MEJORADO (más visible)
            ============================================================ */
         .footer-eternidad {
             width: 100%;
             max-width: 1100px;
             text-align: center;
-            padding: 50px 24px 30px;
-            border-top: 1px solid var(--borde-glass);
-            margin-top: 10px;
+            padding: 40px 24px 30px;
+            margin-top: 20px;
+            border-top: 2px solid var(--morado-brillante);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 60px 60px 0 0;
+            box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-eternidad::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 60px 60px 0 0;
+            background: linear-gradient(90deg, var(--morado-claro), var(--morado-brillante), var(--morado-suave));
+            z-index: -1;
+            opacity: 0.25;
+            border-bottom: none;
         }
 
         .footer-firma {
             font-family: var(--fuente-firma);
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--morado-suave);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(154, 90, 158, 0.2);
         }
 
         .footer-linea {
             font-weight: 300;
-            color: var(--crema-suave);
-            letter-spacing: 3px;
-            font-size: 0.8rem;
+            color: var(--crema);
+            letter-spacing: 4px;
+            font-size: 0.85rem;
             text-transform: uppercase;
+            background: rgba(154, 90, 158, 0.1);
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--borde-glass);
         }
 
         .footer-linea .corazon {
@@ -1368,11 +1377,16 @@
 
         .contador-visitas {
             display: block;
-            margin-top: 10px;
-            font-size: 0.68rem;
+            margin-top: 14px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             color: var(--crema-suave);
-            opacity: 0.6;
+            opacity: 0.8;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 6px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid var(--borde-glass);
         }
 
         /* ============================================================
@@ -1509,8 +1523,16 @@
             .linea-tiempo::before {
                 left: 13px;
             }
-            .carrusel-container {
-                border-radius: 20px;
+            .cofre-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 16px;
+            }
+            .card-radical {
+                padding: 20px 16px;
+                min-height: 160px;
+            }
+            .card-radical .icono-card {
+                font-size: 2.2rem;
             }
         }
 
@@ -1521,10 +1543,9 @@
             .modal-contenido {
                 padding: 44px 22px 30px;
             }
-            .carrusel-controles button {
-                width: 34px;
-                height: 34px;
-                font-size: 1rem;
+            .cofre-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
             }
         }
 
@@ -1623,7 +1644,6 @@
     <div class="controles-flotantes">
         <button class="boton-control" id="botonMusica" type="button" aria-pressed="false" aria-label="Reproducir música de fondo">🔇</button>
         <button class="boton-control" id="botonTema" type="button" aria-label="Cambiar tema">🌙</button>
-        
     </div>
 
     <audio id="musicaFondo" loop preload="none">
@@ -1701,10 +1721,155 @@
         </section>
 
         <!-- ============================================================
-             CAPÍTULO 02 · CARRUSEL DE RECUERDOS
+             CAPÍTULO 02 · NUESTRA HISTORIA (línea de tiempo)
              ============================================================ -->
-         <section class="capitulo revelar" id="recuerdos">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 04 · Nuestro cofre de recuerdos <span class="linea"></span></p>
+        <section class="capitulo revelar" id="historia">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 02 · Nuestra historia <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Cada capítulo, un motivo para <em>sonreír</em></h2>
+            <p class="capitulo-subtitulo">Un vistazo a los momentos que nos trajeron hasta aquí.</p>
+
+            <div class="linea-tiempo">
+                <div class="hito">
+                    <div class="hito-marcador">💖</div>
+                    <div class="hito-contenido">
+                        <div class="hito-fecha">25 Jul 2023</div>
+                        <div class="hito-evento">El primer "Hola"</div>
+                        <div class="hito-descripcion">Todo comenzó con un mensaje que cambiaría todo.</div>
+                    </div>
+                </div>
+                <div class="hito">
+                    <div class="hito-marcador">🌹</div>
+                    <div class="hito-contenido">
+                        <div class="hito-fecha">14 Feb 2024</div>
+                        <div class="hito-evento">Primer San Valentín</div>
+                        <div class="hito-descripcion">Un día mágico lleno de risas y promesas.</div>
+                    </div>
+                </div>
+                <div class="hito">
+                    <div class="hito-marcador">✈️</div>
+                    <div class="hito-contenido">
+                        <div class="hito-fecha">25 Jul 2024</div>
+                        <div class="hito-evento">Primer aniversario</div>
+                        <div class="hito-descripcion">Descubriendo uno al otro, con muchas historias juntos.</div>
+                    </div>
+                </div>
+                <div class="hito hito-actual">
+                    <div class="hito-marcador">🎉</div>
+                    <div class="hito-contenido">
+                        <div class="hito-fecha">Hoy</div>
+                        <div class="hito-evento">Seguimos escribiendo</div>
+                        <div class="hito-descripcion">El contador sigue corriendo, y cada día es un nuevo capítulo.</div>
+                    </div>
+                </div>
+                <div class="hito">
+                    <div class="hito-marcador">💍</div>
+                    <div class="hito-contenido">
+                        <div class="hito-fecha">Por definir ✨</div>
+                        <div class="hito-evento">Una promesa eterna</div>
+                        <div class="hito-descripcion">Fecha especial, aún por escribir.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 03 · MENSAJES (muro)
+             ============================================================ -->
+        <section class="capitulo revelar" id="mensajes">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 03 · Muro de mensajes <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Palabras que <em>siempre</em> recordaremos</h2>
+            <p class="capitulo-subtitulo">Escribe un mensaje especial o lee los que hemos guardado.</p>
+
+            <div class="muro-mensajes">
+                <div class="form-mensaje">
+                    <input type="text" id="nombreMensaje" placeholder="Tu nombre (opcional)" maxlength="40" />
+                    <textarea id="textoMensaje" placeholder="Escribe tu mensaje aquí..." maxlength="300"></textarea>
+                    <button id="btnAgregarMensaje">Agregar mensaje</button>
+                </div>
+                <div class="lista-mensajes" id="listaMensajes">
+                    <!-- Mensajes guardados -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 04 · QUIZ (juego)
+             ============================================================ -->
+        <section class="capitulo revelar" id="quiz">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 04 · ¿Cuánto nos conocemos? <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Un pequeño juego para <em>recordar</em></h2>
+            <p class="capitulo-subtitulo">Responde estas preguntas sobre nuestra historia.</p>
+
+            <div class="quiz-container" id="quizContainer">
+                <div class="quiz-pregunta" id="quizPregunta">Cargando pregunta...</div>
+                <div class="quiz-opciones" id="quizOpciones"></div>
+                <div class="quiz-resultado" id="quizResultado"></div>
+                <button class="quiz-reiniciar" id="quizReiniciar" style="display:none;">Reiniciar juego</button>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 05 · REPRODUCTOR DE MÚSICA
+             ============================================================ -->
+        <section class="capitulo revelar" id="musica">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 05 · Nuestra banda sonora <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Música que <em>nos</em> define</h2>
+            <p class="capitulo-subtitulo">Canciones que nos acompañan en este viaje.</p>
+
+            <div class="reproductor-container" id="reproductor">
+                <div class="reproductor-info">
+                    <div class="portada" id="portadaCancion">🎵</div>
+                    <div class="detalles">
+                        <div class="titulo-cancion" id="tituloCancion">Selecciona una canción</div>
+                        <div class="artista" id="artistaCancion">Artista</div>
+                    </div>
+                </div>
+                <div class="reproductor-controles">
+                    <button id="btnAnterior" aria-label="Anterior">⏮</button>
+                    <button id="btnPlayPause" aria-label="Reproducir/Pausar">▶</button>
+                    <button id="btnSiguiente" aria-label="Siguiente">⏭</button>
+                    <input type="range" id="barraProgresoMusica" value="0" min="0" max="100" step="0.1" />
+                </div>
+                <div class="lista-canciones" id="listaCanciones">
+                    <!-- Se genera con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 06 · CELEBRACIÓN
+             ============================================================ -->
+        <section class="capitulo revelar capitulo-celebrar">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 06 · Celebremos <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Un poco de <em>magia</em> para celebrar</h2>
+            <p class="capitulo-subtitulo">Por todos los momentos compartidos.</p>
+            <button class="boton-sorpresa" id="botonSorpresa">🎊 Lanza la magia</button>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 07 · CARTA SECRETA
+             ============================================================ -->
+        <section class="capitulo revelar" id="carta">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 07 · Una carta para ti <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Hay palabras que quiero que <em>siempre</em> encuentres</h2>
+            <p class="capitulo-subtitulo">Ábrela cuando quieras sentirte amada, una y otra vez.</p>
+
+            <div class="sobre-envoltorio" style="display:flex;justify-content:center;">
+                <div class="sobre-carta" id="btnMensajeSecreto" style="width:min(320px,80vw);aspect-ratio:3/2;position:relative;cursor:pointer;perspective:1000px;">
+                    <div style="position:absolute;inset:0;border-radius:18px;background:linear-gradient(160deg,var(--noche-3),var(--vino) 130%);border:1px solid var(--borde-glass);box-shadow:0 25px 60px rgba(0,0,0,0.45);display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;transition:0.5s ease;overflow:hidden;">
+                        <span style="position:relative;z-index:1;font-family:var(--fuente-cuerpo);font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;color:var(--crema-suave);">Toca para abrir</span>
+                    </div>
+                    <div style="position:absolute;top:0;left:0;right:0;height:52%;background:linear-gradient(160deg,var(--noche-2),var(--noche-3));clip-path:polygon(0 0,100% 0,50% 100%);border-bottom:1px solid rgba(212,176,212,0.1);transform-origin:top center;transition:transform 0.6s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.6s ease;z-index:2;"></div>
+                    <div style="position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b5486a,var(--vino) 70%);display:flex;align-items:center;justify-content:center;color:var(--morado-suave);font-size:1.3rem;box-shadow:0 6px 18px rgba(0,0,0,0.4),inset 0 0 10px rgba(0,0,0,0.3);z-index:3;transition:transform 0.4s ease;">❤</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 08 · COFRE DE RECUERDOS (NUEVO - reemplaza al carrusel)
+             ============================================================ -->
+        <section class="capitulo revelar" id="recuerdos">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 08 · Nuestro cofre de recuerdos <span class="linea"></span></p>
             <h2 class="capitulo-titulo">Todo lo que hemos guardado, en <em>un solo lugar</em></h2>
             <p class="capitulo-subtitulo">Fotos, videos y momentos que merecen visitarse una y otra vez.</p>
 
@@ -1763,150 +1928,8 @@
         </section>
 
         <!-- ============================================================
-             CAPÍTULO 03 · NUESTRA HISTORIA (línea de tiempo)
+             FOOTER MEJORADO (más visible)
              ============================================================ -->
-        <section class="capitulo revelar" id="historia">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 03 · Nuestra historia <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Cada capítulo, un motivo para <em>sonreír</em></h2>
-            <p class="capitulo-subtitulo">Un vistazo a los momentos que nos trajeron hasta aquí.</p>
-
-            <div class="linea-tiempo">
-                <div class="hito">
-                    <div class="hito-marcador">💖</div>
-                    <div class="hito-contenido">
-                        <div class="hito-fecha">25 Jul 2023</div>
-                        <div class="hito-evento">El primer "Hola"</div>
-                        <div class="hito-descripcion">Todo comenzó con un mensaje que cambiaría todo.</div>
-                    </div>
-                </div>
-                <div class="hito">
-                    <div class="hito-marcador">🌹</div>
-                    <div class="hito-contenido">
-                        <div class="hito-fecha">14 Feb 2024</div>
-                        <div class="hito-evento">Primer San Valentín</div>
-                        <div class="hito-descripcion">Un día mágico lleno de risas y promesas.</div>
-                    </div>
-                </div>
-                <div class="hito">
-                    <div class="hito-marcador">✈️</div>
-                    <div class="hito-contenido">
-                        <div class="hito-fecha">25 Jul 2024</div>
-                        <div class="hito-evento">Primer aniversario</div>
-                        <div class="hito-descripcion">Descubriendo uno al otro, con muchas historias juntos.</div>
-                    </div>
-                </div>
-                <div class="hito hito-actual">
-                    <div class="hito-marcador">🎉</div>
-                    <div class="hito-contenido">
-                        <div class="hito-fecha">Hoy</div>
-                        <div class="hito-evento">Seguimos escribiendo</div>
-                        <div class="hito-descripcion">El contador sigue corriendo, y cada día es un nuevo capítulo.</div>
-                    </div>
-                </div>
-                <div class="hito">
-                    <div class="hito-marcador">💍</div>
-                    <div class="hito-contenido">
-                        <div class="hito-fecha">Por definir ✨</div>
-                        <div class="hito-evento">Una promesa eterna</div>
-                        <div class="hito-descripcion">Fecha especial, aún por escribir.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             CAPÍTULO 04 · MENSAJES (muro)
-             ============================================================ -->
-        <section class="capitulo revelar" id="mensajes">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 04 · Muro de mensajes <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Palabras que <em>siempre</em> recordaremos</h2>
-            <p class="capitulo-subtitulo">Escribe un mensaje especial o lee los que hemos guardado.</p>
-
-            <div class="muro-mensajes">
-                <div class="form-mensaje">
-                    <input type="text" id="nombreMensaje" placeholder="Tu nombre (opcional)" maxlength="40" />
-                    <textarea id="textoMensaje" placeholder="Escribe tu mensaje aquí..." maxlength="300"></textarea>
-                    <button id="btnAgregarMensaje">Agregar mensaje</button>
-                </div>
-                <div class="lista-mensajes" id="listaMensajes">
-                    <!-- Mensajes guardados -->
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             CAPÍTULO 05 · QUIZ (juego)
-             ============================================================ -->
-        <section class="capitulo revelar" id="quiz">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 05 · ¿Cuánto nos conocemos? <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Un pequeño juego para <em>recordar</em></h2>
-            <p class="capitulo-subtitulo">Responde estas preguntas sobre nuestra historia.</p>
-
-            <div class="quiz-container" id="quizContainer">
-                <div class="quiz-pregunta" id="quizPregunta">Cargando pregunta...</div>
-                <div class="quiz-opciones" id="quizOpciones"></div>
-                <div class="quiz-resultado" id="quizResultado"></div>
-                <button class="quiz-reiniciar" id="quizReiniciar" style="display:none;">Reiniciar juego</button>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             CAPÍTULO 06 · REPRODUCTOR DE MÚSICA
-             ============================================================ -->
-        <section class="capitulo revelar" id="musica">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 06 · Nuestra banda sonora <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Música que <em>nos</em> define</h2>
-            <p class="capitulo-subtitulo">Canciones que nos acompañan en este viaje.</p>
-
-            <div class="reproductor-container" id="reproductor">
-                <div class="reproductor-info">
-                    <div class="portada" id="portadaCancion">🎵</div>
-                    <div class="detalles">
-                        <div class="titulo-cancion" id="tituloCancion">Selecciona una canción</div>
-                        <div class="artista" id="artistaCancion">Artista</div>
-                    </div>
-                </div>
-                <div class="reproductor-controles">
-                    <button id="btnAnterior" aria-label="Anterior">⏮</button>
-                    <button id="btnPlayPause" aria-label="Reproducir/Pausar">▶</button>
-                    <button id="btnSiguiente" aria-label="Siguiente">⏭</button>
-                    <input type="range" id="barraProgresoMusica" value="0" min="0" max="100" step="0.1" />
-                </div>
-                <div class="lista-canciones" id="listaCanciones">
-                    <!-- Se genera con JS -->
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             CAPÍTULO 07 · CELEBRACIÓN
-             ============================================================ -->
-        <section class="capitulo revelar capitulo-celebrar">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 07 · Celebremos <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Un poco de <em>magia</em> para celebrar</h2>
-            <p class="capitulo-subtitulo">Por todos los momentos compartidos.</p>
-            <button class="boton-sorpresa" id="botonSorpresa">🎊 Lanza la magia</button>
-        </section>
-
-        <!-- ============================================================
-             CAPÍTULO 08 · CARTA SECRETA
-             ============================================================ -->
-        <section class="capitulo revelar" id="carta">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 08 · Una carta para ti <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Hay palabras que quiero que <em>siempre</em> encuentres</h2>
-            <p class="capitulo-subtitulo">Ábrela cuando quieras sentirte amada, una y otra vez.</p>
-
-            <div class="sobre-envoltorio" style="display:flex;justify-content:center;">
-                <div class="sobre-carta" id="btnMensajeSecreto" style="width:min(320px,80vw);aspect-ratio:3/2;position:relative;cursor:pointer;perspective:1000px;">
-                    <div style="position:absolute;inset:0;border-radius:18px;background:linear-gradient(160deg,var(--noche-3),var(--vino) 130%);border:1px solid var(--borde-glass);box-shadow:0 25px 60px rgba(0,0,0,0.45);display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;transition:0.5s ease;overflow:hidden;">
-                        <span style="position:relative;z-index:1;font-family:var(--fuente-cuerpo);font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;color:var(--crema-suave);">Toca para abrir</span>
-                    </div>
-                    <div style="position:absolute;top:0;left:0;right:0;height:52%;background:linear-gradient(160deg,var(--noche-2),var(--noche-3));clip-path:polygon(0 0,100% 0,50% 100%);border-bottom:1px solid rgba(212,176,212,0.1);transform-origin:top center;transition:transform 0.6s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.6s ease;z-index:2;"></div>
-                    <div style="position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b5486a,var(--vino) 70%);display:flex;align-items:center;justify-content:center;color:var(--morado-suave);font-size:1.3rem;box-shadow:0 6px 18px rgba(0,0,0,0.4),inset 0 0 10px rgba(0,0,0,0.3);z-index:3;transition:transform 0.4s ease;">❤</div>
-                </div>
-            </div>
-        </section>
-
         <footer class="footer-eternidad">
             <p class="footer-firma">Con todo mi amor,</p>
             <p class="footer-linea"><span class="corazon">❤</span> Eternidad • 2026 <span class="corazon">❤</span></p>
@@ -1932,21 +1955,7 @@
 
     <script>
         // ============================================================
-        //  CONFIGURACIÓN DEL CARRUSEL - IMÁGENES DESDE GOOGLE DRIVE
-        //  Agrega aquí los IDs de las imágenes que quieras mostrar.
-        //  Formato: 'ID_DE_GOOGLE_DRIVE'
-        // ============================================================
-        const IMAGENES_DRIVE = [
-            '1vg9FJepBIttjQVFJIPhzh2N7EeWO79Jy', // Reemplaza con tus IDs
-            '1gmwhEwy1tuWsN_UVvV1_a6ImmFY6bTCc',
-            '1Hn0lUiwH9HK-tLX60CCPY0J8MVWyUbDc',
-            '13OECDw5pLX0GoLqhwZiaaRwLU028j-f-',
-            '1WpM2hkBNdFI8flsxYKIQsdUu1chldtx-'
-        ];
-
-        // ============================================================
         //  CONFIGURACIÓN DE LA PLAYLIST (música)
-        //  Puedes agregar canciones con título, artista y URL (de Drive o externa)
         // ============================================================
         const PLAYLIST = [{
             titulo: 'All of Me',
@@ -1968,12 +1977,12 @@
             artista: 'John Denver',
             url: 'https://ia903208.us.archive.org/28/items/john-denver-annies-song-official-audio-rnotf-zn-qyw/John%20Denver%20-%20Annie%27s%20Song%20%28Official%20Audio%29%20%5BRNOTF-znQyw%5D.mp3',
             portada: '🎹'
-        },{
+        }, {
             titulo: 'Wonderwall',
             artista: 'Oasis',
             url: 'https://ia800806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3',
             portada: '🎚️'
-        },{
+        }, {
             titulo: 'Solamente tú',
             artista: 'Pablo Alboran',
             url: 'https://ia601508.us.archive.org/34/items/pablo-alboran-solamente-tu-videoclip-oficial-f-0rw-os-ate-xm/Pablo%20Albor%C3%A1n%20-%20Solamente%20T%C3%BA%20%28Videoclip%20Oficial%29%20%5BF0rwOsAteXM%5D.mp3',
@@ -1989,7 +1998,7 @@
             correcta: 1
         }, {
             pregunta: '¿Qué canción fue la primera que dedicamos?',
-            opciones: ['All of Me', 'Te amo y mas', 'The reason', ''],
+            opciones: ['All of Me', 'Te amo y mas', 'The reason', 'Perfect'],
             correcta: 0
         }, {
             pregunta: '¿Cuál es nuestro lugar favorito?',
@@ -2074,7 +2083,7 @@
                 actualizar();
             })();
 
-            // -------- PARTÍCULAS / ESTRELLAS (mejorado) --------
+            // -------- PARTÍCULAS / ESTRELLAS --------
             (function crearParticulas() {
                 if (prefiereMenosMovimiento) return;
                 const esMovil = window.innerWidth < 600;
@@ -2097,7 +2106,6 @@
                 }
                 capa.appendChild(frag);
 
-                // Formas flotantes (luces suaves)
                 const capaFormas = document.getElementById('capaFormas');
                 if (capaFormas) {
                     const colores = ['rgba(154,90,158,0.2)', 'rgba(212,176,212,0.15)', 'rgba(106,58,115,0.25)'];
@@ -2111,7 +2119,8 @@
                         f.style.height = size + 'px';
                         f.style.left = Math.random() * 100 + '%';
                         f.style.top = Math.random() * 100 + '%';
-                        f.style.background = `radial-gradient(circle, ${colores[Math.floor(Math.random() * colores.length)]} 0%, transparent 70%)`;
+                        f.style.background =
+                            `radial-gradient(circle, ${colores[Math.floor(Math.random() * colores.length)]} 0%, transparent 70%)`;
                         f.style.animationDuration = (Math.random() * 12 + 10) + 's';
                         f.style.animationDelay = (Math.random() * 8) + 's';
                         frag2.appendChild(f);
@@ -2210,102 +2219,6 @@
             actualizarContador();
             setInterval(actualizarContador, 1000);
 
-            // -------- CARRUSEL DE IMÁGENES --------
-            (function carrusel() {
-                const pista = document.getElementById('carruselPista');
-                const indicadores = document.getElementById('carruselIndicadores');
-                const btnAnt = document.getElementById('carruselAnterior');
-                const btnSig = document.getElementById('carruselSiguiente');
-                if (!pista) return;
-
-                let imagenes = IMAGENES_DRIVE.filter(id => id && id.length > 5);
-                if (imagenes.length === 0) {
-                    // Imágenes de ejemplo si no hay IDs válidos
-                    imagenes = [
-                        'https://picsum.photos/seed/1/800/500',
-                        'https://picsum.photos/seed/2/800/500',
-                        'https://picsum.photos/seed/3/800/500',
-                        'https://picsum.photos/seed/4/800/500',
-                        'https://picsum.photos/seed/5/800/500'
-                    ];
-                }
-
-                let index = 0;
-                let total = imagenes.length;
-
-                function construirCarrusel() {
-                    pista.innerHTML = '';
-                    imagenes.forEach((id, i) => {
-                        const item = document.createElement('div');
-                        item.className = 'carrusel-item';
-                        const img = document.createElement('img');
-                        // Si es un ID de Google Drive (alfanumérico largo) o una URL
-                        if (id.match(/^[a-zA-Z0-9_-]{10,}$/)) {
-                            img.src = `https://drive.google.com/uc?export=view&id=${id}`;
-                        } else {
-                            img.src = id;
-                        }
-                        img.alt = `Recuerdo ${i+1}`;
-                        img.loading = 'lazy';
-                        img.onerror = function() {
-                            this.style.display = 'none';
-                            const placeholder = document.createElement('div');
-                            placeholder.className = 'placeholder';
-                            placeholder.textContent = `📸 Imagen ${i+1} no disponible`;
-                            item.appendChild(placeholder);
-                        };
-                        item.appendChild(img);
-                        pista.appendChild(item);
-                    });
-                    // Indicadores
-                    indicadores.innerHTML = '';
-                    for (let i = 0; i < total; i++) {
-                        const dot = document.createElement('span');
-                        dot.dataset.index = i;
-                        dot.addEventListener('click', () => irA(i));
-                        indicadores.appendChild(dot);
-                    }
-                    actualizar();
-                }
-
-                function actualizar() {
-                    pista.style.transform = `translateX(-${index * 100}%)`;
-                    const dots = indicadores.querySelectorAll('span');
-                    dots.forEach((d, i) => d.classList.toggle('activo', i === index));
-                }
-
-                function irA(i) {
-                    if (i < 0) i = total - 1;
-                    if (i >= total) i = 0;
-                    index = i;
-                    actualizar();
-                }
-
-                function siguiente() { irA(index + 1); }
-
-                function anterior() { irA(index - 1); }
-
-                btnAnt.addEventListener('click', anterior);
-                btnSig.addEventListener('click', siguiente);
-
-                // Teclado
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') anterior();
-                    if (e.key === 'ArrowRight') siguiente();
-                });
-
-                construirCarrusel();
-
-                // Auto slide cada 6s
-                let intervalo = setInterval(siguiente, 6000);
-                const contenedor = document.getElementById('carrusel');
-                contenedor.addEventListener('mouseenter', () => clearInterval(intervalo));
-                contenedor.addEventListener('mouseleave', () => {
-                    clearInterval(intervalo);
-                    intervalo = setInterval(siguiente, 6000);
-                });
-            })();
-
             // -------- MURO DE MENSAJES (localStorage) --------
             (function muroMensajes() {
                 const lista = document.getElementById('listaMensajes');
@@ -2338,7 +2251,6 @@
                             '<p style="text-align:center;color:var(--crema-suave);padding:20px;">Aún no hay mensajes. ¡Escribe el primero!</p>';
                         return;
                     }
-                    // Mostrar más reciente primero
                     const copia = [...mensajes].reverse();
                     copia.forEach(m => {
                         const div = document.createElement('div');
@@ -2397,10 +2309,10 @@
 
                 function cargarPregunta() {
                     if (indiceActual >= PREGUNTAS_QUIZ.length) {
-                        // Fin del quiz
                         preguntaEl.textContent = '¡Has completado el quiz!';
                         opcionesEl.innerHTML = '';
-                        resultadoEl.innerHTML = `✨ Obtuviste ${puntaje} de ${PREGUNTAS_QUIZ.length} respuestas correctas.`;
+                        resultadoEl.innerHTML =
+                        `✨ Obtuviste ${puntaje} de ${PREGUNTAS_QUIZ.length} respuestas correctas.`;
                         reiniciarBtn.style.display = 'inline-block';
                         return;
                     }
@@ -2426,7 +2338,6 @@
                     const p = PREGUNTAS_QUIZ[indiceActual];
                     const esCorrecta = idx === p.correcta;
                     if (esCorrecta) puntaje++;
-                    // Resaltar correcta/incorrecta
                     const botones = opcionesEl.querySelectorAll('.quiz-opcion');
                     botones.forEach((b, i) => {
                         if (i === p.correcta) b.classList.add('correcta');
@@ -2434,7 +2345,6 @@
                         b.style.pointerEvents = 'none';
                     });
                     resultadoEl.textContent = esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto.';
-                    // Siguiente después de un breve delay
                     setTimeout(() => {
                         indiceActual++;
                         cargarPregunta();
@@ -2478,7 +2388,6 @@
                     tituloEl.textContent = cancion.titulo;
                     artistaEl.textContent = cancion.artista;
                     portadaEl.textContent = cancion.portada || '🎵';
-                    // Resaltar en lista
                     const items = listaEl.querySelectorAll('.cancion-item');
                     items.forEach((el, i) => el.classList.toggle('activa', i === index));
                     if (reproduciendo) {
@@ -2522,7 +2431,6 @@
                     if (!reproduciendo) togglePlay();
                 }
 
-                // Eventos
                 btnPlayPause.addEventListener('click', togglePlay);
                 btnSig.addEventListener('click', cancionSiguiente);
                 btnAnt.addEventListener('click', cancionAnterior);
@@ -2536,7 +2444,6 @@
                     }
                 });
 
-                // Sincronizar con botón flotante
                 if (btnMusica) {
                     btnMusica.addEventListener('click', () => {
                         if (reproduciendo) {
@@ -2555,7 +2462,6 @@
                     });
                 }
 
-                // Construir lista de canciones
                 PLAYLIST.forEach((c, i) => {
                     const item = document.createElement('div');
                     item.className = 'cancion-item' + (i === 0 ? ' activa' : '');
@@ -2569,10 +2475,7 @@
                     listaEl.appendChild(item);
                 });
 
-                // Cargar primera canción
                 cargarCancion(0);
-                // No reproducir automáticamente hasta interacción del usuario
-                // El botón de música en la cortina iniciará la reproducción
             })();
 
             // -------- BOTÓN SORPRESA (confeti) --------
