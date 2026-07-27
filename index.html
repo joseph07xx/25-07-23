@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Eternidad · tres años juntos y contando. Una carta de amor digital, nuestra historia y todos nuestros recuerdos." />
-    <meta name="theme-color" content="#150e1a" />
-    <!-- Página privada: pedimos a los buscadores que no la indexen -->
+    <meta name="description" content="Eternidad · Nuestra historia digital, llena de recuerdos y momentos especiales." />
+    <meta name="theme-color" content="#1a0f1f" />
     <meta name="robots" content="noindex, nofollow" />
 
-    <!-- Vista previa al compartir el enlace (WhatsApp, Telegram, etc.) -->
-    <meta property="og:title" content="✦ Eternidad · Tres Años Juntos ✦" />
-    <meta property="og:description" content="Un regalo digital para celebrar nuestra historia." />
+    <meta property="og:title" content="✦ Eternidad · Nuestra Historia ✦" />
+    <meta property="og:description" content="Un regalo digital para celebrar nuestro amor." />
     <meta property="og:type" content="website" />
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9D%A4%EF%B8%8F%3C/text%3E%3C/svg%3E" />
     <link rel="manifest" href="manifest.json" />
 
-    <title>✦ Eternidad · Tres Años Juntos ✦</title>
+    <title>✦ Eternidad · Nuestra Historia ✦</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Jost:wght@300;400;500;600&family=Parisienne&display=swap" rel="stylesheet" />
@@ -31,23 +29,29 @@
         }
 
         :root {
-            --noche: #150e1a;
-            --noche-2: #1f1420;
-            --noche-3: #2a1a2c;
-            --vino: #4a1628;
-            --oro: #cda45e;
-            --oro-claro: #e8cd97;
-            --rosa-polvo: #e3b0b6;
-            --crema: #f7ecdd;
-            --crema-tenue: rgba(247, 236, 221, 0.6);
-            --crema-suave: rgba(247, 236, 221, 0.38);
-            --glass-bg: rgba(31, 20, 32, 0.55);
-            --borde-glass: rgba(232, 205, 151, 0.14);
-            --sombra-oro: 0 0 40px rgba(205, 164, 94, 0.25);
+            --noche: #1a0f1f;
+            --noche-2: #2d1b33;
+            --noche-3: #4a2a50;
+            --vino: #4a2a50;
+            --morado-claro: #6b3a73;
+            --morado-brillante: #9a5a9e;
+            --morado-suave: #d4b0d4;
+            --crema: #f0e0f0;
+            --crema-tenue: rgba(240, 224, 240, 0.6);
+            --crema-suave: rgba(240, 224, 240, 0.38);
+            --glass-bg: rgba(45, 27, 51, 0.55);
+            --borde-glass: rgba(212, 176, 212, 0.14);
+            --sombra-morada: 0 0 40px rgba(106, 58, 115, 0.35);
             --sombra-rosa: 0 0 40px rgba(227, 176, 182, 0.18);
             --fuente-display: 'Cormorant Garamond', serif;
             --fuente-cuerpo: 'Jost', sans-serif;
             --fuente-firma: 'Parisienne', cursive;
+            --color-principal: #9a5a9e;
+            --color-secundario: #d4b0d4;
+            --color-fondo: #1a0f1f;
+            --color-texto: #f0e0f0;
+            --color-borde: rgba(212, 176, 212, 0.2);
+            --transicion-suave: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         html {
@@ -62,6 +66,7 @@
             overflow-x: hidden;
             position: relative;
             line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
         }
 
         body.bloqueado {
@@ -69,7 +74,11 @@
             height: 100vh;
         }
 
-        img, svg { display: block; max-width: 100%; }
+        img,
+        svg {
+            display: block;
+            max-width: 100%;
+        }
 
         /* ============================================================
            BARRA DE PROGRESO DE LECTURA
@@ -80,13 +89,13 @@
             left: 0;
             height: 3px;
             width: 0%;
-            background: linear-gradient(90deg, var(--vino), var(--oro), var(--rosa-polvo));
+            background: linear-gradient(90deg, var(--vino), var(--morado-claro), var(--morado-brillante));
             z-index: 2000;
             transition: width 0.15s ease-out;
         }
 
         /* ============================================================
-           FONDO AMBIENTAL (estrellas, pétalos, luces)
+           FONDO AMBIENTAL (partículas / estrellas mejorado)
            ============================================================ */
         .fondo-eternidad {
             position: fixed;
@@ -99,87 +108,73 @@
         .fondo-eternidad .vineta {
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 40%, transparent 35%, rgba(10, 6, 12, 0.55) 100%);
+            background: radial-gradient(ellipse at 50% 40%, transparent 35%, rgba(26, 15, 31, 0.7) 100%);
         }
 
         .fondo-eternidad .gradiente-animado {
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(circle at 18% 25%, rgba(74, 22, 40, 0.55) 0%, transparent 45%),
-                radial-gradient(circle at 82% 20%, rgba(205, 164, 94, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 50% 85%, rgba(227, 176, 182, 0.10) 0%, transparent 55%);
+                radial-gradient(circle at 18% 25%, rgba(74, 42, 80, 0.5) 0%, transparent 45%),
+                radial-gradient(circle at 82% 20%, rgba(106, 58, 115, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 50% 85%, rgba(212, 176, 212, 0.1) 0%, transparent 55%);
             background-size: 160% 160%;
             animation: moverGradiente 22s ease-in-out infinite alternate;
         }
 
         @keyframes moverGradiente {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
         }
 
-        /* Estrellas: titilan en su lugar */
-        .estrella {
+        /* Partículas (estrellas mejoradas) */
+        .particula {
             position: absolute;
             border-radius: 50%;
             background: var(--crema);
             pointer-events: none;
             will-change: opacity, transform;
-            animation: titilarEstrella ease-in-out infinite;
+            animation: titilarParticula ease-in-out infinite alternate;
         }
 
-        @keyframes titilarEstrella {
-            0%, 100% { opacity: 0.15; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.15); }
+        @keyframes titilarParticula {
+            0% {
+                opacity: 0.1;
+                transform: scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
 
-        /* Pétalos: caen suavemente meciéndose */
-        .petalo {
-            position: absolute;
-            top: -5vh;
-            border-radius: 0 60% 0 60%;
-            pointer-events: none;
-            will-change: transform, opacity;
-            animation: caerPetalo linear infinite;
-        }
-
-        @keyframes caerPetalo {
-            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-            8% { opacity: 0.85; }
-            50% { transform: translate(40px, 55vh) rotate(180deg); }
-            92% { opacity: 0.85; }
-            100% { transform: translate(-30px, 110vh) rotate(340deg); opacity: 0; }
-        }
-
-        /* Luces suaves: orbes grandes que flotan lento */
-        .luz-suave {
+        /* Pétalos o formas flotantes (opcional) */
+        .forma-flotante {
             position: absolute;
             border-radius: 50%;
-            filter: blur(30px);
+            filter: blur(40px);
             pointer-events: none;
             will-change: transform, opacity;
-            animation: flotarLuz ease-in-out infinite alternate;
+            animation: flotarForma ease-in-out infinite alternate;
         }
 
-        @keyframes flotarLuz {
-            0% { transform: translate(0, 0) scale(1); opacity: 0.35; }
-            100% { transform: translate(30px, -40px) scale(1.2); opacity: 0.6; }
-        }
-
-        /* Luz interactiva que sigue el cursor */
-        .luz-interactiva {
-            position: fixed;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(205, 164, 94, 0.35) 0%, transparent 70%);
-            filter: blur(10px);
-            pointer-events: none;
-            will-change: transform, opacity;
-            transition: transform 0.15s ease-out, opacity 0.4s ease;
-            z-index: 0;
+        @keyframes flotarForma {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translate(30px, -40px) scale(1.2);
+                opacity: 0.6;
+            }
         }
 
         /* ============================================================
-           CORTINA DE INICIO (bienvenida cinematográfica)
+           CORTINA DE INICIO
            ============================================================ */
         .cortina-inicio {
             position: fixed;
@@ -204,9 +199,9 @@
         .cortina-marca {
             font-family: var(--fuente-firma);
             font-size: clamp(2.2rem, 8vw, 3.6rem);
-            color: var(--oro-claro);
+            color: var(--morado-suave);
             margin-bottom: 6px;
-            text-shadow: 0 0 40px rgba(205, 164, 94, 0.35);
+            text-shadow: 0 0 40px rgba(154, 90, 158, 0.35);
         }
 
         .cortina-eyebrow {
@@ -230,7 +225,7 @@
         }
 
         .cortina-titulo span {
-            color: var(--oro);
+            color: var(--morado-brillante);
             font-weight: 600;
         }
 
@@ -238,8 +233,8 @@
             padding: 16px 44px;
             border-radius: 60px;
             background: transparent;
-            border: 1.5px solid var(--oro);
-            color: var(--oro-claro);
+            border: 1.5px solid var(--morado-brillante);
+            color: var(--morado-suave);
             font-family: var(--fuente-cuerpo);
             font-size: 0.85rem;
             letter-spacing: 3px;
@@ -254,7 +249,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, var(--vino), var(--oro));
+            background: linear-gradient(135deg, var(--vino), var(--morado-brillante));
             opacity: 0;
             transition: opacity 0.5s ease;
             z-index: -1;
@@ -264,7 +259,7 @@
         .btn-abrir-historia:focus-visible {
             color: var(--noche);
             border-color: transparent;
-            box-shadow: var(--sombra-oro);
+            box-shadow: var(--sombra-morada);
             transform: scale(1.04);
         }
 
@@ -281,7 +276,7 @@
         }
 
         /* ============================================================
-           CONTENEDOR PRINCIPAL / CAPÍTULOS
+           CONTENEDOR PRINCIPAL
            ============================================================ */
         .main-container {
             position: relative;
@@ -309,7 +304,7 @@
             font-size: 0.72rem;
             letter-spacing: 5px;
             text-transform: uppercase;
-            color: var(--oro);
+            color: var(--morado-brillante);
             margin-bottom: 18px;
             text-align: center;
         }
@@ -317,11 +312,11 @@
         .capitulo-eyebrow .linea {
             width: 34px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--oro));
+            background: linear-gradient(90deg, transparent, var(--morado-brillante));
         }
 
         .capitulo-eyebrow .linea:last-child {
-            background: linear-gradient(90deg, var(--oro), transparent);
+            background: linear-gradient(90deg, var(--morado-brillante), transparent);
         }
 
         .capitulo-titulo {
@@ -336,7 +331,7 @@
 
         .capitulo-titulo em {
             font-style: italic;
-            color: var(--oro-claro);
+            color: var(--morado-suave);
             font-weight: 500;
         }
 
@@ -349,7 +344,6 @@
             color: var(--crema-tenue);
         }
 
-        /* Revelado al hacer scroll */
         .revelar {
             opacity: 0;
             transform: translateY(36px);
@@ -362,7 +356,7 @@
         }
 
         /* ============================================================
-           HERO / PORTADA
+           HERO
            ============================================================ */
         .capitulo-hero {
             min-height: 100vh;
@@ -388,14 +382,14 @@
             font-family: var(--fuente-firma);
             font-weight: 400;
             font-size: clamp(3.4rem, 13vw, 7rem);
-            color: var(--oro-claro);
-            text-shadow: 0 0 50px rgba(205, 164, 94, 0.3), 0 0 100px rgba(74, 22, 40, 0.3);
+            color: var(--morado-suave);
+            text-shadow: 0 0 50px rgba(154, 90, 158, 0.3), 0 0 100px rgba(74, 42, 80, 0.3);
             display: inline-block;
             transition: text-shadow 0.6s ease, transform 0.6s ease;
         }
 
         .titulo-principal:hover {
-            text-shadow: 0 0 70px rgba(205, 164, 94, 0.55), 0 0 140px rgba(227, 176, 182, 0.35);
+            text-shadow: 0 0 70px rgba(154, 90, 158, 0.55), 0 0 140px rgba(212, 176, 212, 0.35);
             transform: scale(1.02);
         }
 
@@ -411,7 +405,7 @@
         }
 
         .subtitulo-hero span {
-            color: var(--oro);
+            color: var(--morado-brillante);
             font-weight: 600;
             font-style: normal;
         }
@@ -434,34 +428,41 @@
             border-radius: 50%;
             border: 1px solid var(--borde-glass);
             background: var(--glass-bg);
-            color: var(--oro-claro);
+            color: var(--morado-suave);
             font-size: 1.1rem;
             cursor: pointer;
             animation: rebotarFlecha 2.4s ease-in-out infinite;
         }
 
         @keyframes rebotarFlecha {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(8px);
+            }
         }
 
         /* ============================================================
-           CONTADOR PRINCIPAL (tiempo juntos)
+           CONTADOR PRINCIPAL
            ============================================================ */
         .insignia-hito {
             display: inline-block;
             margin: 0 auto 26px;
             padding: 8px 22px;
             border-radius: 40px;
-            background: linear-gradient(135deg, rgba(205, 164, 94, 0.16), rgba(227, 176, 182, 0.1));
+            background: linear-gradient(135deg, rgba(154, 90, 158, 0.16), rgba(212, 176, 212, 0.1));
             border: 1px solid var(--borde-glass);
             font-size: 0.85rem;
             letter-spacing: 1px;
-            color: var(--oro-claro);
+            color: var(--morado-suave);
             text-align: center;
         }
 
-        .insignia-hito-envoltorio { text-align: center; }
+        .insignia-hito-envoltorio {
+            text-align: center;
+        }
 
         .seccion-contador-radical {
             width: 100%;
@@ -471,7 +472,7 @@
             border: 1px solid var(--borde-glass);
             border-radius: 50px;
             padding: 44px 30px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), inset 0 0 60px rgba(205, 164, 94, 0.03);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), inset 0 0 60px rgba(154, 90, 158, 0.03);
             position: relative;
             overflow: hidden;
         }
@@ -479,19 +480,30 @@
         .seccion-contador-radical::before {
             content: '';
             position: absolute;
-            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
             border-radius: 51px;
-            background: linear-gradient(135deg, var(--vino), var(--oro), var(--rosa-polvo));
+            background: linear-gradient(135deg, var(--vino), var(--morado-brillante), var(--morado-suave));
             z-index: -1;
             opacity: 0.25;
             background-size: 300% 300%;
-            animation: moverBordeOro 8s ease-in-out infinite alternate;
+            animation: moverBorde 8s ease-in-out infinite alternate;
         }
 
-        @keyframes moverBordeOro {
-            0% { background-position: 0% 0%; opacity: 0.15; }
-            50% { opacity: 0.35; }
-            100% { background-position: 100% 100%; opacity: 0.15; }
+        @keyframes moverBorde {
+            0% {
+                background-position: 0% 0%;
+                opacity: 0.15;
+            }
+            50% {
+                opacity: 0.35;
+            }
+            100% {
+                background-position: 100% 100%;
+                opacity: 0.15;
+            }
         }
 
         .contador-grid-radical {
@@ -502,12 +514,12 @@
         }
 
         .tarjeta-tiempo-radical {
-            background: rgba(247, 236, 221, 0.03);
+            background: rgba(240, 224, 240, 0.03);
             border-radius: 26px;
             padding: 20px 12px;
             width: 100%;
-            border: 1px solid rgba(232, 205, 151, 0.08);
-            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(212, 176, 212, 0.08);
+            transition: var(--transicion-suave);
             position: relative;
             text-align: center;
             will-change: transform;
@@ -515,16 +527,16 @@
 
         .tarjeta-tiempo-radical:hover {
             transform: translateY(-8px) scale(1.02);
-            border-color: var(--oro);
-            box-shadow: 0 0 30px rgba(205, 164, 94, 0.15);
-            background: rgba(205, 164, 94, 0.05);
+            border-color: var(--morado-brillante);
+            box-shadow: 0 0 30px rgba(154, 90, 158, 0.15);
+            background: rgba(154, 90, 158, 0.05);
         }
 
         .tarjeta-tiempo-radical .numero {
             font-family: var(--fuente-display);
             font-size: 2.8rem;
             font-weight: 600;
-            background: linear-gradient(135deg, var(--oro-claro), var(--rosa-polvo));
+            background: linear-gradient(135deg, var(--morado-suave), var(--morado-brillante));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -537,8 +549,14 @@
         }
 
         @keyframes saltarNumero {
-            0% { transform: scale(0.5); opacity: 0.3; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0.5);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         .tarjeta-tiempo-radical .etiqueta {
@@ -554,7 +572,7 @@
         .barra-progreso {
             width: 100%;
             height: 3px;
-            background: rgba(247, 236, 221, 0.08);
+            background: rgba(240, 224, 240, 0.08);
             border-radius: 4px;
             margin-top: 10px;
             overflow: hidden;
@@ -563,7 +581,7 @@
         .barra-progreso .relleno {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--vino), var(--oro));
+            background: linear-gradient(90deg, var(--vino), var(--morado-brillante));
             border-radius: 4px;
             transition: width 0.5s ease;
         }
@@ -577,13 +595,12 @@
         }
 
         .contador-segundos-total-radical span {
-            color: var(--oro);
+            color: var(--morado-suave);
             font-weight: 600;
             font-size: 1.25rem;
             font-family: var(--fuente-display);
         }
 
-        /* Variante tenue: para el contador simbólico */
         .seccion-contador-radical--tenue {
             padding: 30px 22px;
             border-radius: 40px;
@@ -591,9 +608,13 @@
             opacity: 0.85;
         }
 
-        .seccion-contador-radical--tenue::before { opacity: 0.1; animation-duration: 14s; }
-        .seccion-contador-radical--tenue .numero { font-size: 1.9rem; }
-        .seccion-contador-radical--tenue .tarjeta-tiempo-radical { padding: 14px 10px; border-radius: 20px; }
+        .seccion-contador-radical--tenue .numero {
+            font-size: 1.9rem;
+        }
+        .seccion-contador-radical--tenue .tarjeta-tiempo-radical {
+            padding: 14px 10px;
+            border-radius: 20px;
+        }
 
         .contador-titulo-radical {
             text-align: center;
@@ -606,15 +627,107 @@
         }
 
         .contador-titulo-radical .icono {
-            color: var(--oro);
+            color: var(--morado-brillante);
             margin: 0 8px;
             display: inline-block;
             animation: latidoIcono 2.4s ease-in-out infinite;
         }
 
         @keyframes latidoIcono {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        /* ============================================================
+           COFRE DE RECUERDOS (nuevas cards)
+           ============================================================ */
+        .cofre-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            width: 100%;
+        }
+
+        .card-radical {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--borde-glass);
+            border-radius: 32px;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: var(--crema);
+            transition: var(--transicion-suave);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: 200px;
+            justify-content: center;
+            gap: 8px;
+            will-change: transform;
+        }
+
+        .card-radical:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--morado-brillante);
+            box-shadow: var(--sombra-morada);
+            background: rgba(45, 27, 51, 0.8);
+        }
+
+        .card-radical .icono-card {
+            font-size: 2.8rem;
+            line-height: 1;
+            filter: drop-shadow(0 0 12px rgba(154, 90, 158, 0.2));
+            transition: transform 0.4s ease;
+        }
+
+        .card-radical:hover .icono-card {
+            transform: scale(1.1) rotate(-4deg);
+        }
+
+        .card-radical h2 {
+            font-family: var(--fuente-display);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--morado-suave);
+            margin: 4px 0;
+        }
+
+        .card-radical p {
+            font-weight: 300;
+            font-size: 0.9rem;
+            color: var(--crema-tenue);
+            max-width: 240px;
+            line-height: 1.4;
+        }
+
+        .card-radical .btn-neon {
+            margin-top: 8px;
+            padding: 8px 28px;
+            border-radius: 40px;
+            background: transparent;
+            border: 1.5px solid rgba(212, 176, 212, 0.25);
+            color: var(--crema);
+            font-family: var(--fuente-cuerpo);
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transicion-suave);
+            cursor: default;
+        }
+
+        .card-radical:hover .btn-neon {
+            border-color: transparent;
+            color: var(--noche);
+            background: linear-gradient(135deg, var(--morado-suave), var(--morado-brillante));
+            box-shadow: 0 0 20px rgba(154, 90, 158, 0.3);
         }
 
         /* ============================================================
@@ -634,7 +747,7 @@
             top: 6px;
             bottom: 6px;
             width: 2px;
-            background: linear-gradient(180deg, transparent, var(--oro) 10%, var(--oro) 90%, transparent);
+            background: linear-gradient(180deg, transparent, var(--morado-brillante) 10%, var(--morado-brillante) 90%, transparent);
             opacity: 0.4;
         }
 
@@ -643,7 +756,9 @@
             padding-bottom: 46px;
         }
 
-        .hito:last-child { padding-bottom: 0; }
+        .hito:last-child {
+            padding-bottom: 0;
+        }
 
         .hito-marcador {
             position: absolute;
@@ -653,23 +768,28 @@
             height: 32px;
             border-radius: 50%;
             background: var(--noche-2);
-            border: 1.5px solid var(--oro);
+            border: 1.5px solid var(--morado-brillante);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.95rem;
-            box-shadow: 0 0 20px rgba(205, 164, 94, 0.15);
+            box-shadow: 0 0 20px rgba(154, 90, 158, 0.15);
         }
 
         .hito-actual .hito-marcador {
             border-color: var(--crema);
-            box-shadow: 0 0 0 4px rgba(205, 164, 94, 0.15), 0 0 30px rgba(205, 164, 94, 0.5);
+            box-shadow: 0 0 0 4px rgba(154, 90, 158, 0.15), 0 0 30px rgba(154, 90, 158, 0.5);
             animation: pulsoHito 2.2s ease-in-out infinite;
         }
 
         @keyframes pulsoHito {
-            0%, 100% { box-shadow: 0 0 0 4px rgba(205, 164, 94, 0.15), 0 0 30px rgba(205, 164, 94, 0.5); }
-            50% { box-shadow: 0 0 0 8px rgba(205, 164, 94, 0.08), 0 0 44px rgba(205, 164, 94, 0.7); }
+            0%,
+            100% {
+                box-shadow: 0 0 0 4px rgba(154, 90, 158, 0.15), 0 0 30px rgba(154, 90, 158, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(154, 90, 158, 0.08), 0 0 44px rgba(154, 90, 158, 0.7);
+            }
         }
 
         .hito-contenido {
@@ -679,17 +799,17 @@
             border: 1px solid var(--borde-glass);
             border-radius: 24px;
             padding: 20px 24px;
-            transition: 0.4s ease;
+            transition: var(--transicion-suave);
         }
 
         .hito-actual .hito-contenido {
-            border-color: rgba(205, 164, 94, 0.4);
-            background: rgba(205, 164, 94, 0.07);
+            border-color: rgba(154, 90, 158, 0.4);
+            background: rgba(154, 90, 158, 0.07);
         }
 
         .hito-contenido:hover {
             transform: translateX(6px);
-            border-color: var(--oro);
+            border-color: var(--morado-brillante);
         }
 
         .hito-fecha {
@@ -697,7 +817,7 @@
             font-size: 0.72rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--oro);
+            color: var(--morado-brillante);
             opacity: 0.85;
         }
 
@@ -716,257 +836,323 @@
         }
 
         /* ============================================================
-           CARTA SECRETA (elemento distintivo: sobre con sello de cera)
+           MURO DE MENSAJES
            ============================================================ */
-        .sobre-envoltorio {
+        .muro-mensajes {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-mensaje {
             display: flex;
-            justify-content: center;
-        }
-
-        .sobre-carta {
-            width: min(360px, 84vw);
-            aspect-ratio: 3 / 2;
-            position: relative;
-            cursor: pointer;
-            perspective: 1000px;
-        }
-
-        .sobre-cuerpo {
-            position: absolute;
-            inset: 0;
-            border-radius: 18px;
-            background: linear-gradient(160deg, var(--noche-3), var(--vino) 130%);
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+            background: var(--glass-bg);
+            padding: 24px;
+            border-radius: 30px;
             border: 1px solid var(--borde-glass);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        .form-mensaje input,
+        .form-mensaje textarea {
+            background: rgba(240, 224, 240, 0.05);
+            border: 1px solid var(--borde-glass);
+            border-radius: 20px;
+            padding: 14px 18px;
+            font-family: var(--fuente-cuerpo);
+            color: var(--crema);
+            font-size: 0.95rem;
+            transition: var(--transicion-suave);
+            resize: vertical;
+        }
+
+        .form-mensaje input:focus,
+        .form-mensaje textarea:focus {
+            outline: none;
+            border-color: var(--morado-brillante);
+            box-shadow: 0 0 20px rgba(154, 90, 158, 0.15);
+        }
+
+        .form-mensaje textarea {
+            min-height: 80px;
+        }
+
+        .form-mensaje button {
+            align-self: flex-end;
+            padding: 12px 34px;
+            border-radius: 40px;
+            background: transparent;
+            border: 1.5px solid var(--morado-brillante);
+            color: var(--morado-suave);
+            font-family: var(--fuente-cuerpo);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transicion-suave);
+        }
+
+        .form-mensaje button:hover {
+            background: var(--morado-brillante);
+            color: var(--noche);
+            box-shadow: var(--sombra-morada);
+        }
+
+        .lista-mensajes {
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 22px;
-            transition: 0.5s ease;
-            overflow: hidden;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        .sobre-cuerpo::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 45%, rgba(205, 164, 94, 0.12) 100%);
+        .mensaje-item {
+            background: var(--glass-bg);
+            padding: 16px 20px;
+            border-radius: 20px;
+            border-left: 3px solid var(--morado-brillante);
+            backdrop-filter: blur(6px);
+            animation: aparecerMensaje 0.4s ease;
         }
 
-        .sobre-solapa {
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 52%;
-            background: linear-gradient(160deg, var(--noche-2), var(--noche-3));
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            border-bottom: 1px solid rgba(232, 205, 151, 0.1);
-            transform-origin: top center;
-            transition: transform 0.6s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.6s ease;
-            z-index: 2;
+        @keyframes aparecerMensaje {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: none;
+            }
         }
 
-        .sello-cera {
-            position: absolute;
-            top: 44%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 54px;
-            height: 54px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, #b5486a, var(--vino) 70%);
+        .mensaje-item .autor {
+            font-weight: 600;
+            color: var(--morado-suave);
+            font-size: 0.9rem;
+        }
+
+        .mensaje-item .texto {
+            margin-top: 4px;
+            color: var(--crema-tenue);
+        }
+
+        .mensaje-item .fecha {
+            font-size: 0.7rem;
+            color: var(--crema-suave);
+            margin-top: 6px;
+            text-align: right;
+        }
+
+        /* ============================================================
+           QUIZ / JUEGO
+           ============================================================ */
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border-radius: 30px;
+            padding: 30px 24px;
+            border: 1px solid var(--borde-glass);
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-pregunta {
+            font-family: var(--fuente-display);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quiz-opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-opcion {
+            padding: 14px 20px;
+            border-radius: 40px;
+            background: rgba(240, 224, 240, 0.04);
+            border: 1px solid var(--borde-glass);
+            color: var(--crema);
+            font-family: var(--fuente-cuerpo);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transicion-suave);
+            text-align: left;
+        }
+
+        .quiz-opcion:hover {
+            border-color: var(--morado-brillante);
+            background: rgba(154, 90, 158, 0.1);
+            transform: translateX(6px);
+        }
+
+        .quiz-opcion.correcta {
+            border-color: #6fcf97;
+            background: rgba(111, 207, 151, 0.15);
+            color: #6fcf97;
+        }
+
+        .quiz-opcion.incorrecta {
+            border-color: #eb5757;
+            background: rgba(235, 87, 87, 0.15);
+            color: #eb5757;
+        }
+
+        .quiz-resultado {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--morado-suave);
+        }
+
+        .quiz-reiniciar {
+            margin-top: 18px;
+            padding: 10px 30px;
+            border-radius: 40px;
+            background: transparent;
+            border: 1px solid var(--morado-brillante);
+            color: var(--morado-suave);
+            cursor: pointer;
+            transition: var(--transicion-suave);
+            font-family: var(--fuente-cuerpo);
+        }
+
+        .quiz-reiniciar:hover {
+            background: var(--morado-brillante);
+            color: var(--noche);
+        }
+
+        /* ============================================================
+           REPRODUCTOR DE MÚSICA (lista de canciones)
+           ============================================================ */
+        .reproductor-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border-radius: 30px;
+            padding: 24px;
+            border: 1px solid var(--borde-glass);
+            backdrop-filter: blur(10px);
+        }
+
+        .reproductor-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .reproductor-info .portada {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--noche-3);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--oro-claro);
-            font-size: 1.3rem;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 3;
-            transition: transform 0.4s ease;
+            font-size: 2rem;
+            flex-shrink: 0;
         }
 
-        .sobre-texto {
-            position: relative;
-            z-index: 1;
-            font-family: var(--fuente-cuerpo);
-            font-size: 0.78rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+        .reproductor-info .detalles {
+            flex: 1;
+        }
+
+        .reproductor-info .detalles .titulo-cancion {
+            font-weight: 600;
+            color: var(--crema);
+        }
+
+        .reproductor-info .detalles .artista {
+            font-size: 0.85rem;
+            color: var(--crema-tenue);
+        }
+
+        .reproductor-controles {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .reproductor-controles button {
+            background: transparent;
+            border: none;
+            color: var(--crema);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transicion-suave);
+            padding: 8px;
+        }
+
+        .reproductor-controles button:hover {
+            color: var(--morado-brillante);
+            transform: scale(1.15);
+        }
+
+        .reproductor-controles input[type="range"] {
+            flex: 1;
+            max-width: 200px;
+            accent-color: var(--morado-brillante);
+            background: var(--borde-glass);
+            height: 4px;
+            border-radius: 4px;
+            -webkit-appearance: none;
+        }
+
+        .reproductor-controles input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--morado-brillante);
+            cursor: pointer;
+        }
+
+        .lista-canciones {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .lista-canciones .cancion-item {
+            padding: 10px 16px;
+            border-radius: 20px;
+            background: rgba(240, 224, 240, 0.03);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transicion-suave);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lista-canciones .cancion-item:hover {
+            border-color: var(--borde-glass);
+            background: rgba(154, 90, 158, 0.05);
+        }
+
+        .lista-canciones .cancion-item.activa {
+            border-color: var(--morado-brillante);
+            background: rgba(154, 90, 158, 0.1);
+        }
+
+        .lista-canciones .cancion-item .nombre {
+            font-weight: 500;
+        }
+
+        .lista-canciones .cancion-item .duracion {
+            font-size: 0.8rem;
             color: var(--crema-suave);
         }
 
-        .sobre-carta:hover .sobre-solapa,
-        .sobre-carta:focus-visible .sobre-solapa {
-            transform: rotateX(-25deg);
-            box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .sobre-carta:hover .sello-cera,
-        .sobre-carta:focus-visible .sello-cera {
-            transform: translate(-50%, -50%) scale(1.08);
-        }
-
-        .sobre-carta:hover .sobre-cuerpo,
-        .sobre-carta:focus-visible .sobre-cuerpo {
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5);
-            border-color: var(--oro);
-        }
-
         /* ============================================================
-           GALERÍA / COFRE DE RECUERDOS
-           ============================================================ */
-        .cofre-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 26px;
-            width: 100%;
-        }
-
-        .card-radical {
-            position: relative;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--borde-glass);
-            border-radius: 32px;
-            padding: 38px 24px;
-            text-decoration: none;
-            color: var(--crema);
-            transition: 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            min-height: 230px;
-            justify-content: center;
-            gap: 10px;
-            will-change: transform;
-        }
-
-        .card-radical::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 33px;
-            background: linear-gradient(135deg, var(--vino), var(--oro), var(--rosa-polvo));
-            opacity: 0;
-            transition: opacity 0.6s ease;
-            z-index: -1;
-            background-size: 300% 300%;
-            animation: moverBordeOro 8s ease-in-out infinite alternate;
-        }
-
-        .card-radical:hover::before,
-        .card-radical:focus-visible::before { opacity: 0.5; }
-
-        .card-radical:hover,
-        .card-radical:focus-visible {
-            transform: translateY(-10px) scale(1.015);
-            border-color: transparent;
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-            background: rgba(31, 20, 32, 0.85);
-        }
-
-        .card-radical .icono-card {
-            font-size: 3rem;
-            line-height: 1;
-            filter: drop-shadow(0 0 16px rgba(205, 164, 94, 0.3));
-        }
-
-        .card-radical:hover .icono-card { transform: scale(1.12) rotate(-4deg); }
-
-        .card-radical h2 {
-            font-family: var(--fuente-display);
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: var(--oro-claro);
-            margin: 2px 0;
-        }
-
-        .card-radical p {
-            font-weight: 300;
-            font-size: 0.92rem;
-            color: var(--crema-tenue);
-            max-width: 250px;
-            line-height: 1.5;
-        }
-
-        .card-radical .btn-neon {
-            display: inline-block;
-            margin-top: 6px;
-            padding: 8px 26px;
-            border-radius: 40px;
-            background: transparent;
-            border: 1.5px solid rgba(232, 205, 151, 0.25);
-            color: var(--crema);
-            font-weight: 500;
-            font-size: 0.76rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            transition: 0.4s ease;
-        }
-
-        .card-radical:hover .btn-neon {
-            border-color: transparent;
-            color: var(--noche);
-            background: linear-gradient(135deg, var(--oro-claro), var(--rosa-polvo));
-        }
-
-        /* ============================================================
-           BOTÓN CELEBRAR (confeti)
-           ============================================================ */
-        .capitulo-celebrar { text-align: center; }
-
-        .boton-sorpresa {
-            padding: 16px 46px;
-            border-radius: 60px;
-            background: transparent;
-            border: 1.5px solid var(--oro);
-            color: var(--oro-claro);
-            font-family: var(--fuente-display);
-            font-style: italic;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.4s ease;
-            box-shadow: 0 0 20px rgba(205, 164, 94, 0.12);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .boton-sorpresa::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--vino), var(--oro));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .boton-sorpresa:hover {
-            color: var(--noche);
-            border-color: transparent;
-            box-shadow: 0 0 50px rgba(205, 164, 94, 0.35);
-            transform: scale(1.05);
-        }
-
-        .boton-sorpresa:hover::before { opacity: 1; }
-
-        /* ============================================================
-           CAPÍTULO FINAL (cuenta regresiva simbólica)
-           ============================================================ */
-        .capitulo-final-nota {
-            text-align: center;
-            font-family: var(--fuente-display);
-            font-style: italic;
-            color: var(--crema-tenue);
-            max-width: 480px;
-            margin: 0 auto 30px;
-        }
-
-        /* ============================================================
-           MODAL — CARTA (Mensaje Secreto)
+           MODAL CARTA
            ============================================================ */
         .modal-overlay {
             position: fixed;
@@ -981,7 +1167,9 @@
             padding: 20px;
         }
 
-        .modal-overlay.activo { display: flex; }
+        .modal-overlay.activo {
+            display: flex;
+        }
 
         .modal-contenido {
             background: linear-gradient(170deg, #241a26, var(--noche-2));
@@ -997,8 +1185,14 @@
         }
 
         @keyframes modalEntrada {
-            0% { transform: scale(0.88) translateY(30px) rotateX(8deg); opacity: 0; }
-            100% { transform: scale(1) translateY(0) rotateX(0); opacity: 1; }
+            0% {
+                transform: scale(0.88) translateY(30px) rotateX(8deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) translateY(0) rotateX(0);
+                opacity: 1;
+            }
         }
 
         .modal-sello {
@@ -1013,7 +1207,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--oro-claro);
+            color: var(--morado-suave);
             font-size: 1.2rem;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
         }
@@ -1022,7 +1216,7 @@
             font-family: var(--fuente-firma);
             font-size: 2.1rem;
             font-weight: 400;
-            color: var(--oro-claro);
+            color: var(--morado-suave);
             margin-bottom: 18px;
         }
 
@@ -1051,9 +1245,9 @@
         }
 
         .modal-contenido .cerrar-modal:hover {
-            border-color: var(--oro);
-            color: var(--oro-claro);
-            box-shadow: 0 0 24px rgba(205, 164, 94, 0.2);
+            border-color: var(--morado-brillante);
+            color: var(--morado-suave);
+            box-shadow: 0 0 24px rgba(154, 90, 158, 0.2);
         }
 
         .modal-acciones {
@@ -1064,53 +1258,135 @@
         }
 
         /* ============================================================
-           FOOTER
+           BOTÓN SORPRESA (confeti)
+           ============================================================ */
+        .boton-sorpresa {
+            padding: 16px 46px;
+            border-radius: 60px;
+            background: transparent;
+            border: 1.5px solid var(--morado-brillante);
+            color: var(--morado-suave);
+            font-family: var(--fuente-display);
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transicion-suave);
+            box-shadow: 0 0 20px rgba(154, 90, 158, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .boton-sorpresa::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--vino), var(--morado-brillante));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .boton-sorpresa:hover {
+            color: var(--noche);
+            border-color: transparent;
+            box-shadow: 0 0 50px rgba(154, 90, 158, 0.35);
+            transform: scale(1.05);
+        }
+
+        .boton-sorpresa:hover::before {
+            opacity: 1;
+        }
+
+        /* ============================================================
+           FOOTER MEJORADO (más visible)
            ============================================================ */
         .footer-eternidad {
             width: 100%;
             max-width: 1100px;
             text-align: center;
-            padding: 50px 24px 30px;
-            border-top: 1px solid var(--borde-glass);
-            margin-top: 10px;
+            padding: 40px 24px 30px;
+            margin-top: 20px;
+            border-top: 2px solid var(--morado-brillante);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 60px 60px 0 0;
+            box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-eternidad::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 60px 60px 0 0;
+            background: linear-gradient(90deg, var(--morado-claro), var(--morado-brillante), var(--morado-suave));
+            z-index: -1;
+            opacity: 0.25;
+            border-bottom: none;
         }
 
         .footer-firma {
             font-family: var(--fuente-firma);
-            font-size: 1.8rem;
-            color: var(--oro-claro);
-            margin-bottom: 10px;
+            font-size: 2rem;
+            color: var(--morado-suave);
+            margin-bottom: 8px;
+            text-shadow: 0 0 20px rgba(154, 90, 158, 0.2);
         }
 
         .footer-linea {
             font-weight: 300;
-            color: var(--crema-suave);
-            letter-spacing: 3px;
-            font-size: 0.8rem;
+            color: var(--crema);
+            letter-spacing: 4px;
+            font-size: 0.85rem;
             text-transform: uppercase;
+            background: rgba(154, 90, 158, 0.1);
+            padding: 8px 20px;
+            border-radius: 40px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--borde-glass);
         }
 
         .footer-linea .corazon {
-            color: var(--rosa-polvo);
+            color: var(--morado-brillante);
             display: inline-block;
             animation: latidoNeon 1.8s ease-in-out infinite;
         }
 
         @keyframes latidoNeon {
-            0%, 100% { transform: scale(1); }
-            20% { transform: scale(1.3); }
-            40% { transform: scale(1); }
-            60% { transform: scale(1.15); }
-            80% { transform: scale(1); }
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            20% {
+                transform: scale(1.3);
+            }
+            40% {
+                transform: scale(1);
+            }
+            60% {
+                transform: scale(1.15);
+            }
+            80% {
+                transform: scale(1);
+            }
         }
 
         .contador-visitas {
             display: block;
-            margin-top: 10px;
-            font-size: 0.68rem;
+            margin-top: 14px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             color: var(--crema-suave);
-            opacity: 0.6;
+            opacity: 0.8;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 6px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            border: 1px solid var(--borde-glass);
         }
 
         /* ============================================================
@@ -1139,12 +1415,12 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: var(--transicion-suave);
         }
 
         .boton-control:hover {
-            border-color: var(--oro);
-            box-shadow: 0 0 20px rgba(205, 164, 94, 0.25);
+            border-color: var(--morado-brillante);
+            box-shadow: 0 0 20px rgba(154, 90, 158, 0.25);
             transform: scale(1.08);
         }
 
@@ -1156,7 +1432,7 @@
             opacity: 0;
             pointer-events: none;
             transform: translateY(10px);
-            transition: 0.3s ease;
+            transition: var(--transicion-suave);
         }
 
         .boton-volver-arriba.visible {
@@ -1166,44 +1442,144 @@
         }
 
         /* ============================================================
+           TOAST NOTIFICACIONES
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            padding: 12px 28px;
+            border-radius: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--borde-glass);
+            color: var(--crema);
+            font-family: var(--fuente-cuerpo);
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: aparecerToast 0.4s ease, desaparecerToast 0.4s ease 2.6s forwards;
+            pointer-events: all;
+        }
+
+        @keyframes aparecerToast {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes desaparecerToast {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+        }
+
+        /* ============================================================
            RESPONSIVE
            ============================================================ */
         @media (max-width: 700px) {
-            .capitulo { padding: 54px 20px; }
-            .contador-grid-radical { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-            .tarjeta-tiempo-radical .numero { font-size: 1.9rem; }
-            .seccion-contador-radical { padding: 30px 16px; border-radius: 34px; }
-            .card-radical { padding: 30px 18px; min-height: 200px; }
-            .linea-tiempo { padding-left: 38px; }
-            .hito-marcador { left: -38px; width: 28px; height: 28px; font-size: 0.8rem; }
-            .linea-tiempo::before { left: 13px; }
+            .capitulo {
+                padding: 54px 20px;
+            }
+            .contador-grid-radical {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            .tarjeta-tiempo-radical .numero {
+                font-size: 1.9rem;
+            }
+            .seccion-contador-radical {
+                padding: 30px 16px;
+                border-radius: 34px;
+            }
+            .linea-tiempo {
+                padding-left: 38px;
+            }
+            .hito-marcador {
+                left: -38px;
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+            .linea-tiempo::before {
+                left: 13px;
+            }
+            .cofre-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 16px;
+            }
+            .card-radical {
+                padding: 20px 16px;
+                min-height: 160px;
+            }
+            .card-radical .icono-card {
+                font-size: 2.2rem;
+            }
         }
 
         @media (max-width: 480px) {
-            .contador-grid-radical { grid-template-columns: repeat(2, 1fr); }
-            .cofre-grid { grid-template-columns: 1fr; }
-            .modal-contenido { padding: 44px 22px 30px; }
+            .contador-grid-radical {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modal-contenido {
+                padding: 44px 22px 30px;
+            }
+            .cofre-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
         }
 
         /* ============================================================
            SCROLLBAR
            ============================================================ */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--noche); }
-        ::-webkit-scrollbar-thumb { background: var(--oro); border-radius: 10px; opacity: 0.6; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--rosa-polvo); }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--noche);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--morado-brillante);
+            border-radius: 10px;
+            opacity: 0.6;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--morado-suave);
+        }
 
         /* ============================================================
            UTILIDADES / ACCESIBILIDAD
            ============================================================ */
-        .oculto { display: none !important; }
+        .oculto {
+            display: none !important;
+        }
 
         .skip-link {
             position: absolute;
             top: -60px;
             left: 12px;
             z-index: 4000;
-            background: var(--oro);
+            background: var(--morado-brillante);
             color: var(--noche);
             padding: 10px 18px;
             border-radius: 30px;
@@ -1212,25 +1588,30 @@
             transition: top 0.2s ease;
         }
 
-        .skip-link:focus { top: 12px; }
+        .skip-link:focus {
+            top: 12px;
+        }
 
         a:focus-visible,
         button:focus-visible,
         .card-radical:focus-visible,
         [tabindex]:focus-visible {
-            outline: 2px solid var(--oro);
+            outline: 2px solid var(--morado-brillante);
             outline-offset: 4px;
             border-radius: 20px;
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
             }
-            .estrella, .petalo, .luz-suave, .luz-interactiva {
+            .particula,
+            .forma-flotante {
                 display: none !important;
             }
         }
@@ -1245,12 +1626,9 @@
     <div class="fondo-eternidad" aria-hidden="true">
         <div class="vineta"></div>
         <div class="gradiente-animado"></div>
-        <div id="capaEstrellas"></div>
-        <div id="capaLuces"></div>
-        <div id="capaPetalos"></div>
+        <div id="capaParticulas"></div>
+        <div id="capaFormas"></div>
     </div>
-
-    <div id="luzInteractiva" class="luz-interactiva" style="width:140px;height:140px;opacity:0;" aria-hidden="true"></div>
 
     <!-- ============================================================
          CORTINA DE INICIO
@@ -1258,20 +1636,24 @@
     <div class="cortina-inicio" id="cortinaInicio" role="dialog" aria-modal="true" aria-labelledby="cortinaMarca">
         <p class="cortina-eyebrow">✦ Un regalo digital, hecho solo para ti ✦</p>
         <h2 class="cortina-marca" id="cortinaMarca">Eternidad</h2>
-        <p class="cortina-titulo">Hoy celebramos <span>tres años</span> de nuestra historia.<br>Ven, quiero mostrarte algo.</p>
+        <p class="cortina-titulo">Cada día contigo es un capítulo nuevo.<br>Ven, te invito a recorrer <span>nuestra historia</span>.</p>
         <button class="btn-abrir-historia" id="btnAbrirHistoria" type="button">Abrir nuestra historia</button>
         <p class="cortina-nota">Se recomienda usar audífonos 🎧</p>
     </div>
 
     <div class="controles-flotantes">
         <button class="boton-control" id="botonMusica" type="button" aria-pressed="false" aria-label="Reproducir música de fondo">🔇</button>
+        <button class="boton-control" id="botonTema" type="button" aria-label="Cambiar tema">🌙</button>
     </div>
+
     <audio id="musicaFondo" loop preload="none">
-        <!-- Coloca aquí el archivo de su canción, ej: <source src="musica.mp3" type="audio/mpeg"> -->
         <source src="https://dn710905.ca.archive.org/0/items/john-legend-all-of-me-official-video-450p-7gox-zqg/John%20Legend%20-%20All%20of%20Me%20%28Official%20Video%29%20%5B450p7goxZqg%5D.mp3" />
     </audio>
 
     <button class="boton-control boton-volver-arriba" id="botonArriba" type="button" aria-label="Volver arriba">↑</button>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <main class="main-container" id="main">
 
@@ -1281,8 +1663,8 @@
         <header class="capitulo capitulo-hero" id="inicio">
             <p class="hero-eyebrow">✦ Un regalo digital para ti ✦</p>
             <h1 class="titulo-principal">Eternidad</h1>
-            <p class="subtitulo-hero">Hoy celebramos <span>tres años</span> escribiendo la misma historia.</p>
-            <p class="hero-fecha">25 de julio de 2023 — hoy</p>
+            <p class="subtitulo-hero">Cada segundo contigo es un <span>tesoro</span>.</p>
+            <p class="hero-fecha" id="fechaActual">25 de julio de 2023 — hoy</p>
             <button class="scroll-cue" id="scrollCue" type="button" aria-label="Bajar para comenzar">↓</button>
         </header>
 
@@ -1295,7 +1677,7 @@
             <p class="capitulo-subtitulo">Empezó como un mensaje y hoy es una vida compartida. Sigue sumando, segundo a segundo.</p>
 
             <div class="insignia-hito-envoltorio">
-                <span class="insignia-hito">🎉 Hoy llegamos a los 3 años juntos</span>
+                <span class="insignia-hito">🎉 Cada día es especial</span>
             </div>
 
             <div class="seccion-contador-radical">
@@ -1367,16 +1749,16 @@
                     <div class="hito-marcador">✈️</div>
                     <div class="hito-contenido">
                         <div class="hito-fecha">25 Jul 2024</div>
-                        <div class="hito-evento">Primer aniversario juntos</div>
+                        <div class="hito-evento">Primer aniversario</div>
                         <div class="hito-descripcion">Descubriendo uno al otro, con muchas historias juntos.</div>
                     </div>
                 </div>
                 <div class="hito hito-actual">
                     <div class="hito-marcador">🎉</div>
                     <div class="hito-contenido">
-                        <div class="hito-fecha">25 Jul 2026 · Hoy</div>
-                        <div class="hito-evento">¡Tres años juntos!</div>
-                        <div class="hito-descripcion">El contador llegó a su meta, y seguimos escribiendo la historia.</div>
+                        <div class="hito-fecha">Hoy</div>
+                        <div class="hito-evento">Seguimos escribiendo</div>
+                        <div class="hito-descripcion">El contador sigue corriendo, y cada día es un nuevo capítulo.</div>
                     </div>
                 </div>
                 <div class="hito">
@@ -1391,29 +1773,103 @@
         </section>
 
         <!-- ============================================================
-             CAPÍTULO 03 · UNA CARTA PARA TI
+             CAPÍTULO 03 · MENSAJES (muro)
              ============================================================ -->
-        <section class="capitulo revelar" id="carta">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 03 · Una carta para ti <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Hay palabras que quiero que <em>siempre</em> encuentres</h2>
-            <p class="capitulo-subtitulo">Ábrela cuando quieras sentirte amada, una y otra vez.</p>
+        <section class="capitulo revelar" id="mensajes">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 03 · Muro de mensajes <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Palabras que <em>siempre</em> recordaremos</h2>
+            <p class="capitulo-subtitulo">Escribe un mensaje especial o lee los que hemos guardado.</p>
 
-            <div class="sobre-envoltorio">
-                <div class="sobre-carta" id="btnMensajeSecreto" aria-haspopup="dialog">
-                    <div class="sobre-cuerpo">
-                        <span class="sobre-texto">Toca para abrir</span>
-                    </div>
-                    <div class="sobre-solapa"></div>
-                    <div class="sello-cera">❤</div>
+            <div class="muro-mensajes">
+                <div class="form-mensaje">
+                    <input type="text" id="nombreMensaje" placeholder="Tu nombre (opcional)" maxlength="40" />
+                    <textarea id="textoMensaje" placeholder="Escribe tu mensaje aquí..." maxlength="300"></textarea>
+                    <button id="btnAgregarMensaje">Agregar mensaje</button>
+                </div>
+                <div class="lista-mensajes" id="listaMensajes">
+                    <!-- Mensajes guardados -->
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-             CAPÍTULO 04 · NUESTRO COFRE DE RECUERDOS
+             CAPÍTULO 04 · QUIZ (juego)
+             ============================================================ -->
+        <section class="capitulo revelar" id="quiz">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 04 · ¿Cuánto nos conocemos? <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Un pequeño juego para <em>recordar</em></h2>
+            <p class="capitulo-subtitulo">Responde estas preguntas sobre nuestra historia.</p>
+
+            <div class="quiz-container" id="quizContainer">
+                <div class="quiz-pregunta" id="quizPregunta">Cargando pregunta...</div>
+                <div class="quiz-opciones" id="quizOpciones"></div>
+                <div class="quiz-resultado" id="quizResultado"></div>
+                <button class="quiz-reiniciar" id="quizReiniciar" style="display:none;">Reiniciar juego</button>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 05 · REPRODUCTOR DE MÚSICA
+             ============================================================ -->
+        <section class="capitulo revelar" id="musica">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 05 · Nuestra banda sonora <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Música que <em>nos</em> define</h2>
+            <p class="capitulo-subtitulo">Canciones que nos acompañan en este viaje.</p>
+
+            <div class="reproductor-container" id="reproductor">
+                <div class="reproductor-info">
+                    <div class="portada" id="portadaCancion">🎵</div>
+                    <div class="detalles">
+                        <div class="titulo-cancion" id="tituloCancion">Selecciona una canción</div>
+                        <div class="artista" id="artistaCancion">Artista</div>
+                    </div>
+                </div>
+                <div class="reproductor-controles">
+                    <button id="btnAnterior" aria-label="Anterior">⏮</button>
+                    <button id="btnPlayPause" aria-label="Reproducir/Pausar">▶</button>
+                    <button id="btnSiguiente" aria-label="Siguiente">⏭</button>
+                    <input type="range" id="barraProgresoMusica" value="0" min="0" max="100" step="0.1" />
+                </div>
+                <div class="lista-canciones" id="listaCanciones">
+                    <!-- Se genera con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 06 · CELEBRACIÓN
+             ============================================================ -->
+        <section class="capitulo revelar capitulo-celebrar">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 06 · Celebremos <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Un poco de <em>magia</em> para celebrar</h2>
+            <p class="capitulo-subtitulo">Por todos los momentos compartidos.</p>
+            <button class="boton-sorpresa" id="botonSorpresa">🎊 Lanza la magia</button>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 07 · CARTA SECRETA
+             ============================================================ -->
+        <section class="capitulo revelar" id="carta">
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 07 · Una carta para ti <span class="linea"></span></p>
+            <h2 class="capitulo-titulo">Hay palabras que quiero que <em>siempre</em> encuentres</h2>
+            <p class="capitulo-subtitulo">Ábrela cuando quieras sentirte amada, una y otra vez.</p>
+
+            <div class="sobre-envoltorio" style="display:flex;justify-content:center;">
+                <div class="sobre-carta" id="btnMensajeSecreto" style="width:min(320px,80vw);aspect-ratio:3/2;position:relative;cursor:pointer;perspective:1000px;">
+                    <div style="position:absolute;inset:0;border-radius:18px;background:linear-gradient(160deg,var(--noche-3),var(--vino) 130%);border:1px solid var(--borde-glass);box-shadow:0 25px 60px rgba(0,0,0,0.45);display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px;transition:0.5s ease;overflow:hidden;">
+                        <span style="position:relative;z-index:1;font-family:var(--fuente-cuerpo);font-size:0.78rem;letter-spacing:3px;text-transform:uppercase;color:var(--crema-suave);">Toca para abrir</span>
+                    </div>
+                    <div style="position:absolute;top:0;left:0;right:0;height:52%;background:linear-gradient(160deg,var(--noche-2),var(--noche-3));clip-path:polygon(0 0,100% 0,50% 100%);border-bottom:1px solid rgba(212,176,212,0.1);transform-origin:top center;transition:transform 0.6s cubic-bezier(0.34,1.2,0.64,1),box-shadow 0.6s ease;z-index:2;"></div>
+                    <div style="position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b5486a,var(--vino) 70%);display:flex;align-items:center;justify-content:center;color:var(--morado-suave);font-size:1.3rem;box-shadow:0 6px 18px rgba(0,0,0,0.4),inset 0 0 10px rgba(0,0,0,0.3);z-index:3;transition:transform 0.4s ease;">❤</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             CAPÍTULO 08 · COFRE DE RECUERDOS (NUEVO - reemplaza al carrusel)
              ============================================================ -->
         <section class="capitulo revelar" id="recuerdos">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 04 · Nuestro cofre de recuerdos <span class="linea"></span></p>
+            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 08 · Nuestro cofre de recuerdos <span class="linea"></span></p>
             <h2 class="capitulo-titulo">Todo lo que hemos guardado, en <em>un solo lugar</em></h2>
             <p class="capitulo-subtitulo">Fotos, videos y momentos que merecen visitarse una y otra vez.</p>
 
@@ -1472,65 +1928,8 @@
         </section>
 
         <!-- ============================================================
-             CAPÍTULO 05 · CELEBREMOS
+             FOOTER MEJORADO (más visible)
              ============================================================ -->
-        <section class="capitulo revelar capitulo-celebrar">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 05 · Celebremos <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">Cada aniversario merece un poco de <em>magia</em></h2>
-            <p class="capitulo-subtitulo">Tres años dan para más de un motivo de celebración.</p>
-            <button class="boton-sorpresa" id="botonSorpresa">🎊 Lanza la magia</button>
-        </section>
-
-        <!-- ============================================================
-             CAPÍTULO 06 · LO QUE ESTÁ POR VENIR (símbolico)
-             ============================================================ -->
-        <section class="capitulo revelar" id="proximoCapitulo">
-            <p class="capitulo-eyebrow"><span class="linea"></span> Capítulo 06 · Lo que está por venir <span class="linea"></span></p>
-            <h2 class="capitulo-titulo">El futuro aún se está <em>escribiendo</em></h2>
-            <p class="capitulo-final-nota">Mientras tanto, contamos cada segundo hacia allá.</p>
-
-            <div class="seccion-contador-radical seccion-contador-radical--tenue" id="contadorRegresivo">
-                <h3 class="contador-titulo-radical">
-                    <span class="icono">⏳</span> Tiempo restante para el gran día <span class="icono">⏳</span>
-                </h3>
-                <div class="contador-grid-radical" id="contadorGridRestan" aria-hidden="true">
-                    <div class="tarjeta-tiempo-radical">
-                        <div class="numero" id="anos-restan">0</div>
-                        <div class="etiqueta">Años</div>
-                        <div class="barra-progreso"><div class="relleno" id="barraAnos-restan"></div></div>
-                    </div>
-                    <div class="tarjeta-tiempo-radical">
-                        <div class="numero" id="meses-restan">0</div>
-                        <div class="etiqueta">Meses</div>
-                        <div class="barra-progreso"><div class="relleno" id="barraMeses-restan"></div></div>
-                    </div>
-                    <div class="tarjeta-tiempo-radical">
-                        <div class="numero" id="dias-restan">0</div>
-                        <div class="etiqueta">Días</div>
-                        <div class="barra-progreso"><div class="relleno" id="barraDias-restan"></div></div>
-                    </div>
-                    <div class="tarjeta-tiempo-radical">
-                        <div class="numero" id="horas-restan">0</div>
-                        <div class="etiqueta">Horas</div>
-                        <div class="barra-progreso"><div class="relleno" id="barraHoras-restan"></div></div>
-                    </div>
-                    <div class="tarjeta-tiempo-radical">
-                        <div class="numero" id="minutos-restan">0</div>
-                        <div class="etiqueta">Minutos</div>
-                        <div class="barra-progreso"><div class="relleno" id="barraMinutos-restan"></div></div>
-                    </div>
-                    <div class="tarjeta-tiempo-radical">
-                        <div class="numero" id="segundos-restan">0</div>
-                        <div class="etiqueta">Segundos</div>
-                        <div class="barra-progreso"><div class="relleno" id="barraSegundos-restan"></div></div>
-                    </div>
-                </div>
-                <div class="contador-segundos-total-radical">
-                    ✦ <span id="totalSegundos-restan">0</span> segundos para el gran momento ✦
-                </div>
-            </div>
-        </section>
-
         <footer class="footer-eternidad">
             <p class="footer-firma">Con todo mi amor,</p>
             <p class="footer-linea"><span class="corazon">❤</span> Eternidad • 2026 <span class="corazon">❤</span></p>
@@ -1539,6 +1938,9 @@
 
     </main>
 
+    <!-- ============================================================
+         MODAL CARTA
+         ============================================================ -->
     <div class="modal-overlay" id="modalMensaje" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
         <div class="modal-contenido">
             <div class="modal-sello">❤</div>
@@ -1551,7 +1953,759 @@
         </div>
     </div>
 
-<script src="script.js"></script>
+    <script>
+        // ============================================================
+        //  CONFIGURACIÓN DE LA PLAYLIST (música)
+        // ============================================================
+        const PLAYLIST = [{
+            titulo: 'All of Me',
+            artista: 'John Legend',
+            url: 'https://dn710905.ca.archive.org/0/items/john-legend-all-of-me-official-video-450p-7gox-zqg/John%20Legend%20-%20All%20of%20Me%20%28Official%20Video%29%20%5B450p7goxZqg%5D.mp3',
+            portada: '🎵'
+        }, {
+            titulo: 'Until I Found You',
+            artista: 'Stephen Sanchez',
+            url: 'https://ia902800.us.archive.org/5/items/stephen-sanchez-until-i-found-you-official-video-gxld-q-9e-x-2wo_202607/Stephen%20Sanchez%20-%20Until%20I%20Found%20You%20%28Official%20Video%29%20%5BGxldQ9eX2wo%5D.mp3',
+            portada: '🎶'
+        }, {
+            titulo: 'Yellow',
+            artista: 'Coldplay',
+            url: 'https://dn710301.ca.archive.org/0/items/coldplay-yellow-official-video-y-knxe-f-4-kms-y/Coldplay%20-%20Yellow%20%28Official%20Video%29%20%5ByKNxeF4KMsY%5D.mp3',
+            portada: '🎸'
+        }, {
+            titulo: 'Annies Song',
+            artista: 'John Denver',
+            url: 'https://ia903208.us.archive.org/28/items/john-denver-annies-song-official-audio-rnotf-zn-qyw/John%20Denver%20-%20Annie%27s%20Song%20%28Official%20Audio%29%20%5BRNOTF-znQyw%5D.mp3',
+            portada: '🎹'
+        }, {
+            titulo: 'Wonderwall',
+            artista: 'Oasis',
+            url: 'https://ia800806.us.archive.org/23/items/oasis-wonderwall-official-video-bx-1-bh-8-zv-h-84/Oasis%20-%20Wonderwall%20%28Official%20Video%29%20%5Bbx1Bh8ZvH84%5D.mp3',
+            portada: '🎚️'
+        }, {
+            titulo: 'Solamente tú',
+            artista: 'Pablo Alboran',
+            url: 'https://ia601508.us.archive.org/34/items/pablo-alboran-solamente-tu-videoclip-oficial-f-0rw-os-ate-xm/Pablo%20Albor%C3%A1n%20-%20Solamente%20T%C3%BA%20%28Videoclip%20Oficial%29%20%5BF0rwOsAteXM%5D.mp3',
+            portada: '🎧'
+        }];
+
+        // ============================================================
+        //  CONFIGURACIÓN DEL QUIZ
+        // ============================================================
+        const PREGUNTAS_QUIZ = [{
+            pregunta: '¿En qué mes nos empezamos a hablar?',
+            opciones: ['Abril', 'Mayo', 'Junio', 'Julio'],
+            correcta: 1
+        }, {
+            pregunta: '¿Qué canción fue la primera que dedicamos?',
+            opciones: ['All of Me', 'Te amo y mas', 'The reason', 'Perfect'],
+            correcta: 0
+        }, {
+            pregunta: '¿Cuál es nuestro lugar favorito?',
+            opciones: ['La playa', 'La montaña', 'El cine', 'Nuestra casa'],
+            correcta: 3
+        }, {
+            pregunta: '¿Qué animal nos representa?',
+            opciones: ['Perros', 'Gatos', 'Mariposas', 'Lobos'],
+            correcta: 2
+        }];
+
+        // ============================================================
+        //  MENSAJES SECRETOS (modal)
+        // ============================================================
+        const MENSAJES_SECRETOS = [
+            "Cada día a tu lado es un regalo del universo. Eres mi luz, mi paz y mi locura favorita. 💫",
+            "No necesito un mapa para encontrar mi camino, porque tú eres mi brújula. Te amo. 🌟",
+            "El tiempo se detiene cuando me miras, y el mundo entero desaparece. Eres mi eternidad. ⏳",
+            "En tus ojos encontré el hogar que siempre busqué. Gracias por existir. 🏡",
+            "Eres la melodía que mi corazón siempre quiso cantar. 🎶",
+            "La vida es mejor a tu lado, incluso en los días grises. Eres mi arcoíris. 🌈",
+            "Te elegiría una y otra vez, en cada vida, en cada universo. 💖",
+            "Cantar de los Cantares 8:6: Ponme como un sello sobre tu corazón, como una marca sobre tu brazo; porque fuerte es como la muerte el amor; celos, duros como el sepulcro.",
+            "Cantar de los Cantares 2:16: Mi amado es mío, y yo suya; él apacienta entre los lirios."
+        ];
+
+        // ============================================================
+        //  INICIO DE LA APLICACIÓN
+        // ============================================================
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const prefiereMenosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // -------- TOAST --------
+            function mostrarToast(mensaje) {
+                const contenedor = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = mensaje;
+                contenedor.appendChild(toast);
+                setTimeout(() => { toast.remove(); }, 3000);
+            }
+
+            // -------- CORTINA DE INICIO --------
+            (function cortinaInicio() {
+                const cortina = document.getElementById('cortinaInicio');
+                const btnAbrir = document.getElementById('btnAbrirHistoria');
+                const btnMusica = document.getElementById('botonMusica');
+                if (!cortina || !btnAbrir) return;
+
+                document.body.classList.add('bloqueado');
+                btnAbrir.focus();
+
+                function abrirHistoria() {
+                    cortina.classList.add('cerrada');
+                    document.body.classList.remove('bloqueado');
+                    if (btnMusica) btnMusica.click();
+                    document.removeEventListener('keydown', escapeCierra);
+                }
+
+                function escapeCierra(e) {
+                    if (e.key === 'Enter' || e.key === ' ') return;
+                }
+
+                btnAbrir.addEventListener('click', abrirHistoria);
+                document.addEventListener('keydown', escapeCierra);
+            })();
+
+            // -------- BARRA DE PROGRESO --------
+            (function barraProgreso() {
+                const barra = document.getElementById('barraProgreso');
+                if (!barra) return;
+
+                function actualizar() {
+                    const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
+                    const progreso = alturaTotal > 0 ? (window.scrollY / alturaTotal) * 100 : 0;
+                    barra.style.width = Math.min(Math.max(progreso, 0), 100) + '%';
+                }
+
+                window.addEventListener('scroll', actualizar, { passive: true });
+                window.addEventListener('resize', actualizar);
+                actualizar();
+            })();
+
+            // -------- PARTÍCULAS / ESTRELLAS --------
+            (function crearParticulas() {
+                if (prefiereMenosMovimiento) return;
+                const esMovil = window.innerWidth < 600;
+                const capa = document.getElementById('capaParticulas');
+                if (!capa) return;
+                const cant = esMovil ? 60 : 120;
+                const frag = document.createDocumentFragment();
+                for (let i = 0; i < cant; i++) {
+                    const p = document.createElement('div');
+                    p.classList.add('particula');
+                    const size = Math.random() * 2.5 + 0.8;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.top = Math.random() * 100 + '%';
+                    p.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                    p.style.animationDelay = (Math.random() * 6) + 's';
+                    p.style.background = `hsl(${270 + Math.random() * 60}, 60%, ${60 + Math.random() * 30}%)`;
+                    frag.appendChild(p);
+                }
+                capa.appendChild(frag);
+
+                const capaFormas = document.getElementById('capaFormas');
+                if (capaFormas) {
+                    const colores = ['rgba(154,90,158,0.2)', 'rgba(212,176,212,0.15)', 'rgba(106,58,115,0.25)'];
+                    const cantFormas = esMovil ? 4 : 8;
+                    const frag2 = document.createDocumentFragment();
+                    for (let i = 0; i < cantFormas; i++) {
+                        const f = document.createElement('div');
+                        f.classList.add('forma-flotante');
+                        const size = Math.random() * 180 + 120;
+                        f.style.width = size + 'px';
+                        f.style.height = size + 'px';
+                        f.style.left = Math.random() * 100 + '%';
+                        f.style.top = Math.random() * 100 + '%';
+                        f.style.background =
+                            `radial-gradient(circle, ${colores[Math.floor(Math.random() * colores.length)]} 0%, transparent 70%)`;
+                        f.style.animationDuration = (Math.random() * 12 + 10) + 's';
+                        f.style.animationDelay = (Math.random() * 8) + 's';
+                        frag2.appendChild(f);
+                    }
+                    capaFormas.appendChild(frag2);
+                }
+
+                document.addEventListener('visibilitychange', () => {
+                    document.querySelectorAll('.particula, .forma-flotante').forEach(el => {
+                        el.style.animationPlayState = document.hidden ? 'paused' : 'running';
+                    });
+                });
+            })();
+
+            // -------- SCROLL CUE --------
+            (function scrollCue() {
+                const btn = document.getElementById('scrollCue');
+                const destino = document.getElementById('contador');
+                if (!btn || !destino) return;
+                btn.addEventListener('click', () => {
+                    destino.scrollIntoView({ behavior: prefiereMenosMovimiento ? 'auto' : 'smooth',
+                        block: 'start' });
+                });
+            })();
+
+            // -------- CONTADOR DE TIEMPO JUNTOS --------
+            const fechaInicio = new Date(2023, 6, 25, 0, 0, 0);
+
+            function calcularDiferencia(desde, hasta) {
+                let anos = hasta.getFullYear() - desde.getFullYear();
+                let meses = hasta.getMonth() - desde.getMonth();
+                let dias = hasta.getDate() - desde.getDate();
+                let horas = hasta.getHours() - desde.getHours();
+                let minutos = hasta.getMinutes() - desde.getMinutes();
+                let segundos = hasta.getSeconds() - desde.getSeconds();
+
+                if (segundos < 0) { segundos += 60;
+                    minutos--; }
+                if (minutos < 0) { minutos += 60;
+                    horas--; }
+                if (horas < 0) { horas += 24;
+                    dias--; }
+                if (dias < 0) {
+                    const ultimoDia = new Date(hasta.getFullYear(), hasta.getMonth(), 0).getDate();
+                    dias += ultimoDia;
+                    meses--;
+                }
+                if (meses < 0) { meses += 12;
+                    anos--; }
+
+                return {
+                    anos: Math.max(anos, 0),
+                    meses: Math.max(meses, 0),
+                    dias: Math.max(dias, 0),
+                    horas: Math.max(horas, 0),
+                    minutos: Math.max(minutos, 0),
+                    segundos: Math.max(segundos, 0)
+                };
+            }
+
+            function actualizarContador() {
+                const ahora = new Date();
+                const v = calcularDiferencia(fechaInicio, ahora);
+                const claves = ['anos', 'meses', 'dias', 'horas', 'minutos', 'segundos'];
+                for (const key of claves) {
+                    const el = document.getElementById(key);
+                    if (el) {
+                        const nuevo = v[key];
+                        if (el.textContent !== String(nuevo)) {
+                            el.textContent = nuevo;
+                            el.classList.remove('numero-saltar');
+                            void el.offsetWidth;
+                            el.classList.add('numero-saltar');
+                        }
+                        const barra = document.getElementById('barra' + key.charAt(0).toUpperCase() + key.slice(1));
+                        if (barra) {
+                            let max;
+                            if (key === 'anos') max = 100;
+                            else if (key === 'meses') max = 12;
+                            else if (key === 'dias') max = 31;
+                            else if (key === 'horas') max = 24;
+                            else if (key === 'minutos') max = 60;
+                            else if (key === 'segundos') max = 60;
+                            const pct = max > 0 ? (v[key] / max) * 100 : 0;
+                            barra.style.width = Math.min(Math.max(pct, 0), 100) + '%';
+                        }
+                    }
+                }
+                const totalSegundos = document.getElementById('totalSegundos');
+                if (totalSegundos) {
+                    const segs = Math.floor((ahora - fechaInicio) / 1000);
+                    totalSegundos.textContent = segs.toLocaleString('es-ES');
+                }
+            }
+
+            actualizarContador();
+            setInterval(actualizarContador, 1000);
+
+            // -------- MURO DE MENSAJES (localStorage) --------
+            (function muroMensajes() {
+                const lista = document.getElementById('listaMensajes');
+                const btnAgregar = document.getElementById('btnAgregarMensaje');
+                const inputNombre = document.getElementById('nombreMensaje');
+                const inputTexto = document.getElementById('textoMensaje');
+
+                if (!lista || !btnAgregar) return;
+
+                let mensajes = [];
+
+                function cargarMensajes() {
+                    try {
+                        const data = localStorage.getItem('eternidad_mensajes');
+                        if (data) mensajes = JSON.parse(data);
+                    } catch (e) { mensajes = []; }
+                    renderizar();
+                }
+
+                function guardarMensajes() {
+                    try {
+                        localStorage.setItem('eternidad_mensajes', JSON.stringify(mensajes));
+                    } catch (e) {}
+                }
+
+                function renderizar() {
+                    lista.innerHTML = '';
+                    if (mensajes.length === 0) {
+                        lista.innerHTML =
+                            '<p style="text-align:center;color:var(--crema-suave);padding:20px;">Aún no hay mensajes. ¡Escribe el primero!</p>';
+                        return;
+                    }
+                    const copia = [...mensajes].reverse();
+                    copia.forEach(m => {
+                        const div = document.createElement('div');
+                        div.className = 'mensaje-item';
+                        div.innerHTML = `
+                            <div class="autor">${m.nombre || 'Anónimo'}</div>
+                            <div class="texto">${m.texto}</div>
+                            <div class="fecha">${m.fecha || ''}</div>
+                        `;
+                        lista.appendChild(div);
+                    });
+                }
+
+                function agregarMensaje() {
+                    const nombre = inputNombre.value.trim() || 'Anónimo';
+                    const texto = inputTexto.value.trim();
+                    if (!texto) {
+                        mostrarToast('Escribe un mensaje.');
+                        return;
+                    }
+                    mensajes.push({
+                        nombre: nombre,
+                        texto: texto,
+                        fecha: new Date().toLocaleString('es-ES')
+                    });
+                    guardarMensajes();
+                    renderizar();
+                    inputTexto.value = '';
+                    inputNombre.value = '';
+                    mostrarToast('💜 Mensaje agregado');
+                }
+
+                btnAgregar.addEventListener('click', agregarMensaje);
+                inputTexto.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        agregarMensaje();
+                    }
+                });
+
+                cargarMensajes();
+            })();
+
+            // -------- QUIZ --------
+            (function quiz() {
+                const contenedor = document.getElementById('quizContainer');
+                const preguntaEl = document.getElementById('quizPregunta');
+                const opcionesEl = document.getElementById('quizOpciones');
+                const resultadoEl = document.getElementById('quizResultado');
+                const reiniciarBtn = document.getElementById('quizReiniciar');
+                if (!contenedor) return;
+
+                let indiceActual = 0;
+                let puntaje = 0;
+                let respondido = false;
+
+                function cargarPregunta() {
+                    if (indiceActual >= PREGUNTAS_QUIZ.length) {
+                        preguntaEl.textContent = '¡Has completado el quiz!';
+                        opcionesEl.innerHTML = '';
+                        resultadoEl.innerHTML =
+                        `✨ Obtuviste ${puntaje} de ${PREGUNTAS_QUIZ.length} respuestas correctas.`;
+                        reiniciarBtn.style.display = 'inline-block';
+                        return;
+                    }
+                    respondido = false;
+                    const p = PREGUNTAS_QUIZ[indiceActual];
+                    preguntaEl.textContent = `${indiceActual+1}. ${p.pregunta}`;
+                    opcionesEl.innerHTML = '';
+                    p.opciones.forEach((opc, idx) => {
+                        const btn = document.createElement('button');
+                        btn.className = 'quiz-opcion';
+                        btn.textContent = opc;
+                        btn.dataset.indice = idx;
+                        btn.addEventListener('click', () => seleccionarOpcion(idx, btn));
+                        opcionesEl.appendChild(btn);
+                    });
+                    resultadoEl.innerHTML = '';
+                    reiniciarBtn.style.display = 'none';
+                }
+
+                function seleccionarOpcion(idx, btn) {
+                    if (respondido) return;
+                    respondido = true;
+                    const p = PREGUNTAS_QUIZ[indiceActual];
+                    const esCorrecta = idx === p.correcta;
+                    if (esCorrecta) puntaje++;
+                    const botones = opcionesEl.querySelectorAll('.quiz-opcion');
+                    botones.forEach((b, i) => {
+                        if (i === p.correcta) b.classList.add('correcta');
+                        else if (i === idx && !esCorrecta) b.classList.add('incorrecta');
+                        b.style.pointerEvents = 'none';
+                    });
+                    resultadoEl.textContent = esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto.';
+                    setTimeout(() => {
+                        indiceActual++;
+                        cargarPregunta();
+                    }, 1200);
+                }
+
+                function reiniciarQuiz() {
+                    indiceActual = 0;
+                    puntaje = 0;
+                    respondido = false;
+                    cargarPregunta();
+                    reiniciarBtn.style.display = 'none';
+                }
+
+                reiniciarBtn.addEventListener('click', reiniciarQuiz);
+                cargarPregunta();
+            })();
+
+            // -------- REPRODUCTOR DE MÚSICA (playlist) --------
+            (function reproductor() {
+                const audio = document.getElementById('musicaFondo');
+                const btnPlayPause = document.getElementById('btnPlayPause');
+                const btnSig = document.getElementById('btnSiguiente');
+                const btnAnt = document.getElementById('btnAnterior');
+                const barra = document.getElementById('barraProgresoMusica');
+                const tituloEl = document.getElementById('tituloCancion');
+                const artistaEl = document.getElementById('artistaCancion');
+                const portadaEl = document.getElementById('portadaCancion');
+                const listaEl = document.getElementById('listaCanciones');
+                const btnMusica = document.getElementById('botonMusica');
+
+                if (!audio || !btnPlayPause) return;
+
+                let indiceCancion = 0;
+                let reproduciendo = false;
+
+                function cargarCancion(index) {
+                    const cancion = PLAYLIST[index];
+                    if (!cancion) return;
+                    audio.src = cancion.url;
+                    tituloEl.textContent = cancion.titulo;
+                    artistaEl.textContent = cancion.artista;
+                    portadaEl.textContent = cancion.portada || '🎵';
+                    const items = listaEl.querySelectorAll('.cancion-item');
+                    items.forEach((el, i) => el.classList.toggle('activa', i === index));
+                    if (reproduciendo) {
+                        audio.play().catch(() => {});
+                    }
+                    actualizarBarra();
+                }
+
+                function actualizarBarra() {
+                    if (audio.duration) {
+                        const pct = (audio.currentTime / audio.duration) * 100;
+                        barra.value = Math.min(pct, 100);
+                    }
+                }
+
+                function togglePlay() {
+                    if (reproduciendo) {
+                        audio.pause();
+                        reproduciendo = false;
+                        btnPlayPause.textContent = '▶';
+                        btnMusica.textContent = '🔇';
+                        btnMusica.setAttribute('aria-pressed', 'false');
+                    } else {
+                        audio.play().catch(() => {});
+                        reproduciendo = true;
+                        btnPlayPause.textContent = '⏸';
+                        btnMusica.textContent = '🔊';
+                        btnMusica.setAttribute('aria-pressed', 'true');
+                    }
+                }
+
+                function cancionSiguiente() {
+                    indiceCancion = (indiceCancion + 1) % PLAYLIST.length;
+                    cargarCancion(indiceCancion);
+                    if (!reproduciendo) togglePlay();
+                }
+
+                function cancionAnterior() {
+                    indiceCancion = (indiceCancion - 1 + PLAYLIST.length) % PLAYLIST.length;
+                    cargarCancion(indiceCancion);
+                    if (!reproduciendo) togglePlay();
+                }
+
+                btnPlayPause.addEventListener('click', togglePlay);
+                btnSig.addEventListener('click', cancionSiguiente);
+                btnAnt.addEventListener('click', cancionAnterior);
+
+                audio.addEventListener('timeupdate', actualizarBarra);
+                audio.addEventListener('ended', cancionSiguiente);
+
+                barra.addEventListener('input', () => {
+                    if (audio.duration) {
+                        audio.currentTime = (barra.value / 100) * audio.duration;
+                    }
+                });
+
+                if (btnMusica) {
+                    btnMusica.addEventListener('click', () => {
+                        if (reproduciendo) {
+                            audio.pause();
+                            reproduciendo = false;
+                            btnPlayPause.textContent = '▶';
+                            btnMusica.textContent = '🔇';
+                            btnMusica.setAttribute('aria-pressed', 'false');
+                        } else {
+                            audio.play().catch(() => {});
+                            reproduciendo = true;
+                            btnPlayPause.textContent = '⏸';
+                            btnMusica.textContent = '🔊';
+                            btnMusica.setAttribute('aria-pressed', 'true');
+                        }
+                    });
+                }
+
+                PLAYLIST.forEach((c, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'cancion-item' + (i === 0 ? ' activa' : '');
+                    item.innerHTML =
+                        `<span class="nombre">${c.titulo}</span><span class="duracion">${c.artista}</span>`;
+                    item.addEventListener('click', () => {
+                        indiceCancion = i;
+                        cargarCancion(i);
+                        if (!reproduciendo) togglePlay();
+                    });
+                    listaEl.appendChild(item);
+                });
+
+                cargarCancion(0);
+            })();
+
+            // -------- BOTÓN SORPRESA (confeti) --------
+            (function botonSorpresa() {
+                const btn = document.getElementById('botonSorpresa');
+                if (!btn) return;
+
+                function lanzarConfeti() {
+                    if (prefiereMenosMovimiento) return;
+                    const colores = ['#9a5a9e', '#d4b0d4', '#6b3a73', '#f0e0f0', '#cda45e'];
+                    const emojis = ['❤️', '✨', '🌟', '💖', '🕊️', '🎉', '💫', '🥰', '💞', '🌸', '🌺', '🎊', '💝', '🥂'];
+
+                    for (let i = 0; i < 80; i++) {
+                        const confeti = document.createElement('div');
+                        confeti.style.position = 'fixed';
+                        confeti.style.left = Math.random() * 100 + 'vw';
+                        confeti.style.top = '-20px';
+                        confeti.style.width = Math.random() * 12 + 6 + 'px';
+                        confeti.style.height = Math.random() * 12 + 6 + 'px';
+                        confeti.style.background = colores[Math.floor(Math.random() * colores.length)];
+                        confeti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                        confeti.style.zIndex = '1000';
+                        confeti.style.pointerEvents = 'none';
+                        confeti.style.opacity = '0.9';
+                        confeti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                        confeti.style.boxShadow = '0 0 10px rgba(0,0,0,0.15)';
+
+                        if (Math.random() < 0.25) {
+                            confeti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                            confeti.style.fontSize = Math.random() * 20 + 14 + 'px';
+                            confeti.style.background = 'transparent';
+                            confeti.style.width = 'auto';
+                            confeti.style.height = 'auto';
+                            confeti.style.boxShadow = 'none';
+                        }
+
+                        document.body.appendChild(confeti);
+
+                        const duracion = Math.random() * 2 + 2;
+                        const xOffset = (Math.random() - 0.5) * 300;
+                        const yOffset = Math.random() * 200 + 100;
+
+                        confeti.animate([
+                            { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                            { transform: `translate(${xOffset}px, ${window.innerHeight + yOffset}px) rotate(${Math.random() * 720}deg)`,
+                                opacity: 0.2 }
+                        ], {
+                            duration: duracion * 1000,
+                            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                            fill: 'forwards'
+                        }).onfinish = () => confeti.remove();
+                    }
+                }
+
+                btn.addEventListener('click', () => {
+                    lanzarConfeti();
+                    setTimeout(lanzarConfeti, 400);
+                    setTimeout(lanzarConfeti, 900);
+                    mostrarToast('🎊 ¡Magia!');
+                });
+            })();
+
+            // -------- MODAL MENSAJE SECRETO --------
+            (function modalMensaje() {
+                const btnAbrir = document.getElementById('btnMensajeSecreto');
+                const modal = document.getElementById('modalMensaje');
+                const cerrar = document.getElementById('cerrarModal');
+                const btnCompartir = document.getElementById('btnCompartirMensaje');
+                const texto = document.getElementById('mensajeModal');
+                if (!btnAbrir || !modal || !cerrar || !texto) return;
+
+                let elementoConFocoPrevio = null;
+
+                function generarMensaje() {
+                    return MENSAJES_SECRETOS[Math.floor(Math.random() * MENSAJES_SECRETOS.length)];
+                }
+
+                function abrirModal() {
+                    elementoConFocoPrevio = document.activeElement;
+                    texto.textContent = generarMensaje();
+                    modal.classList.add('activo');
+                    document.body.style.overflow = 'hidden';
+                    cerrar.focus();
+                }
+
+                function cerrarModal() {
+                    modal.classList.remove('activo');
+                    document.body.style.overflow = '';
+                    if (elementoConFocoPrevio) elementoConFocoPrevio.focus();
+                }
+
+                btnAbrir.addEventListener('click', abrirModal);
+                btnAbrir.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        abrirModal();
+                    }
+                });
+                btnAbrir.setAttribute('tabindex', '0');
+                btnAbrir.setAttribute('role', 'button');
+
+                cerrar.addEventListener('click', cerrarModal);
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) cerrarModal();
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && modal.classList.contains('activo')) cerrarModal();
+                    if (e.key === 'Tab' && modal.classList.contains('activo')) {
+                        const focoElems = modal.querySelectorAll('button');
+                        const primero = focoElems[0];
+                        const ultimo = focoElems[focoElems.length - 1];
+                        if (e.shiftKey && document.activeElement === primero) {
+                            e.preventDefault();
+                            ultimo.focus();
+                        } else if (!e.shiftKey && document.activeElement === ultimo) {
+                            e.preventDefault();
+                            primero.focus();
+                        }
+                    }
+                });
+
+                if (btnCompartir) {
+                    btnCompartir.addEventListener('click', async () => {
+                        const mensajeActual = texto.textContent;
+                        if (navigator.share) {
+                            try {
+                                await navigator.share({ text: mensajeActual, title: 'Para ti 💌' });
+                            } catch (err) {}
+                        } else if (navigator.clipboard) {
+                            try {
+                                await navigator.clipboard.writeText(mensajeActual);
+                                const textoOriginal = btnCompartir.textContent;
+                                btnCompartir.textContent = '¡Copiado! 💜';
+                                setTimeout(() => { btnCompartir.textContent = textoOriginal; }, 1800);
+                            } catch (err) {}
+                        }
+                    });
+                }
+            })();
+
+            // -------- BOTÓN VOLVER ARRIBA --------
+            (function volverArriba() {
+                const btn = document.getElementById('botonArriba');
+                if (!btn) return;
+
+                window.addEventListener('scroll', () => {
+                    btn.classList.toggle('visible', window.scrollY > 500);
+                }, { passive: true });
+
+                btn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: prefiereMenosMovimiento ? 'auto' : 'smooth' });
+                });
+            })();
+
+            // -------- CONTADOR DE VISITAS --------
+            (function contadorVisitas() {
+                const el = document.getElementById('contadorVisitas');
+                if (!el || !window.localStorage) return;
+                try {
+                    const visitas = (parseInt(localStorage.getItem('eternidad_visitas'), 10) || 0) + 1;
+                    localStorage.setItem('eternidad_visitas', visitas);
+                    el.textContent = `✧ visita nº ${visitas.toLocaleString('es-ES')} desde este dispositivo ✧`;
+                } catch (err) {}
+            })();
+
+            // -------- FECHA ACTUAL EN EL HERO --------
+            (function fechaActual() {
+                const el = document.getElementById('fechaActual');
+                if (el) {
+                    const ahora = new Date();
+                    el.textContent =
+                        `${fechaInicio.toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' })} — ${ahora.toLocaleDateString('es-ES', { day:'numeric', month:'long', year:'numeric' })}`;
+                }
+            })();
+
+            // -------- TEMA OSCURO / CLARO (toggle) --------
+            (function tema() {
+                const btn = document.getElementById('botonTema');
+                if (!btn) return;
+                let oscuro = true;
+                btn.addEventListener('click', () => {
+                    oscuro = !oscuro;
+                    const root = document.documentElement;
+                    if (oscuro) {
+                        root.style.setProperty('--noche', '#1a0f1f');
+                        root.style.setProperty('--noche-2', '#2d1b33');
+                        root.style.setProperty('--noche-3', '#4a2a50');
+                        root.style.setProperty('--crema', '#f0e0f0');
+                        root.style.setProperty('--crema-tenue', 'rgba(240,224,240,0.6)');
+                        root.style.setProperty('--crema-suave', 'rgba(240,224,240,0.38)');
+                        root.style.setProperty('--glass-bg', 'rgba(45,27,51,0.55)');
+                        root.style.setProperty('--borde-glass', 'rgba(212,176,212,0.14)');
+                        btn.textContent = '🌙';
+                    } else {
+                        root.style.setProperty('--noche', '#f0e0f0');
+                        root.style.setProperty('--noche-2', '#d4b0d4');
+                        root.style.setProperty('--noche-3', '#b88cb8');
+                        root.style.setProperty('--crema', '#1a0f1f');
+                        root.style.setProperty('--crema-tenue', 'rgba(26,15,31,0.6)');
+                        root.style.setProperty('--crema-suave', 'rgba(26,15,31,0.38)');
+                        root.style.setProperty('--glass-bg', 'rgba(212,176,212,0.3)');
+                        root.style.setProperty('--borde-glass', 'rgba(26,15,31,0.14)');
+                        btn.textContent = '☀️';
+                    }
+                    mostrarToast(oscuro ? 'Tema oscuro' : 'Tema claro');
+                });
+            })();
+
+            // -------- REVELADO AL SCROLL (IntersectionObserver) --------
+            (function revelarAlScroll() {
+                const elementos = document.querySelectorAll('.revelar');
+                if (!elementos.length) return;
+                if (prefiereMenosMovimiento || !('IntersectionObserver' in window)) {
+                    elementos.forEach(el => el.classList.add('visible'));
+                    return;
+                }
+                const observador = new IntersectionObserver((entradas) => {
+                    entradas.forEach(entrada => {
+                        if (entrada.isIntersecting) {
+                            entrada.target.classList.add('visible');
+                            observador.unobserve(entrada.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+                elementos.forEach(el => observador.observe(el));
+            })();
+
+        }); // Fin DOMContentLoaded
+    </script>
 
 </body>
 </html>
